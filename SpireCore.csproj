@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<RootNamespace>AutumnMooncat.SpireCore</RootNamespace>
+		<Version>0.4.1</Version>
+		<IsNickelMod>True</IsNickelMod>
+		<IncludedModProjectPaths>i18n;assets</IncludedModProjectPaths>
+		<LangVersion>12</LangVersion>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<!--<Nullable>enable</Nullable>-->
+		<!--<WarningsAsErrors>Nullable</WarningsAsErrors>-->
+		<CheckEolTargetFramework>false</CheckEolTargetFramework>
+		<ModZipPath>$(MSBuildProjectDirectory)\.release\$(MSBuildProjectName)-$(Version).zip</ModZipPath>
+		<ModLoaderPath>\extra\SteamLibrary\steamapps\common\Cobalt Core\Nickel</ModLoaderPath>
+		<GameExePath>\extra\SteamLibrary\steamapps\common\Cobalt Core\CobaltCore.exe</GameExePath>
+		<EnableModDeploy>true</EnableModDeploy>
+		<EnableDllExtract>false</EnableDllExtract>
+		<EnableDllReference>true</EnableDllReference>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="EnumByNameSourceGenerator" Version="1.1.2" />
+		<PackageReference Include="Nickel.ModBuildConfig" Version="2.1.2" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="assets\artifacts\defect\" />
+	  <Folder Include="assets\artifacts\ironclad\" />
+	  <Folder Include="assets\artifacts\silent\" />
+	  <Folder Include="assets\artifacts\watcher\" />
+	  <Folder Include="assets\cards\ironclad\" />
+	  <Folder Include="assets\stuff\" />
+	</ItemGroup>
+</Project>

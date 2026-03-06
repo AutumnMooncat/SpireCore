@@ -1,0 +1,14 @@
+{
+  "UniqueName": "AutumnMooncat.Spirecore",
+  "Version": "{{ModVersion}}",
+  "Author": "Autumn Mooncat",
+  "Description": "Time to learn to mod",
+  "RequiredApiVersion": "0.6.0",
+  "EntryPointAssembly": "SpireCore.dll",
+  "Dependencies": [
+    {
+      "UniqueName": "Shockah.Kokoro",
+      "Version": "1.3.1"
+    }
+  ]
+}

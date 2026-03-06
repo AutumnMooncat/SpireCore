@@ -1,0 +1,723 @@
+{
+  "character": {
+    "Ironclad": {
+      "name": "Ironclad",
+      "description": "<c=bf3f43>IRONCLAD</c>\nThe remaining soldier of the Ironclads. His cards mostly give <c=keyword>temp shielding</c> and <c=keyword>exhaust</c> other cards."
+    },
+    "Silent": {
+      "name": "Silent",
+      "description": "<c=6fc057>SILENT</c>\nA deadly huntress from the foglands. Her cards are mostly <c=keyword>low cost</c> and <c=keyword>card manipulation</c>."
+    },
+    "Defect": {
+      "name": "Defect",
+      "description": "<c=4b9fbf>DEFECT</c>\nCombat automaton which became self-aware. Their cards mostly give <c=keyword>shielding</c> and create <c=keyword>orbs</c> in the midrow."
+    },
+    "Watcher": {
+      "name": "Watcher",
+      "description": "<c=924bbf>WATCHER</c>\nA blind ascetic. Her cards set up strong <c=keyword>attacks</c> while leaving you <c=downside>equally vulnerable</c>."
+    }
+  },
+  "artifact": {
+    "Brimstone": {
+      "name": "BRIMSTONE",
+      "description": "Gain 1 <c=status>OVERDRIVE</c> every turn. <c=downside>Your enemy also gains 1 <c=status>OVERDRIVE</c> every turn.</c>"
+    },
+    "CharonsAshes": {
+      "name": "CHARON'S ASHES",
+      "description": "Whenever a card is <c=action>exhausted</c>, fire for 1 damage immediately."
+    },
+    "MarkOfPain": {
+      "name": "MARK OF PAIN",
+      "description": "Gain 1 extra <c=energy>ENERGY</c> every turn. <c=downside>At the start of combat, add 2 <c=card>Comm Jam</c> to your draw pile.</c>"
+    },
+    "RedSkull": {
+      "name": "RED SKULL",
+      "description": "While you have no <c=status>SHIELD</c>, all of <c=bf3f43>Ironclad's</c> card attacks deal +1 damage."
+    },
+    "HoveringKite": {
+      "name": "HOVERING KITE",
+      "description": "The first time you <c=action>discard</c> a card each turn, gain 1 <c=energy>ENERGY</c>."
+    },
+    "Tingsha": {
+      "name": "TINGSHA",
+      "description": "Whenever you <c=action>discard</c> a card during your turn, fire for 1 damage immediately."
+    },
+    "ToughBandages": {
+      "name": "TOUGH BANDAGES",
+      "description": "Whenever you <c=action>discard</c> a card during your turn, gain 1 <c=status>TEMP SHIELD</c>."
+    },
+    "WristBlade": {
+      "name": "WRIST BLADE",
+      "description": "All attacks from 0-cost cards deal +1 damage."
+    },
+    "EmotionChip": {
+      "name": "EMOTION CHIP",
+      "description": "Once per combat, when you lose hull, gain 1 <c=status>PERFECT SHIELD</c>."
+    },
+    "GoldCables": {
+      "name": "GOLD-PLATED CABLES",
+      "description": "Every 4 <c=4b9fbf>Defect</c> cards played, draw a card."
+    },
+    "NuclearBattery": {
+      "name": "NUCLEAR BATTERY",
+      "description": "At the start of combat, add 2 <c=card>Fusion</c> to your hand."
+    },
+    "RunicCapacitor": {
+      "name": "RUNIC CAPACITOR",
+      "description": "Gain stored <c=energy>ENERGY</c> on the first turn. At the end of combat, store unspent <c=energy>ENERGY</c>."
+    },
+    "Damaru": {
+      "name": "DAMARU",
+      "description": "Every 5 <c=924bbf>Watcher</c> cards played, gain 2 <c=status>MANTRA</c>."
+    },
+    "Duality": {
+      "name": "DUALITY",
+      "description": "Whenever you play 2 <c=action>ATTACK</c> cards, gain 1 <c=status>TEMP SHIELD</c>."
+    },
+    "TeardropLocket": {
+      "name": "TEARDROP LOCKET",
+      "description": "Gain 2 <c=status>CALM</c> on the first turn."
+    },
+    "VioletLotus": {
+      "name": "VIOLET LOTUS",
+      "description": "Whenever you lose <c=status>CALM</c>, gain 1 extra <c=status>ENERGY</c>."
+    },
+    "BookOfTails": {
+      "name": "BOOK OF TAILS",
+      "description": "At start of turn, add a <c=cardtrait>temp</c> <c=card>Fox Tale</c> to your hand."
+    },
+    "Counting": {
+      "name": "COUNTING",
+      "description": "At start of turn, count sheeps. Once you counted 7 sheep, gain 1 <c=status>ENERGY</c> and start counting again."
+    }
+  },
+  "ship": {
+    "DemoShip": {
+      "name": "DemoShip",
+      "description": "This is a demo ship.\n <c=boldPink>Isn't this cool?</c>"
+    }
+  },
+  "card": {
+    "Anger": {
+      "name": "Anger"
+    },
+    "Armaments": {
+      "name": "Armaments"
+    },
+    "Barricade": {
+      "name": "Barricade"
+    },
+    "Bash": {
+      "name": "Bash"
+    },
+    "BurningPact": {
+      "name": "Burning Pact"
+    },
+    "Cleave": {
+      "name": "Cleave"
+    },
+    "Disarm": {
+      "name": "Disarm"
+    },
+    "DoubleTap": {
+      "name": "Double Tap"
+    },
+    "FeelNoPain": {
+      "name": "Feel No Pain"
+    },
+    "FiendFire": {
+      "name": "Fiend Fire",
+      "title": "Repeat",
+      "description": "Perform the action <c=action>X</c> times."
+    },
+    "FlameBarrier": {
+      "name": "Flame Barrier"
+    },
+    "Havoc": {
+      "name": "Havoc"
+    },
+    "Headbutt": {
+      "name": "Headbutt"
+    },
+    "Juggernaut": {
+      "name": "Juggernaut"
+    },
+    "LimitBreak" : {
+      "name": "Limit Break"
+    },
+    "PowerThrough": {
+      "name": "Power Through"
+    },
+    "Pummel": {
+      "name": "Pummel"
+    },
+    "Rampage": {
+      "name": "Rampage",
+      "title": "Increase Damage",
+      "description": "Increase this card's damage by <c=keyword>{{Scale}}</c> until the end of combat."
+    },
+    "Reaper": {
+      "name": "Reaper"
+    },
+    "SearingBlow": {
+      "name": "Searing Blow"
+    },
+    "Sentinel": {
+      "name": "Sentinel"
+    },
+    "Shockwave": {
+      "name": "Shockwave"
+    },
+    "ShrugItOff": {
+      "name": "Shrug It Off"
+    },
+    "TrueGrit": {
+      "name": "True Grit"
+    },
+    "WarCry": {
+      "name": "War Cry"
+    },
+    "WildStrike": {
+      "name": "Wild Strike"
+    },
+    "Accuracy": {
+      "name": "Accuracy"
+    },
+    "Acrobatics": {
+      "name": "Acrobatics"
+    },
+    "Adrenaline": {
+      "name": "Adrenaline"
+    },
+    "Backflip": {
+      "name": "Backflip"
+    },
+    "Backstab": {
+      "name": "Backstab"
+    },
+    "BladeDance": {
+      "name": "Blade Dance"
+    },
+    "BulletTime": {
+      "name": "Bullet Time"
+    },
+    "CalculatedGamble": {
+      "name": "Calculated Gamble"
+    },
+    "CloakAndDagger": {
+      "name": "Cloak and Dagger"
+    },
+    "Concentrate": {
+      "name": "Concentrate",
+      "title": "Discard",
+      "description": "Discard the cards.",
+      "text": "Choose <c=keyword>{{Cards}}</c> cards to discard."
+    },
+    "DaggerThrow": {
+      "name": "Dagger Throw"
+    },
+    "DeadlyPoison": {
+      "name": "Deadly Poison"
+    },
+    "Deflect": {
+      "name": "Deflect"
+    },
+    "FlyingKnee": {
+      "name": "Flying Knee"
+    },
+    "InfiniteBlades": {
+      "name": "Infinite Blades"
+    },
+    "LegSweep": {
+      "name": "Leg Sweep"
+    },
+    "Neutralize": {
+      "name": "Neutralize"
+    },
+    "Outmaneuver": {
+      "name": "Out maneuver"
+    },
+    "Prepared": {
+      "name": "Prepared"
+    },
+    "Reflex": {
+      "name": "Reflex"
+    },
+    "Setup": {
+      "name": "Setup"
+    },
+    "Shiv": {
+      "name": "Shiv"
+    },
+    "Slice": {
+      "name": "Slice"
+    },
+    "SneakyStrike": {
+      "name": "Sneaky Strike",
+      "title": "Conditional",
+      "description": "If you have <c=action>discarded</c> a card this turn, perform the following action. <c=downside>Does nothing otherwise.</c>"
+    },
+    "StormOfSteel": {
+      "name": "Storm of Steel"
+    },
+    "Tactician": {
+      "name": "Tactician"
+    },
+    "ToolsOfTheTrade": {
+      "name": "Tools of the Trade"
+    },
+    "AutoShields": {
+      "name": "Auto Shields"
+    },
+    "BallLightning": {
+      "name": "Ball Lightning"
+    },
+    "Buffer": {
+      "name": "Buffer"
+    },
+    "Bullseye": {
+      "name": "Bullseye"
+    },
+    "ChargeBattery": {
+      "name": "Charge Battery"
+    },
+    "Coolheaded": {
+      "name": "Coolheaded"
+    },
+    "CreativeAI": {
+      "name": "Creative AI"
+    },
+    "Darkness": {
+      "name": "Darkness"
+    },
+    "DoubleEnergy": {
+      "name": "Double Energy"
+    },
+    "DualCast": {
+      "name": "Dual Cast",
+      "title": "Catch",
+      "description": "Remove the <c=drone>midrow object</c> in front of your missile bay.",
+      "title2": "Launch",
+      "description2": "Launch <c=keyword>2</c> copies of the <c=drone>object</c> from your missile bay, facing you.",
+      "title3": "Launch",
+      "description3": "Launch <c=keyword>2</c> copies of the <c=drone>object</c> from your missile bay, facing the enemy."
+    },
+    "Equilibrium": {
+      "name": "Equilibrium"
+    },
+    "Fusion": {
+      "name": "Fusion"
+    },
+    "Heatsinks": {
+      "name": "Heatsinks"
+    },
+    "Hologram": {
+      "name": "Hologram"
+    },
+    "Leap": {
+      "name": "Leap"
+    },
+    "MachineLearning": {
+      "name": "Machine Learning"
+    },
+    "Melter": {
+      "name": "Melter"
+    },
+    "Rainbow": {
+      "name": "Rainbow"
+    },
+    "Rebound": {
+      "name": "Rebound"
+    },
+    "Recursion": {
+      "name": "Recursion",
+      "title": "Copy",
+      "description": "Copy the <c=drone>midrow object</c> in front of your missile bay.",
+      "title2": "Launch",
+      "description2": "Launch a copy <c=keyword>1</c> space to the right of your missile bay, facing you.",
+      "title3": "Launch",
+      "description3": "Launch a copy <c=keyword>1</c> space to the right of your missile bay, facing the enemy.",
+      "title4": "Launch",
+      "description4": "Launch a copy <c=keyword>1</c> space to the left and right of your missile bay, facing you.",
+      "title5": "Launch",
+      "description5": "Launch a copy <c=keyword>1</c> space to the left and right of your missile bay, facing the enemy."
+    },
+    "Recycle": {
+      "name": "Recycle"
+    },
+    "Seek": {
+      "name": "Seek"
+    },
+    "Streamline": {
+      "name": "Streamline",
+      "title": "Decrease Cost",
+      "description": "Decrease this card's <c=energy>energy</c> cost by <c=keyword>{{Scale}}</c> until the end of combat."
+    },
+    "Turbo": {
+      "name": "TURBO"
+    },
+    "Zap": {
+      "name": "Zap"
+    },
+    "Brilliance": {
+      "name": "Brilliance"
+    },
+    "Collect": {
+      "name": "Collect"
+    },
+    "Crescendo": {
+      "name": "Crescendo"
+    },
+    "Devotion": {
+      "name": "Devotion"
+    },
+    "EmptyBody": {
+      "name": "Empty Body"
+    },
+    "EmptyFist": {
+      "name": "Empty Fist"
+    },
+    "EmptyMind": {
+      "name": "Empty Mind"
+    },
+    "Eruption": {
+      "name": "Eruption"
+    },
+    "Evaluate": {
+      "name": "Evaluate"
+    },
+    "FlyingSleeves": {
+      "name": "Flying Sleeves"
+    },
+    "Halt": {
+      "name": "Halt"
+    },
+    "InnerPeace": {
+      "name": "Inner Peace"
+    },
+    "Insight": {
+      "name": "Insight"
+    },
+    "MasterReality": {
+      "name": "Master Reality"
+    },
+    "Meditate": {
+      "name": "Meditate"
+    },
+    "Miracle": {
+      "name": "Miracle"
+    },
+    "Pray": {
+      "name": "Pray"
+    },
+    "Prostrate": {
+      "name": "Prostrate"
+    },
+    "Protect": {
+      "name": "Protect"
+    },
+    "SandsOfTime": {
+      "name": "Sands Of Time",
+      "title": "Decrease Cost",
+      "description": "Decrease this card's <c=energy>energy</c> cost by <c=keyword>{{Scale}}</c> until the end of combat."
+    },
+    "SimmeringFury": {
+      "name": "Simmering Fury"
+    },
+    "SpiritShield": {
+      "name": "Spirit Shield"
+    },
+    "Study": {
+      "name": "Study"
+    },
+    "Tantrum": {
+      "name": "Tantrum"
+    },
+    "ThirdEye": {
+      "name": "Third Eye"
+    },
+    "Tranquility": {
+      "name": "Tranquility"
+    },
+    "Vault": {
+      "name": "Vault"
+    },
+    "Vigilance": {
+      "name": "Vigilance"
+    },
+    "SheepDream": {
+      "name": "Sheep Dream",
+      "description": {
+        "None": "Attack for set amount = 3. On hit, apply 1 <c=status>BOOST</c>.",
+        "A": "Attack for set amount = 4. On hit, apply 1 <c=status>BOOST</c>.",
+        "B": "Attack for set amount = 5. On hit, apply 2 <c=status>BOOST</c>."
+      }
+    }
+  },
+  "status": {
+    "AutododgeLeftNextTurn": {
+      "name": "Autododge Left Next Turn",
+      "description": "At the start of next turn, gain <c=boldPink>{0}</c> <c=status>AUTODODGE LEFT</c>."
+    },
+    "BarricadeStatus": {
+      "name": "Barricade",
+      "description": "<c=status>TEMP SHIELD</c> is no longer lost at the start of your turn."
+    },
+    "DoubleTapStatus": {
+      "name": "Double Tap",
+      "description": "The next {0} <c=action>ATTACK</c> cards you play are played twice. <c=downside>Goes away at start of next turn.</c>"
+    },
+    "JuggernautStatus": {
+      "name": "Juggernaut",
+      "description": "Whenever you gain <c=status>TEMP SHIELD</c>, the enemy takes {0} damage."
+    },
+    "FeelNoPainStatus": {
+      "name": "Feel No Pain",
+      "description": "Whenever a card is <c=cardtrait>exhausted</c>, gain {0} <c=status>TEMP SHIELD</c>."
+    },
+    "ToolsOfTheTradeStatus": {
+      "name": "Tools of the Trade",
+      "description": "Gain {0} <c=status>REDRAW</c> every turn."
+    },
+    "AccuracyStatus": {
+      "name": "Accuracy",
+      "description": "Gain {0} <c=status>PIERCE CHARGE</c> every turn."
+    },
+    "NoDrawStatus": {
+      "name": "No Draw",
+      "description": "<c=downside>You may not draw additional cards this turn.</c>"
+    },
+    "InfiniteBladesStatus": {
+      "name": "Infinite Blades",
+      "description": "Gain {0} <c=action>Shiv</c> at the start of every turn."
+    },
+    "PierceChargeStatus": {
+      "name": "Pierce Charge",
+      "description": "Your next {0} attacks will pierce. <c=downside>Goes away at start of next turn.</c>",
+      "description2": "Your next attack will pierce. <c=downside>Goes away at start of next turn.</c>"
+    },
+    "ReboundStatus": {
+      "name": "Rebound",
+      "description": "The next {0} cards you play are put on the <c=deck>top</c> of your <c=deck>draw pile</c>. <c=downside>Goes away at start of next turn.</c>"
+    },
+    "DrawUpStatus": {
+      "name": "Draw Up",
+      "description": "At the start of every turn, draw {0} additional cards."
+    },
+    "DrawDownStatus": {
+      "name": "Draw Down",
+      "description": "<c=downside>At the start of every turn, draw</c> {0} <c=downside>fewer cards.</c>"
+    },
+    "CreativeAIStatus": {
+      "name": "Creative AI",
+      "description": "At the start of every turn, gain {0} random cards that give a <c=status>status</c> and have <c=cardtrait>exhaust</c>."
+    },
+    "HeatsinksStatus": {
+      "name": "Heatsinks",
+      "description": "Draw {0} cards whenever you play a card that gives a <c=status>status</c> and has <c=cardtrait>exhaust</c>."
+    },
+    "LockOnStatus": {
+      "name": "Lock-On",
+      "description": "If you would miss a shot, the whole ship moves to align with the enemy. <c=downside>Decreases by 1 every time it triggers.</c>"
+    },
+    "EquilibriumStatus": {
+      "name": "Equilibrium",
+      "description": "Your hand is not discarded at the end of your turn. <c=downside>Decreases by 1 each turn.</c>"
+    },
+    "MantraStatus": {
+      "name": "Mantra",
+      "description": "Whenever you acquire <c=keyword>5</c> <c=status>MANTRA</c>, add an extra cannon with <c=parttrait>ARMOR</c> to the middle of your ship until next turn."
+    },
+    "WrathStatus": {
+      "name": "Wrath",
+      "description": "Increases attack damage dealt <c=downside>and taken</c>.\nMaximum <c=keyword>{{Max}}</c>.\nLose all <c=status>CALM</c>.",
+      "description2": "Deal <c=downside>and take</c> {0} extra damage from attacks. Lose all <c=status>CALM</c> when you gain this. Maximum <c=keyword>{{Max}}</c>."
+    },
+    "CalmStatus": {
+      "name": "Calm",
+      "description": "When lost, gain <c=status>ENERGY</c>.\nMaximum <c=keyword>{{Max}}</c>.\nLose all <c=status>WRATH</c>.",
+      "description2": "When lost, gain {0} <c=status>ENERGY</c>. Lose all <c=status>WRATH</c> when you gain this. Maximum <c=keyword>{{Max}}</c>."
+    },
+    "NeutralStatus": {
+      "name": "Neutral",
+      "description": "Lose all <c=status>WRATH</c> and <c=status>CALM</c>."
+    },
+    "DivinityStatus": {
+      "name": "Divinity",
+      "description": "You have {0} extra cannons. <c=downside>Goes away at start of next turn.</c>"
+    },
+    "MasterRealityStatus": {
+      "name": "Master Reality",
+      "description": "Whenever a card is created during combat, <c=cardtrait>upgrade</c> it to <c=cardtrait>A</c>."
+    },
+    "StudyStatus": {
+      "name": "Study",
+      "description": "At the end of your turn, shuffle {0} <c=action>Insight</c> into your <c=deck>draw pile</c>."
+    },
+    "DevotionStatus": {
+      "name": "Devotion",
+      "description": "Gain {0} <c=status>MANTRA</c> every turn."
+    },
+    "RageStatus": {
+      "name": "Rage",
+      "description": "At the start of your next turn, gain {0} <c=status>WRATH</c>."
+    }
+  },
+  "action": {
+    "AExhaustRandomCard": {
+      "title": "Exhaust",
+      "description": "Exhaust <c=keyword>{{Cards}}</c> random cards."
+    },
+    "MoveSelectedCardToPile": {
+      "textHand": "Pick a card to draw.",
+      "titleHand": "Draw",
+      "descriptionHand": "Draw the card to your <c=deck>hand</c>.",
+      "textDrawPile": "Pick a card to shuffle into your draw pile.",
+      "titleDrawPile": "Shuffle",
+      "descriptionDrawPile": "Shuffle the card into your <c=deck>draw pile</c>.",
+      "textDiscardPile": "Pick a card to discard.",
+      "titleDiscardPile": "Discard",
+      "descriptionDiscardPile": "Discard the card.",
+      "textExhaustPile": "Pick a card to exhaust.",
+      "titleExhaustPile": "Exhaust",
+      "descriptionExhaustPile": "Exhaust the card.",
+      "textDeck": "Pick a card to put on top of your draw pile.",
+      "titleDeck": "Put On Top",
+      "descriptionDeck": "Put the card on the <c=deck>top</c> of your <c=deck>draw pile</c>."
+    },
+    "APlayTopCard": {
+      "title": "Top Card",
+      "description": "Take the <c=deck>top</c> card of your <c=deck>draw pile</c>.",
+      "title2": "Bypass",
+      "description2": "Play the card, at no <c=energy>energy</c> cost.",
+      "title3": "Exhaust",
+      "description3": "Remove the card for the rest of this combat."
+    },
+    "ATempUpgradeRandomCard": {
+      "titleA": "Temp Upgrade A",
+      "descriptionA": "<c=cardtrait>Temp upgrade</c> <c=keyword>{{Cards}}</c> random cards in your <c=deck>hand</c> to <c=cardtrait>A</c>.",
+      "titleB": "Temp Upgrade B",
+      "descriptionB": "<c=cardtrait>Temp upgrade</c> <c=keyword>{{Cards}}</c> random cards in your <c=deck>hand</c> to <c=cardtrait>B</c>.",
+      "titleDown": "Temp Downgrade",
+      "descriptionDown": "<c=cardtrait>Temp downgrade</c> <c=keyword>{{Cards}}</c> random cards in your <c=deck>hand</c>.",
+      "titleRandom": "Temp Upgrade",
+      "descriptionRandom": "<c=cardtrait>Temp upgrade</c> <c=keyword>{{Cards}}</c> random cards in your <c=deck>hand</c> to a random upgrade.",
+      "titleAHand": "Temp Upgrade A",
+      "descriptionAHand": "<c=cardtrait>Temp upgrade</c> every card in your <c=deck>hand</c> to <c=cardtrait>A</c>.",
+      "titleBHand": "Temp Upgrade B",
+      "descriptionBHand": "<c=cardtrait>Temp upgrade</c> every card in your <c=deck>hand</c> to <c=cardtrait>B</c>.",
+      "titleDownHand": "Temp Downgrade",
+      "descriptionDownHand": "<c=cardtrait>Temp downgrade</c> every card in your <c=deck>hand</c>.",
+      "titleRandomHand": "Temp Upgrade",
+      "descriptionRandomHand": "<c=cardtrait>Temp upgrade</c> every card in your <c=deck>hand</c> to a random upgrade."
+    },
+    "TempUpgradeSelectedCard": {
+      "textA": "Choose a card in your hand. Set its upgrade to A.",
+      "titleA": "Temp Upgrade A",
+      "descriptionA": "<c=cardtrait>Temp upgrade</c> the card to <c=cardtrait>A</c>.",
+      "textB": "Choose a card in your hand. Set its upgrade to B.",
+      "titleB": "Temp Upgrade B",
+      "descriptionB": "<c=cardtrait>Temp upgrade</c> the card to <c=cardtrait>B</c>.",
+      "textDown": "Choose a card in your hand. Downgrade it.",
+      "titleDown": "Temp Downgrade",
+      "descriptionDown": "<c=cardtrait>Temp downgrade</c> the card.",
+      "textRandom": "Choose a card in your hand. Set it to a random upgrade.",
+      "titleRandom": "Temp Upgrade",
+      "descriptionRandom": "<c=cardtrait>Temp upgrade</c> the card to a random upgrade."
+    },
+    "ARepeatAction": {
+      "title": "Repeat",
+      "description": "Perform the following action <c=keyword>{{Times}}<c/> times.",
+      "titleX": "Repeat",
+      "descriptionX": "Perform the following action <c=action>X</c> times."
+    },
+    "ACascadingAddCard": {
+      "titleHand": "Add Card",
+      "descriptionHand": "Add <c=keyword>{{Cards}}</c> cards to your <c=deck>hand</c>:",
+      "titleDeckRandom": "Add Card",
+      "descriptionDeckRandom": "Shuffle <c=keyword>{{Cards}}</c> cards into your <c=deck>draw pile</c>:",
+      "titleDiscard": "Add Card",
+      "descriptionDiscard": "Add <c=keyword>{{Cards}}</c> cards to your <c=deck>discard pile</c>:",
+      "titleExhaust": "Add Card",
+      "descriptionExhaust": "Add <c=keyword>{{Cards}}</c> cards to your <c=deck>exhaust pile</c>:",
+      "titleDeck": "Add Card",
+      "descriptionDeck": "Put <c=keyword>{{Cards}}</c> cards on the <c=deck>top</c> of your <c=deck>draw pile</c>:"
+    },
+    "ACascadingCardSelect": {
+      "titleHand": "Search",
+      "descriptionHand": "Choose a card from your <c=deck>hand</c>.",
+      "titleDrawPile": "Search",
+      "descriptionDrawPile": "Choose a card from your <c=deck>draw pile</c>.",
+      "titleDiscardPile": "Search",
+      "descriptionDiscardPile": "Choose a card from your <c=deck>discard pile</c>.",
+      "titleExhaustPile": "Search",
+      "descriptionExhaustPile": "Choose a card from your <c=deck>exhaust pile</c>.",
+      "titleDeck": "Search",
+      "descriptionDeck": "Choose a card from your <c=deck>deck</c>.",
+      "titleDrawOrDiscardPile": "Search",
+      "descriptionDrawOrDiscardPile": "Choose a card from your <c=deck>draw or discard piles</c>."
+    },
+    "ADiscount": {
+      "title": "Discount",
+      "description": "Reduce a random card's <c=energy>energy</c> cost by <c=keyword>{{Discount}}</c> until played, or until combat ends.",
+      "titleHand": "Discount",
+      "descriptionHand": "Reduce the <c=energy>energy</c> cost of every card in your <c=deck>hand</c> by <c=keyword>{{Discount}}</c> until played, or until combat ends."
+    },
+    "ADiscountTopCard": {
+      "title": "Top Card",
+      "description": "Take the <c=deck>top</c> card of your <c=deck>draw pile</c>.",
+      "title2": "Discount",
+      "description2": "Reduce the card's <c=energy>energy</c> cost by <c=keyword>{{Discount}}</c> until played, or until combat ends."
+    },
+    "AMultiCardSelect": {
+      "titleHand": "Search",
+      "descriptionHand": "Choose {{Cards}} cards from your <c=deck>hand</c>.",
+      "titleDrawPile": "Search",
+      "descriptionDrawPile": "Choose {{Cards}} cards from your <c=deck>draw pile</c>.",
+      "titleDiscardPile": "Search",
+      "descriptionDiscardPile": "Choose {{Cards}} cards from your <c=deck>discard pile</c>.",
+      "titleExhaustPile": "Search",
+      "descriptionExhaustPile": "Choose {{Cards}} cards from your <c=deck>exhaust pile</c>.",
+      "titleDeck": "Search",
+      "descriptionDeck": "Choose {{Cards}} cards from your <c=deck>deck</c>.",
+      "titleDrawOrDiscardPile": "Search",
+      "descriptionDrawOrDiscardPile": "Choose {{Cards}} cards from your <c=deck>draw or discard piles</c>."
+    },
+    "ALaunchShiv" : {
+      "title": "Fire",
+      "description": "Fire an <c=midrow>object</c> from your missile bay."
+    },
+    "ATopDiscardContext": {
+      "title": "Top Card",
+      "description": "Take the <c=deck>top</c> card of your <c=deck>discard pile</c>."
+    }
+  },
+  "trait": {
+    "Limitless": {
+      "title": "Limitless",
+      "description": "This card can be <c=cardtrait>upgraded</c> any number of times."
+    }
+  },
+  "stuff": {
+    "ShivObject": {
+      "title": "Shiv",
+      "description": "This \"missile\" is going to deal <c=damage>{{Damage}}</c> damage."
+    },
+    "LightningObject": {
+      "title": "Lightning",
+      "description": "Destroying it will shoot a <c=damage>{{Damage}}</c> damage shot at the enemy."
+    },
+    "FrostObject": {
+      "title": "Frost",
+      "description": "Destroying it will give you <c=keyword>{{Block}}</c> <c=status>SHIELD</c>."
+    },
+    "DarkObject": {
+      "title": "Dark",
+      "description": "Destroying it will shoot a <c=damage>{{Damage}}</c> damage shot at the enemy. Damage increases by <c=damage>1</c> once per turn."
+    },
+    "PlasmaObject": {
+      "title": "Plasma",
+      "description": "Destroying it will give you <c=keyword>{{Energy}}</c> <c=status>ENERGY</c>."
+    }
+  }
+}
