@@ -7,7 +7,16 @@ namespace AutumnMooncat.Spirecore.Actions;
 public class ACascadingAddCard : AAddCard, IMultiIconAction, ITooltipHelper
 {
     public static string ID => nameof(ACascadingAddCard);
-    
+
+    public override void Begin(G g, State s, Combat c)
+    {
+        if (amount == 0)
+        {
+            return;
+        }
+        base.Begin(g, s, c);
+    }
+
     public override List<Tooltip> GetTooltips(State s)
     {
         var extra = CommonIcons.DestinationSpr(destination, insertRandomly);
