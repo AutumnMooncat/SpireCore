@@ -8,7 +8,19 @@ namespace AutumnMooncat.Spirecore.Actions;
 public class ACascadingCardSelect : ACardSelect, IMultiIconAction, ITooltipHelper
 {
     public static string ID => nameof(ACascadingCardSelect);
-    
+
+    public override Route BeginWithRoute(G g, State s, Combat c)
+    {
+        var ret = base.BeginWithRoute(g, s, c);
+        if (ret is CardBrowse cb && cb.GetCardList(g).Count == 1 && cb.browseAction != null)
+        {
+            cb.OnPickCardAction(g, cb.GetCardList(g)[0], cb.browseAction);
+            timer = 0;
+            return null;
+        }
+        return ret;
+    }
+
     public override List<Tooltip> GetTooltips(State s)
     {
         var extra = CommonIcons.SourceSpr(browseSource);
