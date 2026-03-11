@@ -68,7 +68,7 @@ public class StudyStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKoko
             args.Combat.QueueImmediate(new ACascadingAddCard()
             {
                 amount = args.Amount,
-                card = new Shiv(),
+                card = new Insight(),
                 destination = CardDestination.Deck,
                 insertRandomly = true
             });
