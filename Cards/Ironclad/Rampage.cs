@@ -77,7 +77,15 @@ internal sealed class Rampage : Card, IRCard, ITooltipHelper
                             new (){spr = CommonIcons.Plus, dx = -3},
                             new (){spr = CommonIcons.Plus, dx = -4}
                         ]
-                    }
+                    },
+                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
+                    {
+                        begin = ((g, state, combat, thiz) =>
+                        {
+                            bonus += upgrade == Upgrade.B ? 2 : 1;
+                            return null;
+                        })
+                    }).AsCardAction
                 ];
                 break;
             case Upgrade.A:
@@ -99,7 +107,15 @@ internal sealed class Rampage : Card, IRCard, ITooltipHelper
                             new (){spr = CommonIcons.Plus, dx = -3},
                             new (){spr = CommonIcons.Plus, dx = -4}
                         ]
-                    }
+                    },
+                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
+                    {
+                        begin = ((g, state, combat, thiz) =>
+                        {
+                            bonus += upgrade == Upgrade.B ? 2 : 1;
+                            return null;
+                        })
+                    }).AsCardAction
                 ];
                 break;
             case Upgrade.B:
@@ -121,7 +137,15 @@ internal sealed class Rampage : Card, IRCard, ITooltipHelper
                             new (){spr = CommonIcons.Plus, dx = -3},
                             new (){spr = CommonIcons.EqualSign, amount = 2, dx = -4}
                         ]
-                    }
+                    },
+                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
+                    {
+                        begin = ((g, state, combat, thiz) =>
+                        {
+                            bonus += upgrade == Upgrade.B ? 2 : 1;
+                            return null;
+                        })
+                    }).AsCardAction
                 ];
                 break;
         }
@@ -131,10 +155,5 @@ internal sealed class Rampage : Card, IRCard, ITooltipHelper
     public override void OnExitCombat(State s, Combat c)
     {
         bonus = 0;
-    }
-
-    public override void AfterWasPlayed(State state, Combat c)
-    {
-        bonus += upgrade == Upgrade.B ? 2 : 1;
     }
 }

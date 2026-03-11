@@ -80,7 +80,15 @@ internal sealed class Streamline : Card, IRCard, ITooltipHelper
                             new (){spr = CommonIcons.Minus, dx = -3},
                             new (){spr = CommonIcons.Minus, dx = -4}
                         ]
-                    }
+                    },
+                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
+                    {
+                        begin = ((g, state, combat, thiz) =>
+                        {
+                            plays++;
+                            return null;
+                        })
+                    }).AsCardAction
                 ];
                 break;
             case Upgrade.A:
@@ -102,7 +110,15 @@ internal sealed class Streamline : Card, IRCard, ITooltipHelper
                             new (){spr = CommonIcons.Minus, dx = -3},
                             new (){spr = CommonIcons.Minus, dx = -4}
                         ]
-                    }
+                    },
+                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
+                    {
+                        begin = ((g, state, combat, thiz) =>
+                        {
+                            plays++;
+                            return null;
+                        })
+                    }).AsCardAction
                 ];
                 break;
             case Upgrade.B:
@@ -124,7 +140,15 @@ internal sealed class Streamline : Card, IRCard, ITooltipHelper
                             new (){spr = CommonIcons.Minus, dx = -3},
                             new (){spr = CommonIcons.Minus, dx = -4}
                         ]
-                    }
+                    },
+                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
+                    {
+                        begin = ((g, state, combat, thiz) =>
+                        {
+                            plays++;
+                            return null;
+                        })
+                    }).AsCardAction
                 ];
                 break;
         }
@@ -134,10 +158,5 @@ internal sealed class Streamline : Card, IRCard, ITooltipHelper
     public override void OnExitCombat(State s, Combat c)
     {
         plays = 0;
-    }
-
-    public override void AfterWasPlayed(State state, Combat c)
-    {
-        plays += 1;
     }
 }
