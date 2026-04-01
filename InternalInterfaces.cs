@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using AutumnMooncat.Spirecore.Features;
 using Nickel;
 
@@ -115,6 +116,138 @@ internal interface IRCharacter : IRegisterable
         }
 
         return sprites;
+    }
+}
+
+internal interface IRDialogue : IRegisterable
+{
+    static INonNullLocalizationProvider<IReadOnlyList<string>> GetLoc(Func<string, Stream> localeStreamFunction)
+    {
+        return new MissingPlaceholderNonBoundLocalizationProvider<IReadOnlyList<string>>(
+            new EnglishFallbackLocalizationProvider<IReadOnlyList<string>>(
+                new JsonLocalizationProvider(
+                    tokenExtractor: new SimpleLocalizationTokenExtractor(),
+                    localeStreamFunction: localeStreamFunction
+                )
+            )
+        );    
+    }
+    
+    static void InjectStory(string lookupKey, string characterType, Dictionary<IReadOnlyList<string>, StoryNode> newNodes, Dictionary<IReadOnlyList<string>, StoryNode> newHardcodedNodes, Dictionary<IReadOnlyList<string>, Say> saySwitchNodes, NodeType newNodeType)
+    {
+        foreach (var (key, node) in newNodes)
+        {
+            var realKey = MainModFile.MakeID(string.Join(".", [lookupKey, .. key]));
+
+            node.type = newNodeType;
+            DB.story.all[realKey] = node;
+
+            for (var i = 0; i < node.lines.Count; i++)
+                if (node.lines[i] is Say say)
+                    say.hash = i.ToString();
+            
+            MainModFile.Log("Register Normal Node {}", realKey);
+        }
+
+        foreach (var (key, node) in newHardcodedNodes)
+        {
+            var realKey = string.Join(".", key.Select(s => s.Replace("{{CharacterType}}", characterType)));
+
+            node.type = newNodeType;
+            DB.story.all[realKey] = node;
+
+            for (var i = 0; i < node.lines.Count; i++)
+                if (node.lines[i] is Say say)
+                    say.hash = i.ToString();
+            
+            MainModFile.Log("Register Hardcoded Node {}", realKey);
+        }
+
+        foreach (var (key, line) in saySwitchNodes)
+        {
+            var realKey = string.Join(".", key);
+            if (!DB.story.all.TryGetValue(realKey, out var node))
+            {
+                MainModFile.Log("Failed to Register Missing SaySwitch Node {}", realKey);
+                continue;
+            }
+
+            if (node.lines.OfType<SaySwitch>().LastOrDefault() is not { } saySwitch)
+            {
+                MainModFile.Log("Failed to Register Non-SaySwitch Node {}", realKey);
+                continue;
+            }
+
+            if (string.IsNullOrEmpty(line.hash))
+                line.hash = $"{characterType}::{realKey}";
+            saySwitch.lines.Add(line);
+            
+            MainModFile.Log("Register SaySwitch Node {}", realKey);
+        }
+    }
+    
+    static void InjectLocalizations(string lookupKey, string characterType, INonNullLocalizationProvider<IReadOnlyList<string>> loc, Dictionary<IReadOnlyList<string>, StoryNode> newNodes, Dictionary<IReadOnlyList<string>, StoryNode> newHardcodedNodes, Dictionary<IReadOnlyList<string>, Say> saySwitchNodes, LoadStringsForLocaleEventArgs e)
+    {
+        foreach (var (key, node) in newNodes)
+        {
+            var realKey = MainModFile.MakeID(string.Join(".", [lookupKey, .. key]));
+
+            var index = 0;
+            foreach (var line in node.lines)
+            {
+                if (line is Say say)
+                {
+                    e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString()]);
+                    MainModFile.Log("Loc Normal Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
+                }
+                else if (line is Wait or Jump)
+                {
+                    MainModFile.Log("Skipping non say line in {}", realKey);
+                    index--;
+                }
+                else
+                {
+                    throw new ArgumentException($"Unhandled story node type {line.GetType().Name} for key {realKey}");
+                }
+                index++;
+            }
+        }
+
+        foreach (var (key, node) in newHardcodedNodes)
+        {
+            var realKey = string.Join(".", key.Select(s => s.Replace("{{CharacterType}}", characterType)));
+
+            var index = 0;
+            foreach (var line in node.lines)
+            {
+                if (line is Say say)
+                {
+                    e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString()]);
+                    MainModFile.Log("Loc Hardcoded Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
+                }
+                else if (line is Wait or Jump)
+                {
+                    MainModFile.Log("Skipping non say line in {}", realKey);
+                    index--;
+                }
+                else
+                {
+                    throw new ArgumentException($"Unhandled story node type {line.GetType().Name} for key {realKey}");
+                }
+                index++;
+            }
+        }
+
+        foreach (var (key, line) in saySwitchNodes)
+        {
+            var realKey = string.Join(".", key);
+            if (string.IsNullOrEmpty(line.hash))
+                line.hash = $"{characterType}::{realKey}";
+
+            e.Localizations[$"{realKey}:{line.hash}"] = loc.Localize(e.Locale, [lookupKey, .. key]);
+            
+            MainModFile.Log("Loc SaySwitch Node {} -> {}", $"{realKey}:{line.hash}", e.Localizations[$"{realKey}:{line.hash}"]);
+        }
     }
 }
 

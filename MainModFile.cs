@@ -57,6 +57,7 @@ public sealed class MainModFile : SimpleMod
         AutoAdd(typeof(IRArtifact), nameof(IRArtifact.Register), helper);
         AutoAdd(typeof(IRShip), nameof(IRShip.Register), helper);
         AutoAdd(typeof(IRTrait), nameof(IRTrait.Register), helper);
+        AutoAdd(typeof(IRDialogue), nameof(IRDialogue.Register), helper);
         CommonIcons.Register(helper);
         
         Harmony = new Harmony(Instance.Package.Manifest.UniqueName);
