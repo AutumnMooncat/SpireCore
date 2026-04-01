@@ -1,4 +1,5 @@
 using AutumnMooncat.Spirecore.Cards.Silent;
+using AutumnMooncat.Spirecore.Features.Dialogue;
 using Nickel;
 
 namespace AutumnMooncat.Spirecore.Characters;
@@ -51,9 +52,9 @@ public class Silent : IRCharacter
             BorderSprite = CharacterPanel.Sprite,
             Description = MainModFile.Bind(["character", ID, "description"]).Localize
         });
-        IRCharacter.RegisterAnim(DeckEntry, AssetPath, "neutral", 5);
-        IRCharacter.RegisterAnim(DeckEntry, AssetPath, "mini", 1);
-        IRCharacter.RegisterAnim(DeckEntry, AssetPath, "squint", 5);
-        IRCharacter.RegisterAnim(DeckEntry, AssetPath, "gameover", 1);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Neutral, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Mini, 1);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Squint, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.GameOver, 1);
     }
 }

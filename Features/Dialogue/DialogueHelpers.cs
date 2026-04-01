@@ -26,6 +26,7 @@ public static class Anim
     public static string Neutral => "neutral";
     public static string Squint => "squint";
     public static string GameOver => "gameover";
+    public static string Mini => "mini";
     
     public static class Ironclad
     {
