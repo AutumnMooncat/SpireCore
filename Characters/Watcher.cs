@@ -53,7 +53,7 @@ public class Watcher : IRCharacter
         });
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, "neutral", 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, "mini", 1);
-        IRCharacter.RegisterAnim(DeckEntry, AssetPath, "squint", 4);
-        IRCharacter.RegisterAnim(DeckEntry, AssetPath, "gameover", 4);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, "squint", 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, "gameover", 1);
     }
 }
