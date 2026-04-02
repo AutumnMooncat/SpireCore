@@ -1,6 +1,7 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using AutumnMooncat.Spirecore.Features;
 
 namespace AutumnMooncat.Spirecore.Cards.Silent;
 
@@ -45,7 +46,7 @@ internal sealed class Neutralize : Card, IRCard
                     new AAttack()
                     {
                         damage = GetDmg(s, 0),
-                        status = MainModFile.Instance.KokoroApi.V2.DriveStatus.Underdrive,
+                        status = FeebledriveStatus.Entry.Status,
                         statusAmount = 1
                     }
                 ];
@@ -56,7 +57,7 @@ internal sealed class Neutralize : Card, IRCard
                     new AAttack()
                     {
                         damage = GetDmg(s, 1),
-                        status = MainModFile.Instance.KokoroApi.V2.DriveStatus.Underdrive,
+                        status = FeebledriveStatus.Entry.Status,
                         statusAmount = 1
                     }
                 ];
@@ -70,7 +71,7 @@ internal sealed class Neutralize : Card, IRCard
                     },
                     new AStatus()
                     {
-                        status = MainModFile.Instance.KokoroApi.V2.DriveStatus.Underdrive,
+                        status = FeebledriveStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = false
                     }

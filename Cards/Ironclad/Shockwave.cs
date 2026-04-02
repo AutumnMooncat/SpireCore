@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using AutumnMooncat.Spirecore.Actions;
+using AutumnMooncat.Spirecore.Features;
 
 namespace AutumnMooncat.Spirecore.Cards.Ironclad;
 
@@ -52,7 +53,7 @@ internal sealed class Shockwave : Card, IRCard
                     },
                     new AStatus()
                     {
-                        status = MainModFile.Instance.KokoroApi.V2.DriveStatus.Underdrive,
+                        status = FeebledriveStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = false
                     }
@@ -69,7 +70,7 @@ internal sealed class Shockwave : Card, IRCard
                     },
                     new AStatus()
                     {
-                        status = MainModFile.Instance.KokoroApi.V2.DriveStatus.Underdrive,
+                        status = FeebledriveStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = false
                     }
@@ -86,7 +87,7 @@ internal sealed class Shockwave : Card, IRCard
                     },
                     new AStatus()
                     {
-                        status = MainModFile.Instance.KokoroApi.V2.DriveStatus.Underdrive,
+                        status = FeebledriveStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = false
                     }

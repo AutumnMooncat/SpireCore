@@ -561,6 +561,10 @@
     "RageStatus": {
       "name": "Rage",
       "description": "At the start of your next turn, gain {0} <c=status>WRATH</c>."
+    },
+    "FeebledriveStatus": {
+      "name": "Drive Inhibitor",
+      "description": "Remove {0} damage from all attacks. <c=downside>Goes away at start of next turn.</c>"
     }
   },
   "action": {
