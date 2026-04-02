@@ -46,7 +46,7 @@ internal sealed class EmptyFist : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 1)
+                        damage = GetDmg(s, 2)
                     },
                     new AStatus()
                     {
@@ -69,7 +69,7 @@ internal sealed class EmptyFist : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 1)
+                        damage = GetDmg(s, 2)
                     },
                     new AStatus()
                     {
@@ -92,7 +92,7 @@ internal sealed class EmptyFist : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 2)
+                        damage = GetDmg(s, 3)
                     },
                     new AStatus()
                     {
