@@ -52,7 +52,7 @@ internal sealed class CombatDialogue : IRDialogue
 				]
 			};
 		
-		newNodes[["TookDamage", "Basic", "Dizzy"]] = new StoryNode
+		newNodes[["TookDamage", "Dizzy"]] = new StoryNode
 		{
 			enemyShotJustHit = true,
 			minDamageDealtToPlayerThisTurn = 1,
@@ -63,7 +63,7 @@ internal sealed class CombatDialogue : IRDialogue
 			]
 		};
 		
-		newNodes[["TookDamage", "Basic", "Riggs"]] = new StoryNode
+		newNodes[["TookDamage", "Riggs"]] = new StoryNode
 		{
 			enemyShotJustHit = true,
 			minDamageDealtToPlayerThisTurn = 1,
@@ -74,7 +74,7 @@ internal sealed class CombatDialogue : IRDialogue
 			]
 		};
 		
-		newNodes[["TookDamage", "Basic", "Peri"]] = new StoryNode
+		newNodes[["TookDamage", "Peri"]] = new StoryNode
 		{
 			enemyShotJustHit = true,
 			minDamageDealtToPlayerThisTurn = 1,
@@ -85,7 +85,7 @@ internal sealed class CombatDialogue : IRDialogue
 			]
 		};
 		
-		newNodes[["TookDamage", "Basic", "Isaac"]] = new StoryNode
+		newNodes[["TookDamage", "Isaac"]] = new StoryNode
 		{
 			enemyShotJustHit = true,
 			minDamageDealtToPlayerThisTurn = 1,
@@ -98,7 +98,7 @@ internal sealed class CombatDialogue : IRDialogue
 			]
 		};
 		
-		newNodes[["TookDamage", "Basic", "Drake", "0"]] = new StoryNode
+		newNodes[["TookDamage", "Drake", "0"]] = new StoryNode
 		{
 			enemyShotJustHit = true,
 			minDamageDealtToPlayerThisTurn = 1,
@@ -113,7 +113,7 @@ internal sealed class CombatDialogue : IRDialogue
 		
 		// Max
 		
-		newNodes[["TookDamage", "Basic", "Books"]] = new StoryNode
+		newNodes[["TookDamage", "Books"]] = new StoryNode
 		{
 			enemyShotJustHit = true,
 			minDamageDealtToPlayerThisTurn = 1,
@@ -169,7 +169,7 @@ internal sealed class CombatDialogue : IRDialogue
 			]
 		};
 		
-		newNodes[["AboutToDie", "Basic", "Dizzy"]] = new StoryNode
+		newNodes[["AboutToDie", "Dizzy"]] = new StoryNode
 		{
 			maxHull = 2,
 			oncePerCombatTags = ["aboutToDie"],
@@ -181,7 +181,7 @@ internal sealed class CombatDialogue : IRDialogue
 			]
 		};
 		
-		newNodes[["AboutToDie", "Basic", "Riggs"]] = new StoryNode
+		newNodes[["AboutToDie", "Riggs"]] = new StoryNode
 		{
 			maxHull = 2,
 			oncePerCombatTags = ["aboutToDie"],
@@ -195,7 +195,7 @@ internal sealed class CombatDialogue : IRDialogue
 		
 		// Peri, Isaac, Max, Books, CAT, Silent, Defect
 		
-		newNodes[["AboutToDie", "Basic", "Watcher"]] = new StoryNode
+		newNodes[["AboutToDie", "Watcher"]] = new StoryNode
 		{
 			maxHull = 2,
 			oncePerCombatTags = ["aboutToDie"],
