@@ -63,6 +63,28 @@ public sealed class MainModFile : SimpleMod
         Harmony = new Harmony(Instance.Package.Manifest.UniqueName);
         Harmony.PatchAll();
         helper.Events.OnModLoadPhaseFinished += OnModLoadPhaseFinished;
+        helper.Events.OnSaveLoaded += EventsOnOnSaveLoaded;
+    }
+
+    private static void EventsOnOnSaveLoaded(object sender, State e)
+    {
+        if (DevBuild)
+        {
+            Log("Checking for missing cards in codex");
+            foreach (var pair in DB.cards)
+            {
+                if (DB.cardMetas[pair.Key].unreleased)
+                {
+                    continue;
+                }
+
+                var card = (Card) Activator.CreateInstance(pair.Value);
+                if (MG.inst.g.state.persistentStoryVars.cardsOwned.Add(card.Key()))
+                {
+                    Log("Added missing card {} with key {}", pair.Value.Name, card.Key());
+                }
+            }
+        }
     }
 
     private static void OnModLoadPhaseFinished(object sender, ModLoadPhase e)
