@@ -10,11 +10,10 @@ public class ACascadingAddCard : AAddCard, IMultiIconAction, ITooltipHelper
 
     public override void Begin(G g, State s, Combat c)
     {
-        if (amount == 0)
+        if (amount > 0)
         {
-            return;
+            base.Begin(g, s, c);
         }
-        base.Begin(g, s, c);
     }
 
     public override List<Tooltip> GetTooltips(State s)
@@ -28,9 +27,14 @@ public class ACascadingAddCard : AAddCard, IMultiIconAction, ITooltipHelper
         {
             suffix += "Random";
         }
+
+        if (amount > 1)
+        {
+            suffix += "2";
+        }
         List<Tooltip> ret = 
         [
-            ITooltipHelper.MakeMultiTooltip("action", ID, pl, extra.HasValue ? 10 : 5, Colors.action, suffix, new {Cards = amount}),
+            ITooltipHelper.MakeMultiTooltip("action", ID, pl, extra.HasValue ? 10 : 5, Colors.action, suffix, amount > 1 ? new {Cards = amount} : null),
             new TTCard()
             {
                 card = card,
@@ -53,7 +57,7 @@ public class ACascadingAddCard : AAddCard, IMultiIconAction, ITooltipHelper
         var spr = CommonIcons.DestinationSpr(destination, insertRandomly);
         if (spr.HasValue)
         {
-            ret.Add(new (){spr = spr.Value, amount = amount, xHint = xHint});
+            ret.Add(new (){spr = spr.Value, amount = amount > 1 ? amount : null, xHint = xHint});
         }
         return ret;
     }
