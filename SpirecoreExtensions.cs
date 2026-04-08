@@ -25,6 +25,42 @@ public static class SpirecoreExtensions
     {
         return a.GetData(RenderActionPatches.ExtraPayloadKey, out pl);
     }
+
+    public static void AddTooltipFix(this CardAction a, string key, params object[] vals)
+    {
+        if (a.GetTooltipFixes(out var dict))
+        {
+            dict[key] = vals;
+            return;
+        }
+
+        Dictionary<string, object[]> data = [];
+        data[key] = vals;
+        a.SetData(TooltipFixPatch.TooltipFixKey, data);
+    }
+
+    public static bool GetTooltipFixes(this CardAction a, out Dictionary<string, object[]> dict)
+    {
+        return a.GetData(TooltipFixPatch.TooltipFixKey, out dict);
+    }
+
+    public static CardAction WithTooltipFix(this CardAction a, string key, params object[] vals)
+    {
+        a.AddTooltipFix(key, vals);
+        return a;
+    }
+    
+    public static CardAction WithDisabled(this CardAction a, bool disabled)
+    {
+        a.disabled = disabled;
+        return a;
+    }
+
+    public static AAttack FixHeatTT(this AAttack a)
+    {
+        a.AddTooltipFix("status.heat", $"<c=boldPink>{(a.targetPlayer ? MG.inst.g.state.ship.heatTrigger : 3)}</c>");
+        return a;
+    }
     
     public static IEnumerable<Card> GetAllCards(this State state)
     {
