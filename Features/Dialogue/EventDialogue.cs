@@ -75,15 +75,17 @@ internal sealed class EventDialogue : IRDialogue
 	public static Dictionary<IReadOnlyList<string>, StoryNode> MakeICHard()
 	{
 		var newNodes = new Dictionary<IReadOnlyList<string>, StoryNode>();
+		
 		newNodes[["LoseCharacterCard_{{CharacterType}}"]] = new()
 		{
 			oncePerRun = true,
 			bg = nameof(BGSupernova),
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = CType.Ironclad, loopTag = Anim.Neutral },
-			],
+				new Say { who = CType.Ironclad, loopTag = Anim.Neutral }
+			]
 		};
+		
 		newNodes[["CrystallizedFriendEvent_{{CharacterType}}"]] = new()
 		{
 			oncePerRun = true,
@@ -91,10 +93,10 @@ internal sealed class EventDialogue : IRDialogue
 			allPresent = [CType.Ironclad],
 			lines = [
 				new Wait() { secs = 1.5 },
-				new Say { who = CType.Ironclad, loopTag = Anim.Neutral },
-				new Say { who = CType.CAT, loopTag = Anim.Neutral },
-			],
+				new Say { who = CType.Ironclad, loopTag = Anim.Neutral }
+			]
 		};
+		
 		newNodes[["ChoiceCardRewardOfYourColorChoice_{{CharacterType}}"]] = new()
 		{
 			oncePerRun = true,
@@ -102,9 +104,10 @@ internal sealed class EventDialogue : IRDialogue
 			allPresent = [CType.Ironclad],
 			lines = [
 				new Say { who = CType.Ironclad, loopTag = Anim.Squint },
-				new Say { who = CType.CAT, loopTag = Anim.Neutral },
-			],
+				new Say { who = CType.CAT, loopTag = Anim.Neutral }
+			]
 		};
+		
 		return newNodes;
 	}
 
