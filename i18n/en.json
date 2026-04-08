@@ -704,6 +704,26 @@
     "ATopDiscardContext": {
       "title": "Top Card",
       "description": "Take the <c=deck>top</c> card of your <c=deck>discard pile</c>."
+    },
+    "ACardContext": {
+      "titleTopDraw": "Top Card",
+      "descriptionTopDraw": "Take the <c=deck>top</c> card of your <c=deck>draw pile</c>.",
+      "titleTopDiscard": "Top Card",
+      "descriptionTopDiscard": "Take the <c=deck>top</c> card of your <c=deck>discard pile</c>.",
+      "titleTopExhaust": "Top Card",
+      "descriptionTopExhaust": "Take the <c=deck>top</c> card of your <c=deck>exhaust pile</c>.",
+      "titleLeftHand": "Left Card",
+      "descriptionLeftHand": "Take the <c=deck>leftmost</c> card in your <c=deck>hand</c>.",
+      "titleRightHand": "Right Card",
+      "descriptionRightHand": "Take the <c=deck>rightmost</c> card in your <c=deck>hand</c>.",
+      "titleRandomHand": "Random Card",
+      "descriptionRandomHand": "Take a <c=deck>random</c> card in your <c=deck>hand</c>.",
+      "titleRandomDraw": "Random Card",
+      "descriptionRandomDraw": "Take a <c=deck>random</c> card from your <c=deck>draw pile</c>.",
+      "titleRandomDiscard": "Random Card",
+      "descriptionRandomDiscard": "Take a <c=deck>random</c> card from your <c=deck>discard pile</c>.",
+      "titleRandomExhaust": "Random Card",
+      "descriptionRandomExhaust": "Take a <c=deck>random</c> card from your <c=deck>exhaust pile</c>."
     }
   },
   "trait": {

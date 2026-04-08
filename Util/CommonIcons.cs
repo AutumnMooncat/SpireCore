@@ -13,6 +13,7 @@ public class CommonIcons : IRegisterable
     public static Spr ExhaustPile { get; set; }
     public static Spr TopCard { get; set; }
     public static Spr TopDiscard { get; set; }
+    public static Spr TopExhaust { get; set; }
     public static Spr ApplyTo { get; set; }
     public static Spr Bypass { get; set; }
     public static Spr Exhaust { get; set; }
@@ -51,6 +52,8 @@ public class CommonIcons : IRegisterable
     public static Spr Plus_Small { get; set; }
     public static Spr EqualSign_Small { get; set; }
     public static Spr Launch { get; set; }
+    public static Spr RightCard { get; set; }
+    public static Spr LeftCard { get; set; }
 
     public static void Register(IModHelper helper)
     {
@@ -63,6 +66,7 @@ public class CommonIcons : IRegisterable
         ExhaustPile = Enum.Parse<Spr>("icons_exhaust");
         TopCard = Find("topCard");
         TopDiscard = Find("topDiscard");
+        TopExhaust = Find("topExhaust");
         ApplyTo = Find("applyTo");
         Bypass = Enum.Parse<Spr>("icons_bypass");
         Exhaust = Enum.Parse<Spr>("icons_exhaust");
@@ -99,6 +103,8 @@ public class CommonIcons : IRegisterable
         Plus_Small = Find("plus2");
         EqualSign_Small = Find("equals2");
         Launch = Find("launch");
+        RightCard = Find("rightCard");
+        LeftCard = Find("leftCard");
         
         if (MainModFile.Instance.KokoroApi.V2.TemporaryUpgrades.UpgradeTooltip is GlossaryTooltip utt)
         {

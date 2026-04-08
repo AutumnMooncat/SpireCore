@@ -261,6 +261,16 @@ internal interface INestingAction
     CardAction Nested { get; set; }
 }
 
+internal interface IFlippableAction
+{
+    bool CanFlip(State s);
+}
+
+internal interface IHilightingAction
+{
+    void HilightOtherCards(Card owner, State s, Combat c);
+}
+
 internal interface ITooltipHelper
 {
     static abstract string ID { get; }
