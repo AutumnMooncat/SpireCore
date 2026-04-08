@@ -146,7 +146,7 @@ internal interface IRDialogue : IRegisterable
                 if (node.lines[i] is Say say)
                     say.hash = i.ToString();
             
-            MainModFile.Log("Register Normal Node {}", realKey);
+            //MainModFile.Log("Register Normal Node {}", realKey);
         }
 
         foreach (var (key, node) in newHardcodedNodes)
@@ -160,7 +160,7 @@ internal interface IRDialogue : IRegisterable
                 if (node.lines[i] is Say say)
                     say.hash = i.ToString();
             
-            MainModFile.Log("Register Hardcoded Node {}", realKey);
+            //MainModFile.Log("Register Hardcoded Node {}", realKey);
         }
 
         foreach (var (key, line) in saySwitchNodes)
@@ -182,7 +182,7 @@ internal interface IRDialogue : IRegisterable
                 line.hash = $"{characterType}::{realKey}";
             saySwitch.lines.Add(line);
             
-            MainModFile.Log("Register SaySwitch Node {}", realKey);
+            //MainModFile.Log("Register SaySwitch Node {}", realKey);
         }
     }
     
@@ -198,11 +198,11 @@ internal interface IRDialogue : IRegisterable
                 if (line is Say say)
                 {
                     e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString()]);
-                    MainModFile.Log("Loc Normal Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
+                    //MainModFile.Log("Loc Normal Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
                 }
                 else if (line is Wait or Jump)
                 {
-                    MainModFile.Log("Skipping non say line in {}", realKey);
+                    //MainModFile.Log("Skipping non say line in {}", realKey);
                     index--;
                 }
                 else
@@ -223,11 +223,11 @@ internal interface IRDialogue : IRegisterable
                 if (line is Say say)
                 {
                     e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString()]);
-                    MainModFile.Log("Loc Hardcoded Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
+                    //MainModFile.Log("Loc Hardcoded Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
                 }
                 else if (line is Wait or Jump)
                 {
-                    MainModFile.Log("Skipping non say line in {}", realKey);
+                    //MainModFile.Log("Skipping non say line in {}", realKey);
                     index--;
                 }
                 else
@@ -246,7 +246,7 @@ internal interface IRDialogue : IRegisterable
 
             e.Localizations[$"{realKey}:{line.hash}"] = loc.Localize(e.Locale, [lookupKey, .. key]);
             
-            MainModFile.Log("Loc SaySwitch Node {} -> {}", $"{realKey}:{line.hash}", e.Localizations[$"{realKey}:{line.hash}"]);
+            //MainModFile.Log("Loc SaySwitch Node {} -> {}", $"{realKey}:{line.hash}", e.Localizations[$"{realKey}:{line.hash}"]);
         }
     }
 }
