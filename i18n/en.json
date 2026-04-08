@@ -724,6 +724,23 @@
       "descriptionRandomDiscard": "Take a <c=deck>random</c> card from your <c=deck>discard pile</c>.",
       "titleRandomExhaust": "Random Card",
       "descriptionRandomExhaust": "Take a <c=deck>random</c> card from your <c=deck>exhaust pile</c>."
+    },
+    "TorchCard": {
+      "text": "Pick a card to exhaust.",
+      "title": "Torch",
+      "description": "Exhaust the card and gain <c=keyword>1</c> <c=status>HEAT</c>."
+    },
+    "ATorchEntireHand": {
+      "title": "Torch Hand",
+      "description": "Send every card in your hand to the exhaust pile. Gain <c=status>HEAT</c> equal to cards exhausted."
+    },
+    "APlayAndTorchTopCard": {
+      "title": "Top Card",
+      "description": "Take the <c=deck>top</c> card of your <c=deck>draw pile</c>.",
+      "title2": "Bypass",
+      "description2": "Play the card, at no <c=energy>energy</c> cost.",
+      "title3": "Torch",
+      "description3": "Exhaust the card and gain <c=keyword>1</c> <c=status>HEAT</c>."
     }
   },
   "trait": {
