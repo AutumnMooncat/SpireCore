@@ -565,6 +565,10 @@
     "FeebledriveStatus": {
       "name": "Drive Inhibitor",
       "description": "Remove {0} damage from all attacks. <c=downside>Goes away at start of next turn.</c>"
+    },
+    "HeatCapStatus": {
+      "name": "Heat Capacity",
+      "description": "Increases <c=downside>overheat</c> threshold by {0}."
     }
   },
   "action": {
