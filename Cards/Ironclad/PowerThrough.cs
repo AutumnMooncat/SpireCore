@@ -5,6 +5,7 @@ using AutumnMooncat.Spirecore.Actions;
 
 namespace AutumnMooncat.Spirecore.Cards.Ironclad;
 
+[IRegisterable.Ignore]
 internal sealed class PowerThrough : Card, IRCard
 {
     public static string ID => nameof(PowerThrough);

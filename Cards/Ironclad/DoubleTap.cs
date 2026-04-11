@@ -5,6 +5,7 @@ using AutumnMooncat.Spirecore.Features;
 
 namespace AutumnMooncat.Spirecore.Cards.Ironclad;
 
+[IRegisterable.Ignore]
 internal sealed class DoubleTap : Card, IRCard
 {
     public static string ID => nameof(DoubleTap);

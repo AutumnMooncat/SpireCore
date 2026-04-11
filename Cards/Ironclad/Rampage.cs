@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace AutumnMooncat.Spirecore.Cards.Ironclad;
 
+[IRegisterable.Ignore]
 internal sealed class Rampage : Card, IRCard, ITooltipHelper
 {
     public static string ID => nameof(Rampage);

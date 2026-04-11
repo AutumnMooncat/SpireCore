@@ -6,6 +6,7 @@ using AutumnMooncat.Spirecore.Patches;
 
 namespace AutumnMooncat.Spirecore.Cards.Ironclad;
 
+[IRegisterable.Ignore]
 internal sealed class Headbutt : Card, IRCard
 {
     public static string ID => nameof(Headbutt);

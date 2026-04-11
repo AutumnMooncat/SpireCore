@@ -5,6 +5,7 @@ using AutumnMooncat.Spirecore.Actions;
 
 namespace AutumnMooncat.Spirecore.Cards.Ironclad;
 
+[IRegisterable.Ignore]
 internal sealed class WarCry : Card, IRCard
 {
     public static string ID => nameof(WarCry);
@@ -31,7 +32,7 @@ internal sealed class WarCry : Card, IRCard
         CardData data = new CardData()
         {
             cost = 0,
-            exhaust = upgrade != Upgrade.B
+            flippable = upgrade == Upgrade.B
         };
         return data;
     }
@@ -44,9 +45,11 @@ internal sealed class WarCry : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new ADrawCard()
+                    new AMove()
                     {
-                        count = 1
+                        dir = 2,
+                        isRandom = true,
+                        targetPlayer = false
                     },
                     new ACascadingCardSelect()
                     {
@@ -61,9 +64,11 @@ internal sealed class WarCry : Card, IRCard
             case Upgrade.A:
                 actions = 
                 [
-                    new ADrawCard()
+                    new AMove()
                     {
-                        count = 2
+                        dir = 3,
+                        isRandom = true,
+                        targetPlayer = false
                     },
                     new ACascadingCardSelect()
                     {
@@ -78,11 +83,10 @@ internal sealed class WarCry : Card, IRCard
             case Upgrade.B:
                 actions = 
                 [
-                    new AStatus()
+                    new AMove()
                     {
-                        status = Status.drawNextTurn,
-                        statusAmount = 2,
-                        targetPlayer = true
+                        dir = 2,
+                        targetPlayer = false
                     },
                     new ACascadingCardSelect()
                     {
