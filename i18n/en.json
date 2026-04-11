@@ -110,11 +110,20 @@
     "Bash": {
       "name": "Bash"
     },
+    "BodySlam": {
+      "name": "Body Slam"
+    },
     "BurningPact": {
       "name": "Burning Pact"
     },
+    "Clash": {
+      "name": "Clash"
+    },
     "Cleave": {
       "name": "Cleave"
+    },
+    "DemonForm": {
+      "name": "Demon Form"
     },
     "Disarm": {
       "name": "Disarm"
@@ -130,14 +139,29 @@
       "title": "Repeat",
       "description": "Perform the action <c=action>X</c> times."
     },
+    "FireBreathing": {
+      "name": "Fire Breathing"
+    },
     "FlameBarrier": {
       "name": "Flame Barrier"
+    },
+    "Flex": {
+      "name": "Flex"
     },
     "Havoc": {
       "name": "Havoc"
     },
     "Headbutt": {
       "name": "Headbutt"
+    },
+    "Immolate": {
+      "name": "Immolate"
+    },
+    "Inflame": {
+      "name": "Inflame"
+    },
+    "IronWave": {
+      "name": "Iron Wave"
     },
     "Juggernaut": {
       "name": "Juggernaut"
@@ -158,6 +182,9 @@
     },
     "Reaper": {
       "name": "Reaper"
+    },
+    "RecklessCharge": {
+      "name": "Reckless Charge"
     },
     "SearingBlow": {
       "name": "Searing Blow"
@@ -569,6 +596,10 @@
     "HeatCapStatus": {
       "name": "Heat Capacity",
       "description": "Increases <c=downside>overheat</c> threshold by {0}."
+    },
+    "DemonFormStatus": {
+      "name": "Demon Form",
+      "description": "Gain {0} <c=status>POWERDRIVE</c> <c=downside>and 3 HEAT</c> every turn."
     }
   },
   "action": {
