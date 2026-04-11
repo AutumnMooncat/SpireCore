@@ -293,6 +293,9 @@
     "ToolsOfTheTrade": {
       "name": "Tools of the Trade"
     },
+    "WraithForm": {
+      "name": "Wraith Form"
+    },
     "AutoShields": {
       "name": "Auto Shields"
     },
@@ -600,6 +603,10 @@
     "DemonFormStatus": {
       "name": "Demon Form",
       "description": "Gain {0} <c=status>POWERDRIVE</c> <c=downside>and 3 HEAT</c> every turn."
+    },
+    "WraithFormStatus": {
+      "name": "Wraith Form",
+      "description": "Gain {0} <c=status>PIERCE CHARGE</c> every turn."
     }
   },
   "action": {

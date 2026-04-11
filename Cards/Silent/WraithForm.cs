@@ -5,10 +5,9 @@ using AutumnMooncat.Spirecore.Features;
 
 namespace AutumnMooncat.Spirecore.Cards.Silent;
 
-[IRegisterable.Ignore]
-internal sealed class Accuracy : Card, IRCard
+internal sealed class WraithForm : Card, IRCard
 {
-    public static string ID => nameof(Accuracy);
+    public static string ID => nameof(WraithForm);
     public static ICardEntry Entry { get; set; }
     
     public static void Register(IModHelper helper)
@@ -31,7 +30,7 @@ internal sealed class Accuracy : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.A ? 3 : 4,
+            cost = upgrade == Upgrade.A ? 2 : 3,
             exhaust = true
         };
         return data;
@@ -47,7 +46,7 @@ internal sealed class Accuracy : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = AccuracyStatus.Entry.Status,
+                        status = WraithFormStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     }
@@ -58,7 +57,7 @@ internal sealed class Accuracy : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = AccuracyStatus.Entry.Status,
+                        status = WraithFormStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     }
@@ -69,7 +68,7 @@ internal sealed class Accuracy : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = AccuracyStatus.Entry.Status,
+                        status = WraithFormStatus.Entry.Status,
                         statusAmount = 2,
                         targetPlayer = true
                     }
