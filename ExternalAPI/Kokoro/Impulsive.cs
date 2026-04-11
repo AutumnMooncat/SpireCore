@@ -1,7 +1,7 @@
 using System;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.ExternalAPI;
+namespace AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 
 public partial interface IKokoroApi
 {

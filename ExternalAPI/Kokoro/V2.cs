@@ -1,4 +1,4 @@
-namespace AutumnMooncat.Spirecore.ExternalAPI;
+namespace AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 
 /// <summary>
 /// Allows accessing all of Kokoro library APIs.

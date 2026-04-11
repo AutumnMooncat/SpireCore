@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AutumnMooncat.Spirecore.Artifacts.Watcher;
 using AutumnMooncat.Spirecore.ExternalAPI;
+using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 using AutumnMooncat.Spirecore.Util;
 using Nickel;
 

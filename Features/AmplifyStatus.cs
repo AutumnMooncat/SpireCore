@@ -1,5 +1,6 @@
 using System;
 using AutumnMooncat.Spirecore.ExternalAPI;
+using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 using AutumnMooncat.Spirecore.Patches;
 using AutumnMooncat.Spirecore.Util;
 using AutumnMooncat.SpireCore.Util;

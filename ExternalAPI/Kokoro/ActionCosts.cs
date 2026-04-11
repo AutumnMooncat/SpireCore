@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace AutumnMooncat.Spirecore.ExternalAPI;
+namespace AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 
 public partial interface IKokoroApi
 {
