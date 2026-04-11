@@ -25,6 +25,12 @@ public static class SpirecoreExtensions
     {
         return a.GetData(RenderActionPatches.ExtraPayloadKey, out pl);
     }
+    
+    public static CardAction WithExtraIcons(this CardAction a, List<Records.RenderPayload> pl)
+    {
+        a.SetExtraIcons(pl);
+        return a;
+    }
 
     public static void AddTooltipFix(this CardAction a, string key, params object[] vals)
     {
@@ -56,7 +62,7 @@ public static class SpirecoreExtensions
         return a;
     }
 
-    public static AAttack FixHeatTT(this AAttack a)
+    public static AAttack WithHeatTipFix(this AAttack a)
     {
         a.AddTooltipFix("status.heat", $"<c=boldPink>{(a.targetPlayer ? MG.inst.g.state.ship.heatTrigger : 3)}</c>");
         return a;
