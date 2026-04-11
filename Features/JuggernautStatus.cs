@@ -31,13 +31,14 @@ public class JuggernautStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
     public int ModifyStatusChange(IKokoroApi.IV2.IStatusLogicApi.IHook.IModifyStatusChangeArgs args)
     {
         //MainModFile.Log("Checking status change {} {} -> {}, player? {}", args.Status, args.OldAmount, args.NewAmount, args.Ship.isPlayerShip);
-        if (args.Status == Status.tempShield && args.NewAmount > args.OldAmount && args.Ship.Get(Entry.Status) > 0)
+        if (args.Status == Status.shield && args.NewAmount > args.OldAmount && args.Ship.Get(Entry.Status) > 0)
         {
-            args.Combat.QueueImmediate(new AHurt
+            args.Combat.QueueImmediate(new AAttack()
             {
-                hurtAmount = args.Ship.Get(Entry.Status),
+                damage = Card.GetActualDamage(args.State, args.Ship.Get(Entry.Status)),
                 targetPlayer = !args.Ship.isPlayerShip,
-                hurtShieldsFirst = true
+                fast = true,
+                //storyFromStrafe = true // TODO story dialogue
             });
         }
         return args.NewAmount;

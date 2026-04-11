@@ -33,7 +33,7 @@ public class FeelNoPainStatus : IRStatus
         {
             c.QueueImmediate(new AStatus
             {
-                status = Status.tempShield,
+                status = Status.shield,
                 statusAmount = c.otherShip.Get(Entry.Status),
                 targetPlayer = false
             });
@@ -43,7 +43,7 @@ public class FeelNoPainStatus : IRStatus
         {
             c.QueueImmediate(new AStatus
             {
-                status = Status.tempShield,
+                status = Status.shield,
                 statusAmount = s.ship.Get(Entry.Status),
                 targetPlayer = true
             });

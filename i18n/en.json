@@ -500,7 +500,7 @@
     },
     "FeelNoPainStatus": {
       "name": "Feel No Pain",
-      "description": "Whenever a card is <c=cardtrait>exhausted</c>, gain {0} <c=status>TEMP SHIELD</c>."
+      "description": "Whenever a card is <c=cardtrait>exhausted</c>, gain {0} <c=status>SHIELD</c>."
     },
     "ToolsOfTheTradeStatus": {
       "name": "Tools of the Trade",
