@@ -6,10 +6,9 @@ using AutumnMooncat.Spirecore.Features;
 
 namespace AutumnMooncat.Spirecore.Cards.Watcher;
 
-[IRegisterable.Ignore]
-internal sealed class MasterReality : Card, IRCard
+internal sealed class DevaForm : Card, IRCard
 {
-    public static string ID => nameof(MasterReality);
+    public static string ID => nameof(DevaForm);
     public static ICardEntry Entry { get; set; }
     
     public static void Register(IModHelper helper)
@@ -32,8 +31,7 @@ internal sealed class MasterReality : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.A ? 0 : 1,
-            buoyant = upgrade == Upgrade.B,
+            cost = upgrade == Upgrade.A ? 2 : upgrade == Upgrade.B ? 4 : 3,
             exhaust = true
         };
         return data;
@@ -49,7 +47,7 @@ internal sealed class MasterReality : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = MasterRealityStatus.Entry.Status,
+                        status = DevaFormStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     }
@@ -60,7 +58,7 @@ internal sealed class MasterReality : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = MasterRealityStatus.Entry.Status,
+                        status = DevaFormStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     }
@@ -71,8 +69,8 @@ internal sealed class MasterReality : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = MasterRealityStatus.Entry.Status,
-                        statusAmount = 1,
+                        status = DevaFormStatus.Entry.Status,
+                        statusAmount = 2,
                         targetPlayer = true
                     }
                 ];

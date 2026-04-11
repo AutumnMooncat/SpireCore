@@ -401,6 +401,9 @@
     "Crescendo": {
       "name": "Crescendo"
     },
+    "DevaForm": {
+      "name": "Deva Form"
+    },
     "Devotion": {
       "name": "Devotion"
     },
@@ -502,7 +505,7 @@
     },
     "JuggernautStatus": {
       "name": "Juggernaut",
-      "description": "Whenever you gain <c=status>TEMP SHIELD</c>, the enemy takes {0} damage."
+      "description": "Whenever you gain <c=status>SHIELD</c>, fire for {0} damage immediately."
     },
     "FeelNoPainStatus": {
       "name": "Feel No Pain",
@@ -619,6 +622,10 @@
     "EchoFormStatus": {
       "name": "Echo Form",
       "description": "Gain {0} <c=status>AMPLIFY</c> every turn."
+    },
+    "DevaFormStatus": {
+      "name": "Deva Form",
+      "description": "Gain {0} <c=status>ENERGY</c> every turn."
     }
   },
   "action": {

@@ -18,9 +18,9 @@ public class DivinityStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IK
             Definition = new()
             {
                 /* We provide the icon as a Sprite type, you can find it in the given file location */
-                icon = CommonIcons.Find("divinity"),
+                icon = CommonIcons.Find("divinity5"),
                 /* We give it a color, this is the border color that surrounds the status icon & number in-game */
-                color = new("eab2e7"),
+                color = new("f88dfb"),
                 /* We define if it's isGood = true or isGood = false. This will dictate if the number will be either blue or red */
                 isGood = true
             },
