@@ -5,10 +5,9 @@ using AutumnMooncat.Spirecore.Features;
 
 namespace AutumnMooncat.Spirecore.Cards.Defect;
 
-[IRegisterable.Ignore]
-internal sealed class CreativeAI : Card, IRCard
+internal sealed class EchoForm : Card, IRCard, IHasCustomCardTraits
 {
-    public static string ID => nameof(CreativeAI);
+    public static string ID => nameof(EchoForm);
     public static ICardEntry Entry { get; set; }
     
     public static void Register(IModHelper helper)
@@ -47,7 +46,7 @@ internal sealed class CreativeAI : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = CreativeAIStatus.Entry.Status,
+                        status = EchoFormStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     }
@@ -58,7 +57,7 @@ internal sealed class CreativeAI : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = CreativeAIStatus.Entry.Status,
+                        status = EchoFormStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     }
@@ -69,19 +68,24 @@ internal sealed class CreativeAI : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = CreativeAIStatus.Entry.Status,
+                        status = EchoFormStatus.Entry.Status,
                         statusAmount = 1,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.energyNextTurn,
-                        statusAmount = 2,
                         targetPlayer = true
                     }
                 ];
                 break;
         }
         return actions;
+    }
+
+    public IReadOnlySet<ICardTraitEntry> GetInnateTraits(State state)
+    {
+        HashSet<ICardTraitEntry> ret = [];
+        if (upgrade != Upgrade.B)
+        {
+            ret.Add(MainModFile.Kokoro().Fleeting.Trait);
+        }
+
+        return ret;
     }
 }

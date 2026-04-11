@@ -332,6 +332,9 @@
       "title3": "Launch",
       "description3": "Launch <c=keyword>2</c> copies of the <c=drone>object</c> from your missile bay, facing the enemy."
     },
+    "EchoForm": {
+      "name": "Echo Form"
+    },
     "Equilibrium": {
       "name": "Equilibrium"
     },
@@ -607,6 +610,15 @@
     "WraithFormStatus": {
       "name": "Wraith Form",
       "description": "Gain {0} <c=status>PIERCE CHARGE</c> every turn."
+    },
+    "AmplifyStatus": {
+      "name": "Amplify",
+      "description": "The next {0} cards you play are played twice. <c=downside>Goes away at start of next turn.</c>",
+      "description2": "The next cards you play are played twice. <c=downside>Goes away at start of next turn.</c>"
+    },
+    "EchoFormStatus": {
+      "name": "Echo Form",
+      "description": "Gain {0} <c=status>AMPLIFY</c> every turn."
     }
   },
   "action": {
