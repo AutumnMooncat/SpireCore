@@ -1,6 +1,8 @@
 using AutumnMooncat.Spirecore.Cards.Silent;
+using AutumnMooncat.Spirecore.ExternalAPI;
 using AutumnMooncat.Spirecore.Features.Dialogue;
 using Nickel;
+using Nickel.Common;
 
 namespace AutumnMooncat.Spirecore.Characters;
 
@@ -56,5 +58,20 @@ public class Silent : IRCharacter
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Mini, 1);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Squint, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.GameOver, 1);
+        
+        helper.ModRegistry.AwaitApi<IMoreDifficultiesApi>(
+            "TheJazMaster.MoreDifficulties",
+            new SemanticVersion(1, 3, 0),
+            api => api.RegisterAltStarters(
+                deck: DeckEntry.Deck,
+                starterDeck: new StarterDeck
+                {
+                    cards = [
+                        new DaggerThrow(),
+                        new Deflect()
+                    ]
+                }
+            )
+        );
     }
 }
