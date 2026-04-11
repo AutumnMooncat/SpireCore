@@ -43,19 +43,29 @@ internal sealed class Havoc : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new APlayTopCard()
-                    {
-                        exhaustThisCardAfterwards = true
-                    }
+                    new APlayAndTorchTopCard(),
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.shield), 1), 
+                        new AMove()
+                        {
+                            dir = 2,
+                            targetPlayer = false,
+                            isRandom = true
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.A:
                 actions = 
                 [
-                    new APlayTopCard()
-                    {
-                        exhaustThisCardAfterwards = true
-                    }
+                    new APlayAndTorchTopCard(),
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.shield), 1), 
+                        new AMove()
+                        {
+                            dir = 2,
+                            targetPlayer = false,
+                            isRandom = true
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.B:
@@ -64,7 +74,15 @@ internal sealed class Havoc : Card, IRCard
                     new APlayTopCard()
                     {
                         exhaustThisCardAfterwards = false
-                    }
+                    },
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.shield), 1), 
+                        new AMove()
+                        {
+                            dir = 3,
+                            targetPlayer = false,
+                            isRandom = true
+                        }).AsCardAction,
                 ];
                 break;
         }

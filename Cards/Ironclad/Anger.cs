@@ -56,31 +56,39 @@ internal sealed class Anger : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new AAttack() 
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
+                        new AAttack() 
+                        {
+                            damage = GetDmg(s, GetBaseDamage()),
+                            status = Status.heat,
+                            statusAmount = 1
+                        }.WithHeatTipFix()).AsCardAction,
+                    new AStatus()
                     {
-                        damage = GetDmg(s, GetBaseDamage())
+                        status = Status.heat,
+                        statusAmount = 1,
+                        targetPlayer = true
                     },
-                    new ACascadingAddCard()
-                    {
-                        amount = 1,
-                        card = GetCopy(),
-                        destination = CardDestination.Discard,
-                    }
                 ];
                 break;
             case Upgrade.A:
                 actions = 
                 [
-                    new AAttack() 
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
+                        new AAttack() 
+                        {
+                            damage = GetDmg(s, GetBaseDamage()),
+                            status = Status.heat,
+                            statusAmount = 1
+                        }.WithHeatTipFix()).AsCardAction,
+                    new AStatus()
                     {
-                        damage = GetDmg(s, GetBaseDamage())
+                        status = Status.heat,
+                        statusAmount = 1,
+                        targetPlayer = true
                     },
-                    new ACascadingAddCard()
-                    {
-                        amount = 1,
-                        card = GetCopy(),
-                        destination = CardDestination.Discard,
-                    }
                 ];
                 break;
             case Upgrade.B:
@@ -88,15 +96,10 @@ internal sealed class Anger : Card, IRCard
                 [
                     new AAttack() 
                     {
-                        damage = GetDmg(s, GetBaseDamage())
-                    },
-                    new ACascadingAddCard()
-                    {
-                        amount = 1,
-                        card = GetCopy(),
-                        destination = CardDestination.Deck,
-                        insertRandomly = true
-                    }
+                        damage = GetDmg(s, GetBaseDamage()),
+                        status = Status.heat,
+                        statusAmount = 1
+                    }.WithHeatTipFix()
                 ];
                 break;
         }

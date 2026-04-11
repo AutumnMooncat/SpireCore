@@ -30,7 +30,7 @@ internal sealed class Juggernaut : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.A ? 3 : 4,
+            cost = upgrade == Upgrade.A ? 1 : 2,
             exhaust = true
         };
         return data;
@@ -69,6 +69,12 @@ internal sealed class Juggernaut : Card, IRCard
                     new AStatus()
                     {
                         status = JuggernautStatus.Entry.Status,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.shield,
                         statusAmount = 2,
                         targetPlayer = true
                     }

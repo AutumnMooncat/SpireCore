@@ -30,7 +30,8 @@ internal sealed class TrueGrit : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.B ? 0 : 1
+            cost = upgrade == Upgrade.A ? 0 : 1,
+            flippable = upgrade == Upgrade.B
         };
         return data;
     }
@@ -45,13 +46,20 @@ internal sealed class TrueGrit : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.tempShield,
+                        status = Status.shield,
                         statusAmount = 2,
                         targetPlayer = true,
                     },
-                    new AExhaustRandomCard()
+                    /*new AExhaustRandomCard()
                     {
                         howManyCards = 1
+                    }*/
+                    new ACardContext()
+                    {
+                        context = ACardContext.Context.RightHand,
+                        thatIsnt = this,
+                        flipped = flipped,
+                        followup = new TorchCard()
                     }
                 ];
                 break;
@@ -60,17 +68,20 @@ internal sealed class TrueGrit : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.tempShield,
-                        statusAmount = 3,
+                        status = Status.shield,
+                        statusAmount = 2,
                         targetPlayer = true,
                     },
-                    new ACascadingCardSelect()
+                    /*new AExhaustRandomCard()
                     {
-                        browseSource = CardBrowse.Source.Hand,
-                        browseAction = new MoveSelectedCardToPile
-                        {
-                            targetLocation = CardBrowse.Source.ExhaustPile
-                        }
+                        howManyCards = 1
+                    }*/
+                    new ACardContext()
+                    {
+                        context = ACardContext.Context.RightHand,
+                        thatIsnt = this,
+                        flipped = flipped,
+                        followup = new TorchCard()
                     }
                 ];
                 break;
@@ -79,13 +90,20 @@ internal sealed class TrueGrit : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.tempShield,
+                        status = Status.shield,
                         statusAmount = 2,
                         targetPlayer = true,
                     },
-                    new AExhaustRandomCard()
+                    /*new AExhaustRandomCard()
                     {
                         howManyCards = 1
+                    }*/
+                    new ACardContext()
+                    {
+                        context = ACardContext.Context.RightHand,
+                        thatIsnt = this,
+                        flipped = flipped,
+                        followup = new TorchCard()
                     }
                 ];
                 break;

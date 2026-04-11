@@ -8,7 +8,7 @@ using AutumnMooncat.Spirecore.Util;
 
 namespace AutumnMooncat.Spirecore.Cards.Ironclad;
 
-internal sealed class SearingBlow : Card, IRCard, ITooltipHelper, ICustomUpgrades
+internal sealed class SearingBlow : Card, IRCard/*, ITooltipHelper, ICustomUpgrades, IHasCustomCardTraits*/
 {
     public static string ID => nameof(SearingBlow);
     public static ICardEntry Entry { get; set; }
@@ -22,7 +22,7 @@ internal sealed class SearingBlow : Card, IRCard, ITooltipHelper, ICustomUpgrade
             {
                 deck = Characters.Ironclad.DeckEntry.Deck,
                 rarity = Rarity.uncommon,
-                upgradesTo = [Upgrade.A]
+                upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = MainModFile.Bind(["card", ID, "name"]).Localize,
             Art = IRCard.LookUpSpr(Characters.Ironclad.CardAssetPath + ID)
@@ -35,21 +35,86 @@ internal sealed class SearingBlow : Card, IRCard, ITooltipHelper, ICustomUpgrade
         {
             cost = 2
         };
-        MainModFile.Instance.Helper.Content.Cards.SetCardTraitOverride(state, this, Limitless.Entry, true, true);
         return data;
     }
     
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        List<CardAction> actions = 
-        [
-            new AAttack()
-            {
-                damage = GetDmg(s, 4 + 2*(int)upgrade)
-            }
-        ];
-        
+        List<CardAction> actions = [];
+        switch (upgrade)
+        {
+            case Upgrade.None:
+                actions = 
+                [
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 5),
+                        status = Status.heat,
+                        statusAmount = 3,
+                    }.WithHeatTipFix(),
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 3,
+                        targetPlayer = true
+                    },
+                ];
+                break;
+            case Upgrade.A:
+                actions = 
+                [
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 5),
+                        status = Status.heat,
+                        statusAmount = 3,
+                        piercing = true
+                    }.WithHeatTipFix(),
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 3,
+                        targetPlayer = true
+                    },
+                ];
+                break;
+            case Upgrade.B:
+                actions = 
+                [
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 3),
+                        status = Status.heat,
+                        statusAmount = 3
+                    }.WithHeatTipFix(),
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 3),
+                        status = Status.heat,
+                        statusAmount = 3
+                    }.WithHeatTipFix(),
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 3,
+                        targetPlayer = true
+                    },
+                ];
+                break;
+        }
         return actions;
+    }
+    
+    /*public override List<CardAction> GetActions(State s, Combat c)
+    {
+        var att = new AAttack()
+        {
+            damage = GetDmg(s, 4 + 2 * (int)upgrade),
+            status = Status.heat,
+            statusAmount = 1 + (int)upgrade
+        }.WithHeatTipFix();
+        
+        return [att];
     }
 
     public bool IsUpgradableOverride(bool baseResult)
@@ -68,4 +133,10 @@ internal sealed class SearingBlow : Card, IRCard, ITooltipHelper, ICustomUpgrade
         ret.upgradesTo = [(Upgrade)((int)upgrade + 1)];
         return ret;
     }
+
+    public IReadOnlySet<ICardTraitEntry> GetInnateTraits(State state)
+    {
+        HashSet<ICardTraitEntry> ret = [Limitless.Entry];
+        return ret;
+    }*/
 }

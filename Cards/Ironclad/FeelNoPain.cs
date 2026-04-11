@@ -30,7 +30,7 @@ internal sealed class FeelNoPain : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.A ? 1 : 2,
+            cost = upgrade == Upgrade.A ? 0 : 1,
             exhaust = true
         };
         return data;
@@ -74,8 +74,8 @@ internal sealed class FeelNoPain : Card, IRCard
                     },
                     new AStatus()
                     {
-                        status = Status.tempShield,
-                        statusAmount = 2,
+                        status = Status.maxShield,
+                        statusAmount = 1,
                         targetPlayer = true
                     }
                 ];

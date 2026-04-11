@@ -29,7 +29,8 @@ internal sealed class Bash : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 2
+            cost = 2,
+            flippable = upgrade == Upgrade.A
         };
         return data;
     }
@@ -44,14 +45,17 @@ internal sealed class Bash : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 2)
+                        damage = GetDmg(s, 2),
+                        moveEnemy = -2
                     },
-                    new AStatus()
-                    {
-                        status = Status.overdrive,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 3), 
+                        new AStatus()
+                        {
+                            status = Status.overdrive,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.A:
@@ -59,14 +63,17 @@ internal sealed class Bash : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 3)
+                        damage = GetDmg(s, 2),
+                        moveEnemy = -2
                     },
-                    new AStatus()
-                    {
-                        status = Status.overdrive,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 3), 
+                        new AStatus()
+                        {
+                            status = Status.overdrive,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.B:
@@ -74,18 +81,17 @@ internal sealed class Bash : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 1),
+                        damage = GetDmg(s, 3),
+                        moveEnemy = -3
                     },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1),
-                    },
-                    new AStatus()
-                    {
-                        status = Status.overdrive,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 3), 
+                        new AStatus()
+                        {
+                            status = Status.overdrive,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                 ];
                 break;
         }

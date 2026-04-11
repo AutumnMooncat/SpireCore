@@ -48,10 +48,20 @@ internal sealed class ShrugItOff : Card, IRCard
                         dir = 2,
                         targetPlayer = false
                     },
-                    new ADrawCard()
+                    new AStatus()
                     {
-                        count = 1
+                        status = Status.shield,
+                        statusAmount = 1,
+                        targetPlayer = true
                     }
+                    /*MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.shield), 1), 
+                        new AStatus()
+                        {
+                            status = Status.shield,
+                            statusAmount = 2,
+                            targetPlayer = true
+                        }).AsCardAction,*/
                 ];
                 break;
             case Upgrade.A:
@@ -62,10 +72,20 @@ internal sealed class ShrugItOff : Card, IRCard
                         dir = 2,
                         targetPlayer = false
                     },
-                    new ADrawCard()
+                    new AStatus()
                     {
-                        count = 1
+                        status = Status.shield,
+                        statusAmount = 1,
+                        targetPlayer = true
                     }
+                    /*MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.shield), 1), 
+                        new AStatus()
+                        {
+                            status = Status.shield,
+                            statusAmount = 2,
+                            targetPlayer = true
+                        }).AsCardAction,*/
                 ];
                 break;
             case Upgrade.B:
@@ -76,10 +96,20 @@ internal sealed class ShrugItOff : Card, IRCard
                         dir = 2,
                         targetPlayer = false
                     },
-                    new ADrawCard()
+                    new AStatus()
                     {
-                        count = 2
+                        status = Status.shield,
+                        statusAmount = 2,
+                        targetPlayer = true
                     }
+                    /*MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.shield), 1), 
+                        new AStatus()
+                        {
+                            status = Status.shield,
+                            statusAmount = 3,
+                            targetPlayer = true
+                        }).AsCardAction,*/
                 ];
                 break;
         }

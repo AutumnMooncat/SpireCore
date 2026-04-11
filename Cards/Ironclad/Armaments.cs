@@ -30,8 +30,7 @@ internal sealed class Armaments : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 1,
-            exhaust = true
+            cost = 1
         };
         
         return data;
@@ -48,11 +47,23 @@ internal sealed class Armaments : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.tempShield,
+                        status = Status.shield,
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new ACascadingCardSelect()
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
+                        new ACardContext()
+                        {
+                            context = ACardContext.Context.LeftHand,
+                            thatIsnt = this,
+                            flipped = flipped,
+                            followup = new TempUpgradeSelectedCard()
+                            {
+                                upgrade = Upgrade.A
+                            }
+                        }).AsCardAction,
+                    /*new ACascadingCardSelect()
                     {
                         browseSource = CardBrowse.Source.Hand,
                         browseAction = new TempUpgradeSelectedCard()
@@ -61,7 +72,7 @@ internal sealed class Armaments : Card, IRCard
                         },
                         filterAvailableUpgrade = Upgrade.A,
                         allowCancel = true,
-                    }
+                    }*/
                 ];
                 break;
             case Upgrade.A:
@@ -69,14 +80,16 @@ internal sealed class Armaments : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.tempShield,
+                        status = Status.shield,
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new ATempUpgradeRandomCard()
-                    {
-                        upgrade = Upgrade.A
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
+                        new ATempUpgradeRandomCard()
+                        {
+                            upgrade = Upgrade.A
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.B:
@@ -84,14 +97,16 @@ internal sealed class Armaments : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.tempShield,
+                        status = Status.shield,
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new ATempUpgradeRandomCard()
-                    {
-                        upgrade = Upgrade.B
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
+                        new ATempUpgradeRandomCard()
+                        {
+                            upgrade = Upgrade.B
+                        }).AsCardAction,
                 ];
                 break;
         }

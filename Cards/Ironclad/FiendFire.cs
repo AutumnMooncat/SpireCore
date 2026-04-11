@@ -46,11 +46,6 @@ internal sealed class FiendFire : Card, IRCard
     public override List<CardAction> GetActions(State s, Combat c)
     {
         List<CardAction> actions = [];
-        var dmg = new AAttack()
-        {
-            damage = GetDmg(s, GetBaseDamage())
-        };
-        dmg.SetExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]);
         switch (upgrade)
         {
             case Upgrade.None:
@@ -61,9 +56,12 @@ internal sealed class FiendFire : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
-                    dmg,
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, GetBaseDamage())
+                    }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
                     MainModFile.AddTooltips([ITooltipHelper.MakeTooltip("card", ID, CommonIcons.Repeat, Colors.action)]),
-                    new AExhaustEntireHand()
+                    new ATorchEntireHand()
                 ];
                 break;
             case Upgrade.A:
@@ -74,9 +72,12 @@ internal sealed class FiendFire : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
-                    dmg,
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, GetBaseDamage())
+                    }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
                     MainModFile.AddTooltips([ITooltipHelper.MakeTooltip("card", ID, CommonIcons.Repeat, Colors.action)]),
-                    new AExhaustEntireHand()
+                    new ATorchEntireHand()
                 ];
                 break;
             case Upgrade.B:
@@ -87,9 +88,12 @@ internal sealed class FiendFire : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
-                    dmg,
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, GetBaseDamage())
+                    }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
                     MainModFile.AddTooltips([ITooltipHelper.MakeTooltip("card", ID, CommonIcons.Repeat, Colors.action)]),
-                    new AExhaustEntireHand()
+                    new ATorchEntireHand()
                 ];
                 break;
         }

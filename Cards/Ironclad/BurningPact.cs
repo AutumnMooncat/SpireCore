@@ -43,13 +43,16 @@ internal sealed class BurningPact : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 1,
+                        targetPlayer = false
+                    },
                     new ACascadingCardSelect()
                     {
                         browseSource = CardBrowse.Source.Hand,
-                        browseAction = new MoveSelectedCardToPile
-                        {
-                            targetLocation = CardBrowse.Source.ExhaustPile
-                        }
+                        browseAction = new TorchCard()
                     },
                     new ADrawCard()
                     {
@@ -60,13 +63,16 @@ internal sealed class BurningPact : Card, IRCard
             case Upgrade.A:
                 actions = 
                 [
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 1,
+                        targetPlayer = false
+                    },
                     new ACascadingCardSelect()
                     {
                         browseSource = CardBrowse.Source.Hand,
-                        browseAction = new MoveSelectedCardToPile
-                        {
-                            targetLocation = CardBrowse.Source.ExhaustPile
-                        }
+                        browseAction = new TorchCard()
                     },
                     new ADrawCard()
                     {
@@ -77,13 +83,16 @@ internal sealed class BurningPact : Card, IRCard
             case Upgrade.B:
                 actions = 
                 [
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = 1,
+                        targetPlayer = false
+                    },
                     new ACascadingCardSelect()
                     {
                         browseSource = CardBrowse.Source.Hand,
-                        browseAction = new MoveSelectedCardToPile
-                        {
-                            targetLocation = CardBrowse.Source.ExhaustPile
-                        }
+                        browseAction = new TorchCard()
                     },
                     new AStatus()
                     {
