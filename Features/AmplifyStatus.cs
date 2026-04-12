@@ -13,8 +13,6 @@ public class AmplifyStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
 {
     public static string ID => nameof(AmplifyStatus);
     public static IStatusEntry Entry { get; set; }
-
-    private static int? lastID;
     
     public static void Register(IModHelper helper)
     {
@@ -36,24 +34,19 @@ public class AmplifyStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
         helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnPlayerPlayCard),
             (int energyCost, Deck deck, Card card, State state, Combat combat, int handPosition, int handCount) =>
             {
-                if (state.ship.Get(Entry.Status) == 0 /*|| !Wiz.IsAttack(card, state, combat)*/ || card.uuid == lastID)
+                if (state.ship.Get(Entry.Status) == 0)
                 {
                     return;
                 }
-
+                
                 combat.Queue(new AZeroDoublerAction()
                 {
                     uuid = card.uuid,
                     backupCard = card.CopyWithNewId()
                 });
-                combat.cardActions.RemoveAll((Predicate<CardAction>) (action => action is AEndTurn));
                 
-                //var copy = card.CopyWithNewId();
-                //MainModFile.Instance.Helper.Content.Cards.SetCardTraitOverride(state, copy, MainModFile.Instance.Helper.Content.Cards.SingleUseCardTrait, true, true);
-                lastID = card.uuid;
+                combat.cardActions.RemoveAll((Predicate<CardAction>) (action => action is AEndTurn));
                 state.ship.Set(Entry.Status, state.ship.Get(Entry.Status) - 1);
-                // combat.cardActions.RemoveAll((Predicate<CardAction>) (action => action is AEndTurn)); // ??
-                //combat.QueueImmediate(new DoTheThing{card = copy});
             });
     }
 
