@@ -28,6 +28,19 @@ public class FeebledriveStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
         });
         var _ = new FeebledriveStatus();
         MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(_);
+        MainModFile.GetHelper().Events.RegisterAfterArtifactsHook(nameof(Artifact.ModifyBaseDamage), (int baseDamage,
+            Card card,
+            State state,
+            Combat combat,
+            bool fromPlayer) =>
+        {
+            if (fromPlayer)
+            {
+                return -state.ship.Get(Entry.Status);
+            }
+            
+            return -combat?.otherShip.Get(Entry.Status) ?? 0;
+        });
     }
 
     public bool HandleStatusTurnAutoStep(IKokoroApi.IV2.IStatusLogicApi.IHook.IHandleStatusTurnAutoStepArgs args)
