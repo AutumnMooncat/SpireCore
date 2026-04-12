@@ -27,7 +27,7 @@ public class ReboundStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
             Description = MainModFile.Instance.AnyLocalizations.Bind(["status", ID, "description"]).Localize
         });
         var _ = new ReboundStatus();
-        MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(_);
+        MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(_, 10);
     }
 
     public bool HandleStatusTurnAutoStep(IKokoroApi.IV2.IStatusLogicApi.IHook.IHandleStatusTurnAutoStepArgs args)
@@ -43,6 +43,7 @@ public class ReboundStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
         }
         
         args.Amount = 0;
+        args.SetStrategy = IKokoroApi.IV2.IStatusLogicApi.StatusTurnAutoStepSetStrategy.Direct;
         return true;
     }
 }

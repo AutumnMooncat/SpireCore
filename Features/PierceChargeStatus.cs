@@ -31,7 +31,7 @@ public class PierceChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
             Description = MainModFile.Instance.AnyLocalizations.Bind(["status", ID, "description"]).Localize
         });
         var _ = new PierceChargeStatus();
-        MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(_);
+        MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(_, 10);
         MainModFile.Instance.KokoroApi.V2.StatusRendering.RegisterHook(_);
         helper.Events.RegisterAfterArtifactsHook(nameof(Artifact.OnPlayerAttackMakeItPierce),
             (State state, Combat combat) =>
@@ -77,6 +77,7 @@ public class PierceChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
         }
         
         args.Amount = 0;
+        args.SetStrategy = IKokoroApi.IV2.IStatusLogicApi.StatusTurnAutoStepSetStrategy.Direct;
         return false;
     }
 }

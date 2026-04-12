@@ -32,8 +32,8 @@ public class AmplifyStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
             Name = MainModFile.Instance.AnyLocalizations.Bind(["status", ID, "name"]).Localize,
             Description = MainModFile.Instance.AnyLocalizations.Bind(["status", ID, "description"]).Localize
         });
-        MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(new AmplifyStatus());
-        helper.Events.RegisterBeforeArtifactsHook("OnPlayerPlayCard",
+        MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(new AmplifyStatus(), 10);
+        helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnPlayerPlayCard),
             (int energyCost, Deck deck, Card card, State state, Combat combat, int handPosition, int handCount) =>
             {
                 if (state.ship.Get(Entry.Status) == 0 /*|| !Wiz.IsAttack(card, state, combat)*/ || card.uuid == lastID)
@@ -70,6 +70,7 @@ public class AmplifyStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
         }
         
         args.Amount = 0;
+        args.SetStrategy = IKokoroApi.IV2.IStatusLogicApi.StatusTurnAutoStepSetStrategy.Direct;
         return false;
     }
 }

@@ -29,7 +29,7 @@ public class DivinityStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IK
             Description = MainModFile.Instance.AnyLocalizations.Bind(["status", ID, "description"]).Localize
         });
         var _ = new DivinityStatus();
-        MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(_);
+        MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(_, 10);
         MainModFile.Instance.KokoroApi.V2.StatusRendering.RegisterHook(_);
         MainModFile.GetHelper().Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnCombatEnd), (State state) =>
         {
@@ -74,6 +74,7 @@ public class DivinityStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IK
         
         CleanUp(args.State);
         args.Amount = 0;
+        args.SetStrategy = IKokoroApi.IV2.IStatusLogicApi.StatusTurnAutoStepSetStrategy.Direct;
         return false;
     }
     
