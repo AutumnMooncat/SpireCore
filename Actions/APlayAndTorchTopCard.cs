@@ -22,13 +22,18 @@ public class APlayAndTorchTopCard : CardAction, IMultiIconAction, ITooltipHelper
         if (s.deck.Count > 0)
         {
             Card card = s.deck[^1];
+            List<CardAction> backup = [..c.cardActions];
+            c.cardActions.Clear();
+            s.RemoveCardFromWhereverItIs(card.uuid);
+            c.SendCardToHand(s, card);
             c.TryPlayCard(s, card, true, true);
-            c.QueueImmediate(new AStatus()
+            c.Queue(new AStatus()
             {
                 status = Status.heat,
                 statusAmount = 1,
                 targetPlayer = true
             });
+            c.Queue(backup);
         }
         else
         {
