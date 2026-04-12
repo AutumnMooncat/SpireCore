@@ -56,10 +56,20 @@ internal sealed class FiendFire : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, GetBaseDamage())
-                    }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
+                    MainModFile.Kokoro().SpoofedActions.MakeAction(
+                        new AAttack() 
+                        { 
+                            damage = GetDmg(s, GetBaseDamage()) 
+                        }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
+                        new ARepeatAction()
+                        {
+                            action = new AAttack()
+                            {
+                                damage = GetDmg(s, GetBaseDamage())
+                            },
+                            amount = CardsInHand(s)
+                        }
+                        ).AsCardAction,
                     MainModFile.AddTooltips([ITooltipHelper.MakeTooltip("card", ID, CommonIcons.Repeat, Colors.action)]),
                     new ATorchEntireHand()
                 ];
@@ -72,10 +82,20 @@ internal sealed class FiendFire : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, GetBaseDamage())
-                    }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
+                    MainModFile.Kokoro().SpoofedActions.MakeAction(
+                        new AAttack() 
+                        { 
+                            damage = GetDmg(s, GetBaseDamage()) 
+                        }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
+                        new ARepeatAction()
+                        {
+                            action = new AAttack()
+                            {
+                                damage = GetDmg(s, GetBaseDamage())
+                            },
+                            amount = CardsInHand(s)
+                        }
+                    ).AsCardAction,
                     MainModFile.AddTooltips([ITooltipHelper.MakeTooltip("card", ID, CommonIcons.Repeat, Colors.action)]),
                     new ATorchEntireHand()
                 ];
@@ -88,10 +108,20 @@ internal sealed class FiendFire : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, GetBaseDamage())
-                    }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
+                    MainModFile.Kokoro().SpoofedActions.MakeAction(
+                        new AAttack() 
+                        { 
+                            damage = GetDmg(s, GetBaseDamage()) 
+                        }.WithExtraIcons([new (){spr = CommonIcons.Repeat, amount = CardsInHand(s), xHint = 1}]),
+                        new ARepeatAction()
+                        {
+                            action = new AAttack()
+                            {
+                                damage = GetDmg(s, GetBaseDamage())
+                            },
+                            amount = CardsInHand(s)
+                        }
+                    ).AsCardAction,
                     MainModFile.AddTooltips([ITooltipHelper.MakeTooltip("card", ID, CommonIcons.Repeat, Colors.action)]),
                     new ATorchEntireHand()
                 ];
