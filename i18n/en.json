@@ -821,7 +821,7 @@
     },
     "LightningObject": {
       "title": "Lightning",
-      "description": "Destroying it will shoot a <c=damage>{{Damage}}</c> damage shot at the enemy."
+      "description": "Contributes <c=cardtrait>+1</c> <c=status>CHARGE</c>. Destroying it will shoot a <c=damage>{{Damage}}</c> damage shot at the enemy."
     },
     "FrostObject": {
       "title": "Frost",
@@ -833,7 +833,7 @@
     },
     "PlasmaObject": {
       "title": "Plasma",
-      "description": "Destroying it will give you <c=keyword>{{Energy}}</c> <c=status>ENERGY</c>."
+      "description": "Contributes <c=cardtrait>+1</c> <c=status>CHARGE</c>. Destroying it will give you <c=keyword>{{Energy}}</c> <c=status>ENERGY</c>."
     }
   },
   "resource": {
