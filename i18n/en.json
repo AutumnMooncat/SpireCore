@@ -328,9 +328,9 @@
       "title": "Catch",
       "description": "Remove the <c=drone>midrow object</c> in front of your missile bay.",
       "title2": "Launch",
-      "description2": "Launch <c=keyword>2</c> copies of the <c=drone>object</c> from your missile bay, facing you.",
+      "description2": "Launch <c=keyword>2</c> copies of the <c=drone>object</c> from your missile bay, <c=keyword>facing you</c>.",
       "title3": "Launch",
-      "description3": "Launch <c=keyword>2</c> copies of the <c=drone>object</c> from your missile bay, facing the enemy."
+      "description3": "Launch <c=keyword>2</c> copies of the <c=drone>object</c> from your missile bay, <c=keyword>facing the enemy</c>."
     },
     "EchoForm": {
       "name": "Echo Form"
@@ -367,13 +367,13 @@
       "title": "Copy",
       "description": "Copy the <c=drone>midrow object</c> in front of your missile bay.",
       "title2": "Launch",
-      "description2": "Launch a copy <c=keyword>1</c> space to the right of your missile bay, facing you.",
+      "description2": "Launch a copy <c=keyword>1</c> space to the right of your missile bay, <c=keyword>facing you</c>.",
       "title3": "Launch",
-      "description3": "Launch a copy <c=keyword>1</c> space to the right of your missile bay, facing the enemy.",
+      "description3": "Launch a copy <c=keyword>1</c> space to the right of your missile bay, <c=keyword>facing the enemy</c>.",
       "title4": "Launch",
-      "description4": "Launch a copy <c=keyword>1</c> space to the left and right of your missile bay, facing you.",
+      "description4": "Launch a copy <c=keyword>1</c> space to the left and right of your missile bay, <c=keyword>facing you</c>.",
       "title5": "Launch",
-      "description5": "Launch a copy <c=keyword>1</c> space to the left and right of your missile bay, facing the enemy."
+      "description5": "Launch a copy <c=keyword>1</c> space to the left and right of your missile bay, <c=keyword>facing the enemy</c>."
     },
     "Recycle": {
       "name": "Recycle"

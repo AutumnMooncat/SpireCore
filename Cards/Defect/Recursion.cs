@@ -32,7 +32,8 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
         CardData data = new CardData()
         {
             cost = upgrade == Upgrade.A ? 0 : upgrade == Upgrade.B ? 2 : 1,
-            floppable = true
+            floppable = true,
+            art = flipped ? StableSpr.cards_Adaptability_Bottom : StableSpr.cards_Adaptability_Top
         };
         return data;
     }
@@ -42,9 +43,9 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
         Records.TexturePayload[] pl = 
         [
             new (){spr = CommonIcons.Spawn},
-            new (){spr = CommonIcons.Question, x = 10, flipY = s.ship.Get(Status.backwardsMissiles) > 0 != flipped}
+            new (){spr = CommonIcons.Question, x = 10, flipY = s.ship.Get(Status.backwardsMissiles) > 0 == flipped}
         ];
-        int suffix = s.ship.Get(Status.backwardsMissiles) > 0 != flipped ? 3 : 2;
+        int suffix = s.ship.Get(Status.backwardsMissiles) > 0 != flipped ? 2 : 3;
         if (upgrade == Upgrade.B)
         {
             suffix += 2;
@@ -78,7 +79,7 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
             case Upgrade.A:
                 actions = 
                 [
-                    new DelegateAction()
+                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
                     {
                         icon = new Icon(CommonIcons.Catch2, null, Colors.textMain),
                         getTips = (_, _) => GetTips(s),
@@ -105,7 +106,7 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
                             }
                             
                             StuffBase clone = Mutil.DeepCopy(stuff);
-                            clone.targetPlayer = !flipped;
+                            clone.targetPlayer = flipped;
                             c.QueueImmediate(new ASpawn()
                             {
                                 thing = clone,
@@ -114,6 +115,11 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
                             
                             return null;
                         }
+                    }).SetShowTooltips(true).AsCardAction,
+                    new InfoOnlyAction()
+                    {
+                        disabled = flipped,
+                        icon = new Icon(CommonIcons.Catch2, null, Colors.textMain),
                     },
                     new InfoOnlyAction()
                     {
@@ -121,8 +127,14 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
                         extraIcons = 
                         [
                             new (){spr = CommonIcons.SpawnR, amount = 1, color = Colors.drone},
-                            new (){spr = CommonIcons.Question, flipY = s.ship.Get(Status.backwardsMissiles) > 0}
+                            new (){spr = CommonIcons.Question, flipY = s.ship.Get(Status.backwardsMissiles) == 0}
                         ]
+                    },
+                    new ADummyAction(),
+                    new InfoOnlyAction()
+                    {
+                        disabled = !flipped,
+                        icon = new Icon(CommonIcons.Catch2, null, Colors.textMain),
                     },
                     new InfoOnlyAction()
                     {
@@ -130,7 +142,7 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
                         extraIcons = 
                         [
                             new (){spr = CommonIcons.SpawnR, amount = 1, color = Colors.drone},
-                            new (){spr = CommonIcons.Question, flipY = s.ship.Get(Status.backwardsMissiles) == 0}
+                            new (){spr = CommonIcons.Question, flipY = s.ship.Get(Status.backwardsMissiles) > 0}
                         ]
                     }
                 ];
@@ -138,7 +150,7 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
             case Upgrade.B:
                 actions = 
                 [
-                    new DelegateAction()
+                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
                     {
                         icon = new Icon(CommonIcons.Catch2, null, Colors.textMain),
                         getTips = (_, _) => GetTips(s),
@@ -165,14 +177,14 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
                             }
                             
                             StuffBase clone = Mutil.DeepCopy(stuff);
-                            clone.targetPlayer = !flipped;
+                            clone.targetPlayer = flipped;
                             c.QueueImmediate(new ASpawn()
                             {
                                 thing = clone,
                                 offset = -1
                             });
                             StuffBase clone2 = Mutil.DeepCopy(stuff);
-                            clone2.targetPlayer = !flipped;
+                            clone2.targetPlayer = flipped;
                             c.QueueImmediate(new ASpawn()
                             {
                                 thing = clone2,
@@ -181,6 +193,11 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
                             
                             return null;
                         }
+                    }).SetShowTooltips(true).AsCardAction,
+                    new InfoOnlyAction()
+                    {
+                        disabled = flipped,
+                        icon = new Icon(CommonIcons.Catch2, null, Colors.textMain),
                     },
                     new InfoOnlyAction()
                     {
@@ -189,8 +206,14 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
                         [
                             new (){spr = CommonIcons.SpawnL},
                             new (){spr = CommonIcons.SpawnR, amount = 1, color = Colors.drone},
-                            new (){spr = CommonIcons.Question, flipY = s.ship.Get(Status.backwardsMissiles) > 0}
+                            new (){spr = CommonIcons.Question, flipY = s.ship.Get(Status.backwardsMissiles) == 0}
                         ]
+                    },
+                    new ADummyAction(),
+                    new InfoOnlyAction()
+                    {
+                        disabled = !flipped,
+                        icon = new Icon(CommonIcons.Catch2, null, Colors.textMain),
                     },
                     new InfoOnlyAction()
                     {
@@ -199,9 +222,10 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
                         [
                             new (){spr = CommonIcons.SpawnL},
                             new (){spr = CommonIcons.SpawnR, amount = 1, color = Colors.drone},
-                            new (){spr = CommonIcons.Question, flipY = s.ship.Get(Status.backwardsMissiles) == 0}
+                            new (){spr = CommonIcons.Question, flipY = s.ship.Get(Status.backwardsMissiles) > 0}
                         ]
-                    }
+                    },
+                    
                 ];
                 break;
         }
