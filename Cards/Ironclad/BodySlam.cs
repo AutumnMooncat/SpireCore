@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AutumnMooncat.Spirecore.Cards.Ironclad;
+namespace AutumnMooncat.SpireCore.Cards.Ironclad;
 
 [IRegisterable.Ignore]
 internal sealed class BodySlam : Card, IRCard

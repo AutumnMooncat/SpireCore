@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Features;
 
-namespace AutumnMooncat.Spirecore.Cards.Ironclad;
+namespace AutumnMooncat.SpireCore.Cards.Ironclad;
 
 [IRegisterable.Ignore]
 internal sealed class Barricade : Card, IRCard

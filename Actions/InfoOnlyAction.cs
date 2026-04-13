@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AutumnMooncat.Spirecore.Actions;
+namespace AutumnMooncat.SpireCore.Actions;
 
 public class InfoOnlyAction : CardAction, IMultiIconAction
 {

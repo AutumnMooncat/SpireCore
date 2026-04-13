@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.Characters;
+using AutumnMooncat.SpireCore.Characters;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features.Dialogue;
+namespace AutumnMooncat.SpireCore.Features.Dialogue;
 
 internal sealed class EventDialogue : IRDialogue
 {

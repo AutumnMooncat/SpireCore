@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using HarmonyLib;
 
-namespace AutumnMooncat.Spirecore.Patches;
+namespace AutumnMooncat.SpireCore.Patches;
 
 [HarmonyPatch]
 public class TooltipFixPatch

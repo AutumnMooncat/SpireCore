@@ -4,7 +4,7 @@ using System.Numerics;
 using daisyowl.text;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.ExternalAPI;
+namespace AutumnMooncat.SpireCore.ExternalAPI;
 
 /// <summary>
 /// Provides access to <c>Nickel.ModSettings</c> APIs.

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore;
+using AutumnMooncat.SpireCore;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
-using AutumnMooncat.Spirecore.Features;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Features;
+using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
 namespace AutumnMooncat.SpireCore.Util;

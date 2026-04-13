@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.ExternalAPI;
+using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class RageStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKokoroApi.IV2.IStatusRenderingApi.IHook
 {

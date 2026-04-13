@@ -1,4 +1,4 @@
-namespace AutumnMooncat.Spirecore.Features.Dialogue;
+namespace AutumnMooncat.SpireCore.Features.Dialogue;
 
 public static class CType
 {

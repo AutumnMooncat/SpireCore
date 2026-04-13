@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features.Dialogue;
+namespace AutumnMooncat.SpireCore.Features.Dialogue;
 
 internal static class DialogueExt
 {

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class ShivObject : Missile, ITooltipHelper
 {

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.Cards.Silent;
-using AutumnMooncat.Spirecore.Cards.Watcher;
-using AutumnMooncat.Spirecore.ExternalAPI;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Cards.Silent;
+using AutumnMooncat.SpireCore.Cards.Watcher;
+using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class StudyStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKokoroApi.IV2.IStatusRenderingApi.IHook
 {

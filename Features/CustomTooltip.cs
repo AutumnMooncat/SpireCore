@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 /// <summary>
 /// A tooltip, mimicking one that would be used for a game glossary.

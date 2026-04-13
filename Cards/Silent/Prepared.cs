@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AutumnMooncat.Spirecore.Cards.Silent;
+namespace AutumnMooncat.SpireCore.Cards.Silent;
 
 internal sealed class Prepared : Card, IRCard
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AutumnMooncat.Spirecore.Artifacts.Ironclad;
+namespace AutumnMooncat.SpireCore.Artifacts.Ironclad;
 
 internal sealed class CharonsAshes : Artifact, IRArtifact, IArtifactOnExhaust
 {

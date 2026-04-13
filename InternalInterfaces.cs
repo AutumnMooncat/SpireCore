@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Features;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore;
+namespace AutumnMooncat.SpireCore;
 
 internal interface IRegisterable
 {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Util;
+namespace AutumnMooncat.SpireCore.Util;
 
 public class TextureProcessor
 {

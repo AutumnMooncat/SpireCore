@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
+using AutumnMooncat.SpireCore.Actions;
 
-namespace AutumnMooncat.Spirecore.Cards.Silent;
+namespace AutumnMooncat.SpireCore.Cards.Silent;
 
 internal sealed class Setup : Card, IRCard
 {

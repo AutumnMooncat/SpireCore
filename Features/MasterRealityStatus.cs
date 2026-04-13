@@ -1,10 +1,10 @@
 using System.Linq;
-using AutumnMooncat.Spirecore.ExternalAPI;
+using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class MasterRealityStatus : IRStatus, IKokoroApi.IV2.IStatusRenderingApi.IHook
 {

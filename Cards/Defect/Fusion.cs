@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Features;
 
-namespace AutumnMooncat.Spirecore.Cards.Defect;
+namespace AutumnMooncat.SpireCore.Cards.Defect;
 
 internal sealed class Fusion : Card, IRCard
 {

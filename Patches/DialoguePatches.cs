@@ -1,10 +1,10 @@
 using System.Linq;
-using AutumnMooncat.Spirecore.Characters;
-using AutumnMooncat.Spirecore.Features.Dialogue;
+using AutumnMooncat.SpireCore.Characters;
+using AutumnMooncat.SpireCore.Features.Dialogue;
 using HarmonyLib;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Patches;
+namespace AutumnMooncat.SpireCore.Patches;
 
 [HarmonyPatch]
 public class DialoguePatches : IRDialogue

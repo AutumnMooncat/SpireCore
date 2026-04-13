@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
+using AutumnMooncat.SpireCore.Actions;
 
-namespace AutumnMooncat.Spirecore.Cards.Ironclad;
+namespace AutumnMooncat.SpireCore.Cards.Ironclad;
 
 [IRegisterable.Ignore]
 internal sealed class PowerThrough : Card, IRCard

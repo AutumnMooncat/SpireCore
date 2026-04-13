@@ -1,7 +1,7 @@
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Features;
 using HarmonyLib;
 
-namespace AutumnMooncat.Spirecore.Patches;
+namespace AutumnMooncat.SpireCore.Patches;
 
 [HarmonyPatch]
 public static class RetainPatches

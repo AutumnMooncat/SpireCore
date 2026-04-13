@@ -1,10 +1,10 @@
-using AutumnMooncat.Spirecore.Cards.Ironclad;
-using AutumnMooncat.Spirecore.ExternalAPI;
-using AutumnMooncat.Spirecore.Features.Dialogue;
+using AutumnMooncat.SpireCore.Cards.Ironclad;
+using AutumnMooncat.SpireCore.ExternalAPI;
+using AutumnMooncat.SpireCore.Features.Dialogue;
 using Nickel;
 using Nickel.Common;
 
-namespace AutumnMooncat.Spirecore.Characters;
+namespace AutumnMooncat.SpireCore.Characters;
 
 public class Ironclad : IRCharacter
 {

@@ -1,12 +1,12 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.Features;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Features;
+using AutumnMooncat.SpireCore.Util;
 using Newtonsoft.Json;
 
-namespace AutumnMooncat.Spirecore.Cards.Watcher;
+namespace AutumnMooncat.SpireCore.Cards.Watcher;
 
 internal sealed class SandsOfTime : Card, IRCard
 {

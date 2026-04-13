@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
-using AutumnMooncat.Spirecore.Util;
 using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKokoroApi.IV2.IStatusRenderingApi.IHook
 {

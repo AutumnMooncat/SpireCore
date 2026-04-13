@@ -1,10 +1,10 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.Patches;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Patches;
 
-namespace AutumnMooncat.Spirecore.Cards.Ironclad;
+namespace AutumnMooncat.SpireCore.Cards.Ironclad;
 
 [IRegisterable.Ignore]
 internal sealed class Headbutt : Card, IRCard

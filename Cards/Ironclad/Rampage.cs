@@ -2,11 +2,11 @@
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Util;
 using Newtonsoft.Json;
 
-namespace AutumnMooncat.Spirecore.Cards.Ironclad;
+namespace AutumnMooncat.SpireCore.Cards.Ironclad;
 
 [IRegisterable.Ignore]
 internal sealed class Rampage : Card, IRCard, ITooltipHelper

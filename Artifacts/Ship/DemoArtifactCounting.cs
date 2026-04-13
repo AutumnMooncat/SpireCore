@@ -1,7 +1,7 @@
 ﻿using Nickel;
 using System.Reflection;
 
-namespace AutumnMooncat.Spirecore.Artifacts.Ship;
+namespace AutumnMooncat.SpireCore.Artifacts.Ship;
 
 [IRegisterable.Ignore]
 internal sealed class DemoArtifactCounting : Artifact, IRArtifact

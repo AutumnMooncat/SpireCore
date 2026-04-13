@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Features;
 
-namespace AutumnMooncat.Spirecore.Cards.Silent;
+namespace AutumnMooncat.SpireCore.Cards.Silent;
 
 internal sealed class WraithForm : Card, IRCard
 {

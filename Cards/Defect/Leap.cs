@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AutumnMooncat.Spirecore.Cards.Defect;
+namespace AutumnMooncat.SpireCore.Cards.Defect;
 
 internal sealed class Leap : Card, IRCard
 {

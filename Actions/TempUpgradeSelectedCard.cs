@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Actions;
+namespace AutumnMooncat.SpireCore.Actions;
 
 public class TempUpgradeSelectedCard : CardAction, IMultiIconAction, ITooltipHelper
 {

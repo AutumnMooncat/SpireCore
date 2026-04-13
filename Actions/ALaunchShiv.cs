@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutumnMooncat.Spirecore.Features;
-using AutumnMooncat.Spirecore.Patches;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Features;
+using AutumnMooncat.SpireCore.Patches;
+using AutumnMooncat.SpireCore.Util;
 using FSPRO;
 
-namespace AutumnMooncat.Spirecore.Actions;
+namespace AutumnMooncat.SpireCore.Actions;
 
 public class ALaunchShiv : CardAction, ITooltipHelper, IMultiIconAction
 {

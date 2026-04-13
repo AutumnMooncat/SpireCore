@@ -1,10 +1,10 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Features;
 
-namespace AutumnMooncat.Spirecore.Cards.Watcher;
+namespace AutumnMooncat.SpireCore.Cards.Watcher;
 
 [IRegisterable.Ignore]
 internal sealed class MasterReality : Card, IRCard

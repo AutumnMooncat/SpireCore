@@ -1,7 +1,7 @@
 ﻿using Nickel;
 using System.Reflection;
 
-namespace AutumnMooncat.Spirecore.Artifacts.Ironclad;
+namespace AutumnMooncat.SpireCore.Artifacts.Ironclad;
 
 internal sealed class Brimstone : Artifact, IRArtifact
 {

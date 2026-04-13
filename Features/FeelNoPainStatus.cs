@@ -1,8 +1,8 @@
-using AutumnMooncat.Spirecore.ExternalAPI;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.ExternalAPI;
+using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class FeelNoPainStatus : IRStatus
 {

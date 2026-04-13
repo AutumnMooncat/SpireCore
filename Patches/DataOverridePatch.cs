@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace AutumnMooncat.Spirecore.Patches;
+namespace AutumnMooncat.SpireCore.Patches;
 
 [HarmonyPatch(typeof(Card), nameof(Card.GetDataWithOverrides))]
 public class DataOverridePatch

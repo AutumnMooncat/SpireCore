@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Cards.Ironclad;
+using AutumnMooncat.SpireCore.Cards.Ironclad;
 
-namespace AutumnMooncat.Spirecore.Artifacts;
+namespace AutumnMooncat.SpireCore.Artifacts;
 
 [IRegisterable.Ignore]
 internal sealed class DemoArtifactBookOfTails : Artifact, IRArtifact

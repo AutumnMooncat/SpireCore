@@ -1,13 +1,12 @@
 using System;
-using AutumnMooncat.Spirecore.ExternalAPI;
+using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
-using AutumnMooncat.Spirecore.Patches;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Patches;
 using AutumnMooncat.SpireCore.Util;
 using HarmonyLib;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class AmplifyStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook
 {

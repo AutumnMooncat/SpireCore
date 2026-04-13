@@ -1,7 +1,7 @@
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class Limitless : IRTrait, ITooltipHelper
 {

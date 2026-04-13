@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AutumnMooncat.Spirecore.Artifacts.Silent;
+namespace AutumnMooncat.SpireCore.Artifacts.Silent;
 
 internal sealed class Tingsha : Artifact, IRArtifact, IArtifactOnDiscard
 {

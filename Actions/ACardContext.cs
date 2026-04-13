@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 using Newtonsoft.Json;
 
-namespace AutumnMooncat.Spirecore.Actions;
+namespace AutumnMooncat.SpireCore.Actions;
 
 public class ACardContext : CardAction, IMultiIconAction, ITooltipHelper, IFlippableAction, IHilightingAction
 {

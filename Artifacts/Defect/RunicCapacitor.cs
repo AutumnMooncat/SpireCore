@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Cards.Defect;
+using AutumnMooncat.SpireCore.Cards.Defect;
 
-namespace AutumnMooncat.Spirecore.Artifacts.Defect;
+namespace AutumnMooncat.SpireCore.Artifacts.Defect;
 
 internal sealed class RunicCapacitor : Artifact, IRArtifact
 {

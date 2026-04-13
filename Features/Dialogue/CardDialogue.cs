@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.Cards.Ironclad;
-using AutumnMooncat.Spirecore.Characters;
+using AutumnMooncat.SpireCore.Cards.Ironclad;
+using AutumnMooncat.SpireCore.Characters;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features.Dialogue;
+namespace AutumnMooncat.SpireCore.Features.Dialogue;
 
 internal sealed class CardDialogue : IRDialogue
 {

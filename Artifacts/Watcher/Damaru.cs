@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Features;
 
-namespace AutumnMooncat.Spirecore.Artifacts.Watcher;
+namespace AutumnMooncat.SpireCore.Artifacts.Watcher;
 
 internal sealed class Damaru : Artifact, IRArtifact
 {

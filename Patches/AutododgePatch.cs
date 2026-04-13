@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Features;
 using HarmonyLib;
 
-namespace AutumnMooncat.Spirecore.Patches;
+namespace AutumnMooncat.SpireCore.Patches;
 
 [HarmonyPatch(typeof(AAttack), nameof(AAttack.ApplyAutododge))]
 public class AutododgePatch

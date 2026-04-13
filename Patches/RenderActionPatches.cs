@@ -1,9 +1,9 @@
 using System;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Util;
 using HarmonyLib;
 
-namespace AutumnMooncat.Spirecore.Patches;
+namespace AutumnMooncat.SpireCore.Patches;
 
 [HarmonyPatch]
 public static class RenderActionPatches

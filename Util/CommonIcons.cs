@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Util;
+namespace AutumnMooncat.SpireCore.Util;
 
 public class CommonIcons : IRegisterable
 {

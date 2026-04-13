@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.Artifacts.Ship;
+using AutumnMooncat.SpireCore.Artifacts.Ship;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Ships;
+namespace AutumnMooncat.SpireCore.Ships;
 
 [IRegisterable.Ignore]
 public class DemoShip : IRShip

@@ -1,9 +1,9 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
+using AutumnMooncat.SpireCore.Actions;
 
-namespace AutumnMooncat.Spirecore.Cards.Defect;
+namespace AutumnMooncat.SpireCore.Cards.Defect;
 
 internal sealed class Hologram : Card, IRCard
 {

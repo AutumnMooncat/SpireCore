@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.Cards.Silent;
-using AutumnMooncat.Spirecore.ExternalAPI;
+using AutumnMooncat.SpireCore.Cards.Silent;
+using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
-using AutumnMooncat.Spirecore.Patches;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Patches;
+using AutumnMooncat.SpireCore.Util;
 using HarmonyLib;
 using Nickel;
 
-namespace AutumnMooncat.Spirecore.Features;
+namespace AutumnMooncat.SpireCore.Features;
 
 public class PierceChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKokoroApi.IV2.IStatusRenderingApi.IHook
 {

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 
-namespace AutumnMooncat.Spirecore.Actions;
+namespace AutumnMooncat.SpireCore.Actions;
 
 public class AMultiCardSelect : CardAction, IMultiIconAction, ITooltipHelper
 {

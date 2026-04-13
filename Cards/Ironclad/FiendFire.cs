@@ -1,11 +1,11 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.Patches;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Patches;
+using AutumnMooncat.SpireCore.Util;
 
-namespace AutumnMooncat.Spirecore.Cards.Ironclad;
+namespace AutumnMooncat.SpireCore.Cards.Ironclad;
 
 internal sealed class FiendFire : Card, IRCard
 {

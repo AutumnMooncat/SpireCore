@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace AutumnMooncat.Spirecore.Actions;
+namespace AutumnMooncat.SpireCore.Actions;
 
 public class AAddRetainToRandomCard : AAddRetainToCard
 {

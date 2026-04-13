@@ -3,12 +3,12 @@ using Nickel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.Patches;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Patches;
+using AutumnMooncat.SpireCore.Util;
 using FSPRO;
 
-namespace AutumnMooncat.Spirecore.Cards.Silent;
+namespace AutumnMooncat.SpireCore.Cards.Silent;
 
 internal sealed class Concentrate : Card, IRCard
 {

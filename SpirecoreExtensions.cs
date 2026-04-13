@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using AutumnMooncat.Spirecore.Patches;
+using AutumnMooncat.SpireCore.Patches;
 
-namespace AutumnMooncat.Spirecore;
+namespace AutumnMooncat.SpireCore;
 
 public static class SpirecoreExtensions
 {

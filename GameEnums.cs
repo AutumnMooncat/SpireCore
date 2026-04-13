@@ -1,6 +1,6 @@
 using Nanoray.EnumByNameSourceGenerator;
 
-namespace AutumnMooncat.Spirecore;
+namespace AutumnMooncat.SpireCore;
 
 public class GameEnums
 {

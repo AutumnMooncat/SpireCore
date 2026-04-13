@@ -5,16 +5,15 @@ using Nanoray.PluginManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.ExternalAPI;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
-using AutumnMooncat.Spirecore.Features;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Features;
 using AutumnMooncat.SpireCore.Util;
 
 /* In the Cobalt Core modding community it is common for namespaces to be <Author>.<ModName>
  * This is helpful to know at a glance what mod we're looking at, and who made it */
-namespace AutumnMooncat.Spirecore;
+namespace AutumnMooncat.SpireCore;
 
 /* MainModFile is the base for our mod. Others like to name it Manifest, and some like to name it <ModName>
  * Notice the ': SimpleMod'. This means MainModFile is a subclass (child) of the superclass SimpleMod (parent) from Nickel. This will help us use Nickel's functions more easily! */

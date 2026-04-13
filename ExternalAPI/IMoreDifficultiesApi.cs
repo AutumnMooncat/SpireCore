@@ -1,6 +1,6 @@
 using System;
 
-namespace AutumnMooncat.Spirecore.ExternalAPI;
+namespace AutumnMooncat.SpireCore.ExternalAPI;
 
 public interface IMoreDifficultiesApi
 {

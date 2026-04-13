@@ -1,11 +1,11 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Actions;
-using AutumnMooncat.Spirecore.ExternalAPI;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.ExternalAPI;
+using AutumnMooncat.SpireCore.Features;
 
-namespace AutumnMooncat.Spirecore.Cards.Watcher;
+namespace AutumnMooncat.SpireCore.Cards.Watcher;
 
 internal sealed class InnerPeace : Card, IRCard
 {

@@ -1,4 +1,4 @@
-namespace AutumnMooncat.Spirecore;
+namespace AutumnMooncat.SpireCore;
 
 public class Records
 {

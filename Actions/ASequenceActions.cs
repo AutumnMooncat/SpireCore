@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 
-namespace AutumnMooncat.Spirecore.Actions;
+namespace AutumnMooncat.SpireCore.Actions;
 
 public class ASequenceActions: CardAction, IMultiIconAction, ITooltipHelper
 {

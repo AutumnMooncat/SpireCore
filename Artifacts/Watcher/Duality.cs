@@ -1,10 +1,10 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using AutumnMooncat.Spirecore.Features;
+using AutumnMooncat.SpireCore.Features;
 using AutumnMooncat.SpireCore.Util;
 
-namespace AutumnMooncat.Spirecore.Artifacts.Watcher;
+namespace AutumnMooncat.SpireCore.Artifacts.Watcher;
 
 internal sealed class Duality : Artifact, IRArtifact
 {
