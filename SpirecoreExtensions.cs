@@ -55,6 +55,30 @@ public static class SpirecoreExtensions
         a.AddTooltipFix(key, vals);
         return a;
     }
+
+    public static void AddExtraTooltips(this CardAction a, params Tooltip[] vals)
+    {
+        if (a.GetExtraTooltips(out var tips))
+        {
+            tips.AddRange(vals);
+            return;
+        }
+
+        List<Tooltip> data = [];
+        data.AddRange(vals);
+        a.SetData(TooltipFixPatch.TooltipAdditionKey, data);
+    }
+
+    public static bool GetExtraTooltips(this CardAction a, out List<Tooltip> tips)
+    {
+        return a.GetData(TooltipFixPatch.TooltipAdditionKey, out tips);
+    }
+
+    public static CardAction WithExtraTooltips(this CardAction a, params Tooltip[] vals)
+    {
+        a.AddExtraTooltips(vals);
+        return a;
+    }
     
     public static CardAction WithDisabled(this CardAction a, bool disabled)
     {
