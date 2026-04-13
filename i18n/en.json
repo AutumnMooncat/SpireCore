@@ -626,6 +626,10 @@
     "DevaFormStatus": {
       "name": "Deva Form",
       "description": "Gain {0} <c=status>ENERGY</c> every turn."
+    },
+    "ChargeStatus": {
+      "name": "Charge",
+      "description": "A measure of latent power on the field. Certain cards require sufficient charge."
     }
   },
   "action": {
@@ -830,6 +834,12 @@
     "PlasmaObject": {
       "title": "Plasma",
       "description": "Destroying it will give you <c=keyword>{{Energy}}</c> <c=status>ENERGY</c>."
+    }
+  },
+  "resource": {
+    "ActionRequiredChargeResource": {
+      "title": "Charge Level",
+      "description": "Requires <c=keyword>{{Amount}}</c> <c=status>CHARGE</c>. If you don't have enough, this action doesn't happen."
     }
   }
 }

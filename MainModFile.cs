@@ -10,6 +10,7 @@ using AutumnMooncat.Spirecore.ExternalAPI;
 using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 using AutumnMooncat.Spirecore.Features;
 using AutumnMooncat.Spirecore.Util;
+using AutumnMooncat.SpireCore.Util;
 
 /* In the Cobalt Core modding community it is common for namespaces to be <Author>.<ModName>
  * This is helpful to know at a glance what mod we're looking at, and who made it */
@@ -60,6 +61,7 @@ public sealed class MainModFile : SimpleMod
         AutoAdd(typeof(IRTrait), nameof(IRTrait.Register), helper);
         AutoAdd(typeof(IRDialogue), nameof(IRDialogue.Register), helper);
         CommonIcons.Register(helper);
+        KokoroUtils.Register(helper);
         
         Harmony = new Harmony(Instance.Package.Manifest.UniqueName);
         Harmony.PatchAll();
