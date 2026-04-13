@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Nickel;
 
 namespace AutumnMooncat.Spirecore.Util;
 
@@ -11,7 +12,7 @@ public class TextureProcessor
         return new Microsoft.Xna.Framework.Color((float)color.r, (float)color.g, (float)color.b, (float)color.a);
     }
     
-    public static Spr Combine(int width, int height, params Records.TexturePayload[] textures)
+    public static ISpriteEntry Combine(int width, int height, params Records.TexturePayload[] textures)
     {
         MainModFile.Instance.Logger.LogInformation($"{nameof(TextureProcessor)}.{nameof(Combine)} called");
         var sb = new SpriteBatch(MG.inst.GraphicsDevice);
@@ -35,6 +36,6 @@ public class TextureProcessor
         }
         sb.End();
         MG.inst.GraphicsDevice.SetRenderTarget(origTarget);
-        return MainModFile.Instance.Helper.Content.Sprites.RegisterSprite(() => target).Sprite;
+        return MainModFile.Instance.Helper.Content.Sprites.RegisterSprite(() => target);
     }
 }
