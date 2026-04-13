@@ -30,7 +30,8 @@ public class PlasmaObject : StuffBase, ITooltipHelper
     {
         List<Tooltip> ret =
         [
-            ITooltipHelper.MakeTooltip("stuff", ID, GetIcon(), Colors.drone, null, new {Energy})
+            ITooltipHelper.MakeTooltip("stuff", ID, GetIcon(), Colors.drone, null, new {Energy}),
+            ChargeStatus.GetTooltip
         ];
         if (bubbleShield)
             ret.Add(new TTGlossary("midrow.bubbleShield"));

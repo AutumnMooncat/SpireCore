@@ -35,7 +35,8 @@ public class LightningObject : StuffBase, ITooltipHelper
     {
         List<Tooltip> ret =
         [
-            ITooltipHelper.MakeTooltip("stuff", ID, GetIcon(), Colors.drone, null, new {Damage})
+            ITooltipHelper.MakeTooltip("stuff", ID, GetIcon(), Colors.drone, null, new {Damage}),
+            ChargeStatus.GetTooltip
         ];
         if (bubbleShield)
             ret.Add(new TTGlossary("midrow.bubbleShield"));
