@@ -91,12 +91,17 @@ public sealed class MainModFile : SimpleMod
 
     private static void OnModLoadPhaseFinished(object sender, ModLoadPhase e)
     {
-        if (e == ModLoadPhase.AfterDbInit && DevBuild)
+        if (e == ModLoadPhase.AfterDbInit)
         {
-            //Log("Attempting to open imgui editor");
-            MG.inst.g.e = new Editor();
-            MG.inst.g.e.IMGUI_Setup(MG.inst);
-            MG.inst.g.e.isActive = true;
+            if (DevBuild)
+            {
+                //Log("Attempting to open imgui editor");
+                MG.inst.g.e = new Editor();
+                MG.inst.g.e.IMGUI_Setup(MG.inst);
+                MG.inst.g.e.isActive = true;
+            }
+
+            TextureProcessor.OnInit();
         }
     }
 
@@ -167,6 +172,11 @@ public sealed class MainModFile : SimpleMod
     internal static bool GetData<T>(object o, string key, out T data)
     {
         return Instance.Helper.ModData.TryGetModData(o, key, out data);
+    }
+
+    internal static void RemoveData(object o, string key)
+    {
+        Instance.Helper.ModData.RemoveModData(o, key);
     }
 
     internal static CardAction AddTooltips(List<Tooltip> tips)

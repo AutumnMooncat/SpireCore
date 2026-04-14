@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutumnMooncat.SpireCore.Patches;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AutumnMooncat.SpireCore;
 
@@ -14,6 +15,11 @@ public static class SpirecoreExtensions
     public static bool GetData<T>(this object o, string key, out T data)
     {
         return MainModFile.GetData(o, key, out data);
+    }
+
+    public static Texture2D GetTex(this Spr spr)
+    {
+        return MainModFile.GetHelper().Content.Sprites.LookupBySpr(spr)?.ObtainTexture();
     }
 
     public static void SetExtraIcons(this CardAction a, List<Records.RenderPayload> pl)

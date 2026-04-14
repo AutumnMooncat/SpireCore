@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Nickel;
 
@@ -6,6 +7,7 @@ namespace AutumnMooncat.SpireCore.Util;
 
 public class CommonIcons : IRegisterable
 {
+    public static readonly Dictionary<string, Spr> Sprites = [];
     public static Spr Hand { get; set; }
     public static Spr DrawPile { get; set; }
     public static Spr DiscardPile { get; set; }
@@ -177,9 +179,15 @@ public class CommonIcons : IRegisterable
 
     public static Spr Find(string name)
     {
+        if (Sprites.TryGetValue(name, out var found))
+        {
+            return found;
+        }
+        
         var spr = IRStatus.LookUpSpr(IRStatus.DefaultAssetPath + name);
         if (spr.HasValue)
         {
+            Sprites[name] = spr.Value;
             return spr.Value;
         }
 
