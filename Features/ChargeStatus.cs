@@ -57,12 +57,15 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
 
     public static int EffectiveCharge(State s, Combat c, Ship ship)
     {
-        int charge = 0;
-        foreach (var pair in c.stuff)
+        int charge = ship?.Get(PowerCoreStatus.Entry.Status) ?? 0;
+        if (c != null)
         {
-            if (pair.Value is LightningObject or PlasmaObject)
+            foreach (var pair in c.stuff)
             {
-                charge++;
+                if (pair.Value is LightningObject or PlasmaObject)
+                {
+                    charge++;
+                }
             }
         }
         return charge;

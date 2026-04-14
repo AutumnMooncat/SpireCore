@@ -23,6 +23,14 @@ public static class PlayCardPatches
             cardInPlay = null;
             ignoreThis = null;
         }
+
+        public static void Postfix(Combat __instance, bool __result, State s, Card card)
+        {
+            if (__result && card.GetData(PowerCoreDiscount.ID, out int amt) && amt > 0)
+            {
+                s.ship.Add(PowerCoreStatus.Entry.Status, -amt);
+            }
+        }
     }
 
     [HarmonyPatch(typeof(Combat), nameof(Combat.SendCardToDiscard))]

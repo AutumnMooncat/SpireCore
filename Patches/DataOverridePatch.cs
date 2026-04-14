@@ -1,3 +1,4 @@
+using AutumnMooncat.SpireCore.Features;
 using HarmonyLib;
 
 namespace AutumnMooncat.SpireCore.Patches;
@@ -19,6 +20,8 @@ public class DataOverridePatch
                     }
                 }
             }
+
+            MainModFile.GetHelper().Content.Cards.SetCardTraitOverride(state, __instance, PowerCoreDiscount.Entry, __instance.GetData(PowerCoreDiscount.ID, out int amt) && amt > 0, false);
         }
     }
 }

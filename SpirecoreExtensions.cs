@@ -17,6 +17,11 @@ public static class SpirecoreExtensions
         return MainModFile.GetData(o, key, out data);
     }
 
+    public static void RemoveData(this object o, string key)
+    {
+        MainModFile.RemoveData(o, key);
+    }
+
     public static Texture2D GetTex(this Spr spr)
     {
         return MainModFile.GetHelper().Content.Sprites.LookupBySpr(spr)?.ObtainTexture();

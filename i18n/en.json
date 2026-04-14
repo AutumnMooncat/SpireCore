@@ -630,6 +630,11 @@
     "ChargeStatus": {
       "name": "Charge",
       "description": "A measure of latent power on the field. Certain cards require sufficient charge."
+    },
+    "PowerCoreStatus": {
+      "name": "Power Core",
+      "description": "Contributes <c=cardtrait>+</c>{1} <c=status>CHARGE</c>. Can be spent to play cards you lack up to {0} <c=energy>energy</c> for.",
+      "description2": "Contributes <c=status>CHARGE</c>. Can be spent to play cards you lack the <c=energy>energy</c> for."
     }
   },
   "action": {
@@ -812,6 +817,12 @@
     "Limitless": {
       "title": "Limitless",
       "description": "This card can be <c=cardtrait>upgraded</c> any number of times."
+    },
+    "PowerCoreDiscount": {
+      "title": "Core Discount",
+      "description": "This card can be played at the cost of <c=keyword>{{Amount}}</c> <c=status>POWER CORE</c>.",
+      "titleAlt": "Core Discount",
+      "descriptionAlt": "This card has been discounted by <c=status>POWER CORE</c>."
     }
   },
   "stuff": {
