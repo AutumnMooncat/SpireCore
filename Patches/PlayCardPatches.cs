@@ -29,6 +29,7 @@ public static class PlayCardPatches
             if (__result && card.GetData(PowerCoreDiscount.ID, out int amt) && amt > 0)
             {
                 s.ship.Add(PowerCoreStatus.Entry.Status, -amt);
+                card.RemoveData(PowerCoreDiscount.ID);
             }
         }
     }
