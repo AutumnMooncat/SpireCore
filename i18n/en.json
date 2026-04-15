@@ -98,6 +98,22 @@
     }
   },
   "card": {
+    "IroncladExe": {
+      "name": "Ironclad.EXE",
+      "description": "Add 1 of {{Choices}} <c=cardtrait>discount, temp</c> <c=bf3f43>Ironclad</c> cards to your hand."
+    },
+    "SilentExe":  {
+      "name": "Silent.EXE",
+      "description": "Add 1 of {{Choices}} <c=cardtrait>discount, temp</c> <c=6fc057>Silent</c> cards to your hand."
+    },
+    "DefectExe": {
+      "name": "Defect.EXE",
+      "description": "Add 1 of {{Choices}} <c=cardtrait>discount, temp</c> <c=4b9fbf>Defect</c> cards to your hand."
+    },
+    "WatcherExe": {
+      "name": "Watcher.EXE",
+      "description": "Add 1 of {{Choices}} <c=cardtrait>discount, temp</c> <c=924bbf>Watcher</c> cards to your hand."
+    },
     "Anger": {
       "name": "Anger"
     },

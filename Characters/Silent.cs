@@ -52,7 +52,8 @@ public class Silent : IRCharacter
                 cards = [new Neutralize(), new Acrobatics()]
             },
             BorderSprite = CharacterPanel.Sprite,
-            Description = MainModFile.Bind(["character", ID, "description"]).Localize
+            Description = MainModFile.Bind(["character", ID, "description"]).Localize,
+            ExeCardType = typeof(SilentExe)
         });
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Neutral, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Mini, 1);

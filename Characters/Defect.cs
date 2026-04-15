@@ -52,7 +52,8 @@ public class Defect : IRCharacter
                 cards = [new Zap(), new Leap()]
             },
             BorderSprite = CharacterPanel.Sprite,
-            Description = MainModFile.Bind(["character", ID, "description"]).Localize
+            Description = MainModFile.Bind(["character", ID, "description"]).Localize,
+            ExeCardType = typeof(DefectExe)
         });
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Neutral, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Mini, 1);

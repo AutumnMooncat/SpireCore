@@ -52,7 +52,8 @@ public class Ironclad : IRCharacter
                 cards = [new Bash(), new TrueGrit()]
             },
             BorderSprite = CharacterPanel.Sprite,
-            Description = MainModFile.Bind(["character", ID, "description"]).Localize
+            Description = MainModFile.Bind(["character", ID, "description"]).Localize,
+            ExeCardType = typeof(IroncladExe)
         });
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Neutral, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Mini, 1);
