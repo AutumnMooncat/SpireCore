@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using AutumnMooncat.SpireCore.Cards.Defect;
+using AutumnMooncat.SpireCore.Features;
 
 namespace AutumnMooncat.SpireCore.Artifacts.Defect;
 
@@ -28,21 +29,20 @@ internal sealed class NuclearBattery : Artifact, IRArtifact
     
     public override List<Tooltip> GetExtraTooltips()
     {
-        return [
-            new TTCard
-            {
-                card = new Fusion()
-            }
-        ];
+        return [PowerCoreStatus.GetTooltip];
     }
-
-    public override void OnCombatStart(State state, Combat combat)
+    
+    public override void OnTurnStart(State state, Combat combat)
     {
-        combat.QueueImmediate(new AAddCard
+        if (combat.turn != 1)
         {
-            card = new Fusion(),
-            destination = CardDestination.Hand,
-            amount = 2
+            return;
+        }
+        combat.QueueImmediate(new AStatus()
+        {
+            status = PowerCoreStatus.Entry.Status,
+            statusAmount = 2,
+            targetPlayer = true
         });
     }
 }

@@ -60,7 +60,7 @@
     },
     "NuclearBattery": {
       "name": "NUCLEAR BATTERY",
-      "description": "At the start of combat, add 2 <c=card>Fusion</c> to your hand."
+      "description": "Gain 2 <c=status>POWER CORE</c> on the first turn."
     },
     "RunicCapacitor": {
       "name": "RUNIC CAPACITOR",
