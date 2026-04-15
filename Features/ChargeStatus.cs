@@ -20,7 +20,7 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
         Icon = Entry.Configuration.Definition.icon,
         TitleColor = Colors.status,
         Title = MainModFile.Loc(["status", ID, "name"]),
-        Description = MainModFile.Loc(["status", ID, "description"]),
+        Description = MainModFile.Loc(["status", ID, "description"], new { Max }),
     };
     
     public static void Register(IModHelper helper)
@@ -48,7 +48,7 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
             MainModFile.Kokoro().StatusRendering.MakeTextStatusInfoRenderer("").SetColor(Colors.cardtrait),
             args =>
             {
-                args.SetAmount(EffectiveCharge(args.State, args.Combat, args.Ship));
+                args.SetAmount(RealCharge(args.State, args.Combat, args.Ship));
                 return Max;
             });
         ActiveColor = new Color("f9ff7e");
@@ -56,6 +56,20 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
     }
 
     public static int EffectiveCharge(State s, Combat c, Ship ship)
+    {
+        return Math.Min(Max, RealCharge(s, c, ship));
+    }
+    
+    private static int RealCharge(State s, Combat c, Ship ship)
+    {
+        if ((ship?.Get(NoChargeStatus.Entry.Status) ?? 0) > 0)
+        {
+            return 0;
+        }
+        return BaseCharge(s, c, ship);
+    }
+    
+    private static int BaseCharge(State s, Combat c, Ship ship)
     {
         int charge = ship?.Get(PowerCoreStatus.Entry.Status) ?? 0;
         if (c != null)
@@ -70,10 +84,11 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
         }
         return charge;
     }
+    
 
     public IEnumerable<(Status Status, double Priority)> GetExtraStatusesToShow(IKokoroApi.IV2.IStatusRenderingApi.IHook.IGetExtraStatusesToShowArgs args)
     {
-        if (EffectiveCharge(args.State, args.Combat, args.Ship) > 0)
+        if (BaseCharge(args.State, args.Combat, args.Ship) > 0)
         {
             return [(Entry.Status, 0)];
         }
@@ -87,7 +102,7 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
         if (args.Status == Entry.Status)
         {
             List<Color> clr = [];
-            var amount = Math.Min(Max, EffectiveCharge(args.State, args.Combat, args.Ship));
+            var amount = EffectiveCharge(args.State, args.Combat, args.Ship);
             for (int i = 0; i < amount; i++)
             {
                 clr.Add(ActiveColor);

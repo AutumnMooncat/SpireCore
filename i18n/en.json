@@ -629,12 +629,16 @@
     },
     "ChargeStatus": {
       "name": "Charge",
-      "description": "A measure of latent power on the field. Certain cards require sufficient charge."
+      "description": "A measure of latent power on the field. Maximum <c=keyword>{{Max}}</c>."
     },
     "PowerCoreStatus": {
       "name": "Power Core",
       "description": "Contributes <c=cardtrait>+</c>{1} <c=status>CHARGE</c>. Can be spent to play cards you lack up to {0} <c=energy>energy</c> for.",
       "description2": "Contributes <c=status>CHARGE</c>. Can be spent to play cards you lack the <c=energy>energy</c> for."
+    },
+    "NoChargeStatus": {
+      "name": "Blackout",
+      "description": "<c=downside>You may not benefit from <c=status>CHARGE</c> this turn.</c>"
     }
   },
   "action": {
