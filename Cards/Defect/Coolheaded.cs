@@ -5,6 +5,7 @@ using AutumnMooncat.SpireCore.Features;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
+[IRegisterable.Ignore]
 internal sealed class Coolheaded : Card, IRCard
 {
     public static string ID => nameof(Coolheaded);
@@ -30,7 +31,8 @@ internal sealed class Coolheaded : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 1
+            cost = 1,
+            exhaust = upgrade == Upgrade.B
         };
         return data;
     }
@@ -43,12 +45,11 @@ internal sealed class Coolheaded : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new ASpawn()
+                    new AStatus()
                     {
-                        thing = new FrostObject()
-                        {
-                            yAnimation = 0.0
-                        }
+                        status = Status.bubbleJuice,
+                        statusAmount = 1,
+                        targetPlayer = true
                     },
                     new ADrawCard()
                     {
@@ -59,12 +60,11 @@ internal sealed class Coolheaded : Card, IRCard
             case Upgrade.A:
                 actions = 
                 [
-                    new ASpawn()
+                    new AStatus()
                     {
-                        thing = new FrostObject()
-                        {
-                            yAnimation = 0.0
-                        }
+                        status = Status.bubbleJuice,
+                        statusAmount = 1,
+                        targetPlayer = true
                     },
                     new ADrawCard()
                     {
@@ -75,22 +75,15 @@ internal sealed class Coolheaded : Card, IRCard
             case Upgrade.B:
                 actions = 
                 [
-                    new ASpawn()
-                    {
-                        thing = new FrostObject()
-                        {
-                            yAnimation = 0.0
-                        }
-                    },
                     new AStatus()
                     {
-                        status = Status.shield,
-                        statusAmount = 1,
+                        status = Status.bubbleJuice,
+                        statusAmount = 2,
                         targetPlayer = true
                     },
                     new ADrawCard()
                     {
-                        count = 1
+                        count = 2
                     }
                 ];
                 break;

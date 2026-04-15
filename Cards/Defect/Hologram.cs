@@ -5,6 +5,7 @@ using AutumnMooncat.SpireCore.Actions;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
+[IRegisterable.Ignore]
 internal sealed class Hologram : Card, IRCard
 {
     public static string ID => nameof(Hologram);

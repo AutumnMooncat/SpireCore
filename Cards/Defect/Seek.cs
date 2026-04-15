@@ -6,6 +6,7 @@ using AutumnMooncat.SpireCore.Features;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
+[IRegisterable.Ignore]
 internal sealed class Seek : Card, IRCard
 {
     public static string ID => nameof(Seek);
