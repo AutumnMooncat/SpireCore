@@ -37,7 +37,7 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
                 isGood = true
             },
             Name = MainModFile.Instance.AnyLocalizations.Bind(["status", ID, "name"]).Localize,
-            Description = MainModFile.Instance.AnyLocalizations.Bind(["status", ID, "description"]).Localize
+            Description = MainModFile.Instance.AnyLocalizations.Bind(["status", ID, "description"], new { Max }).Localize
         });
         var _ = new ChargeStatus();
         //MainModFile.Instance.KokoroApi.V2.StatusLogic.RegisterHook(_);
@@ -88,7 +88,7 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
 
     public IEnumerable<(Status Status, double Priority)> GetExtraStatusesToShow(IKokoroApi.IV2.IStatusRenderingApi.IHook.IGetExtraStatusesToShowArgs args)
     {
-        if (BaseCharge(args.State, args.Combat, args.Ship) > 0)
+        if (args.Ship.isPlayerShip && BaseCharge(args.State, args.Combat, args.Ship) > 0)
         {
             return [(Entry.Status, 0)];
         }
