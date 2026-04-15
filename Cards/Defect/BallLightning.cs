@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Reflection;
 using AutumnMooncat.SpireCore.Features;
+using AutumnMooncat.SpireCore.Util;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
-[IRegisterable.Ignore]
 internal sealed class BallLightning : Card, IRCard
 {
     public static string ID => nameof(BallLightning);
@@ -31,7 +31,7 @@ internal sealed class BallLightning : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.A ? 0 : 1
+            cost = 1
         };
         return data;
     }
@@ -44,6 +44,12 @@ internal sealed class BallLightning : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AAttack()
+                        {
+                            damage = GetDmg(s, 2)
+                        }).AsCardAction,
                     new ASpawn()
                     {
                         thing = new LightningObject()
@@ -51,31 +57,34 @@ internal sealed class BallLightning : Card, IRCard
                             yAnimation = 0.0
                         }
                     },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    }
                 ];
                 break;
             case Upgrade.A:
                 actions = 
                 [
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AAttack()
+                        {
+                            damage = GetDmg(s, 2)
+                        }).AsCardAction,
                     new ASpawn()
                     {
                         thing = new LightningObject()
                         {
-                            yAnimation = 0.0
+                            yAnimation = 0.0,
+                            bubbleShield = true
                         }
                     },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    }
                 ];
                 break;
             case Upgrade.B:
                 actions = 
                 [
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 2)
+                    },
                     new ASpawn()
                     {
                         thing = new LightningObject()
@@ -83,10 +92,6 @@ internal sealed class BallLightning : Card, IRCard
                             yAnimation = 0.0
                         }
                     },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2)
-                    }
                 ];
                 break;
         }

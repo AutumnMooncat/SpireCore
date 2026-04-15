@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using AutumnMooncat.SpireCore.Actions;
+using AutumnMooncat.SpireCore.Features;
+using AutumnMooncat.SpireCore.Util;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
@@ -30,7 +32,8 @@ internal sealed class Turbo : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 0
+            cost = 0,
+            exhaust = upgrade == Upgrade.B
         };
         return data;
     }
@@ -43,65 +46,70 @@ internal sealed class Turbo : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new AEnergy()
-                    {
-                        changeAmount = 1
-                    },
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AEnergy()
+                        {
+                            changeAmount = 1
+                        }).AsCardAction,
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = Status.droneShift,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                     new AStatus()
                     {
-                        status = Status.evade,
+                        status = NoChargeStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
-                    {
-                        amount = 1,
-                        card = new OxygenLeak(),
-                        destination = CardDestination.Discard
-                    }
                 ];
                 break;
             case Upgrade.A:
                 actions = 
                 [
-                    new AEnergy()
-                    {
-                        changeAmount = 1
-                    },
-                    new AStatus()
-                    {
-                        status = Status.evade,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    },
-                    new ACascadingAddCard()
-                    {
-                        amount = 1,
-                        card = new OxygenLeak(),
-                        destination = CardDestination.Discard
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AEnergy()
+                        {
+                            changeAmount = 1
+                        }).AsCardAction,
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = Status.droneShift,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.B:
                 actions = 
                 [
-                    new AEnergy()
-                    {
-                        changeAmount = 2
-                    },
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AEnergy()
+                        {
+                            changeAmount = 2
+                        }).AsCardAction,
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = Status.droneShift,
+                            statusAmount = 2,
+                            targetPlayer = true
+                        }).AsCardAction,
                     new AStatus()
                     {
-                        status = Status.evade,
-                        statusAmount = 2,
+                        status = NoChargeStatus.Entry.Status,
+                        statusAmount = 1,
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
-                    {
-                        amount = 1,
-                        card = new OxygenLeak(),
-                        destination = CardDestination.Deck,
-                        insertRandomly = false
-                    }
                 ];
                 break;
         }

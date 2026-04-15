@@ -68,27 +68,29 @@ internal sealed class Streamline : Card, IRCard, ITooltipHelper
                     {
                         damage = GetDmg(s, 3)
                     },
-                    new InfoOnlyAction()
-                    {
-                        tips = 
-                        [
-                            GetTooltip(1)
-                        ],
-                        icon = new Icon(CommonIcons.Cost, null, Colors.textMain),
-                        extraIcons = 
-                        [
-                            new (){spr = CommonIcons.Minus, dx = -3},
-                            new (){spr = CommonIcons.Minus, dx = -4}
-                        ]
-                    },
-                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
-                    {
-                        begin = ((g, state, combat, thiz) =>
-                        {
-                            plays++;
-                            return null;
-                        })
-                    }).AsCardAction
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        MainModFile.Kokoro().SpoofedActions.MakeAction(new InfoOnlyAction()
+                            {
+                                tips = 
+                                [
+                                    GetTooltip(1)
+                                ],
+                                icon = new Icon(CommonIcons.Cost, null, Colors.textMain),
+                                extraIcons = 
+                                [
+                                    new (){spr = CommonIcons.Minus, dx = -3},
+                                    new (){spr = CommonIcons.Minus, dx = -4}
+                                ]
+                            },
+                            new DelegateAction()
+                            {
+                                begin = ((g, state, combat, thiz) =>
+                                {
+                                    plays++;
+                                    return null;
+                                })
+                            }).AsCardAction).AsCardAction,
                 ];
                 break;
             case Upgrade.A:
@@ -96,7 +98,7 @@ internal sealed class Streamline : Card, IRCard, ITooltipHelper
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 4)
+                        damage = GetDmg(s, 3)
                     },
                     new InfoOnlyAction()
                     {
@@ -126,29 +128,31 @@ internal sealed class Streamline : Card, IRCard, ITooltipHelper
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 6)
+                        damage = GetDmg(s, 5)
                     },
-                    new InfoOnlyAction()
-                    {
-                        tips = 
-                        [
-                            GetTooltip(1)
-                        ],
-                        icon = new Icon(CommonIcons.Cost, null, Colors.textMain),
-                        extraIcons = 
-                        [
-                            new (){spr = CommonIcons.Minus, dx = -3},
-                            new (){spr = CommonIcons.Minus, dx = -4}
-                        ]
-                    },
-                    MainModFile.Kokoro().HiddenActions.MakeAction(new DelegateAction()
-                    {
-                        begin = ((g, state, combat, thiz) =>
-                        {
-                            plays++;
-                            return null;
-                        })
-                    }).AsCardAction
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        MainModFile.Kokoro().SpoofedActions.MakeAction(new InfoOnlyAction()
+                            {
+                                tips = 
+                                [
+                                    GetTooltip(1)
+                                ],
+                                icon = new Icon(CommonIcons.Cost, null, Colors.textMain),
+                                extraIcons = 
+                                [
+                                    new (){spr = CommonIcons.Minus, dx = -3},
+                                    new (){spr = CommonIcons.Minus, dx = -4}
+                                ]
+                            },
+                            new DelegateAction()
+                            {
+                                begin = ((g, state, combat, thiz) =>
+                                {
+                                    plays++;
+                                    return null;
+                                })
+                            }).AsCardAction).AsCardAction,
                 ];
                 break;
         }

@@ -53,6 +53,12 @@ internal sealed class Zap : Card, IRCard
                         {
                             yAnimation = 0.0
                         }
+                    },
+                    new AStatus()
+                    {
+                        status = Status.droneShift,
+                        statusAmount = 1,
+                        targetPlayer = true
                     }
                 ];
                 break;
@@ -65,6 +71,12 @@ internal sealed class Zap : Card, IRCard
                         {
                             yAnimation = 0.0
                         }
+                    },
+                    new AStatus()
+                    {
+                        status = Status.droneShift,
+                        statusAmount = 1,
+                        targetPlayer = true
                     }
                 ];
                 break;
@@ -85,6 +97,12 @@ internal sealed class Zap : Card, IRCard
                         {
                             yAnimation = 0.0
                         }
+                    },
+                    new AStatus()
+                    {
+                        status = Status.droneShift,
+                        statusAmount = 1,
+                        targetPlayer = true
                     }
                 ];
                 break;

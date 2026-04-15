@@ -1,6 +1,7 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using AutumnMooncat.SpireCore.Util;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
@@ -48,12 +49,12 @@ internal sealed class Leap : Card, IRCard
                         targetPlayer  = true,
                         dir = 2
                     },
-                    new AStatus()
-                    {
-                        status = Status.shield,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new ADroneMove()
+                        {
+                            dir = 2
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.A:
@@ -64,12 +65,12 @@ internal sealed class Leap : Card, IRCard
                         targetPlayer  = true,
                         dir = 2
                     },
-                    new AStatus()
-                    {
-                        status = Status.shield,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new ADroneMove()
+                        {
+                            dir = 2
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.B:
@@ -80,12 +81,14 @@ internal sealed class Leap : Card, IRCard
                         targetPlayer  = true,
                         dir = 2
                     },
-                    new AStatus()
-                    {
-                        status = Status.shield,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = Status.droneShift,
+                            statusAmount = 2,
+                            targetPlayer = true
+                        }).AsCardAction,
                 ];
                 break;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using AutumnMooncat.SpireCore.Features;
+using AutumnMooncat.SpireCore.Util;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
@@ -18,8 +19,7 @@ internal sealed class Fusion : Card, IRCard
             Meta = new CardMeta
             {
                 deck = Characters.Defect.DeckEntry.Deck,
-                rarity = Rarity.common,
-                dontOffer = true,
+                rarity = Rarity.uncommon,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = MainModFile.Bind(["card", ID, "name"]).Localize,
@@ -31,9 +31,7 @@ internal sealed class Fusion : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.A ? 0 : 1,
-            retain = true,
-            temporary = true
+            cost = upgrade == Upgrade.A ? 1 : 2,
         };
         return data;
     }
@@ -46,6 +44,14 @@ internal sealed class Fusion : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 2), 
+                        new AStatus()
+                        {
+                            status = Status.bubbleJuice,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                     new ASpawn()
                     {
                         thing = new PlasmaObject()
@@ -58,6 +64,14 @@ internal sealed class Fusion : Card, IRCard
             case Upgrade.A:
                 actions = 
                 [
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 2), 
+                        new AStatus()
+                        {
+                            status = Status.bubbleJuice,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                     new ASpawn()
                     {
                         thing = new PlasmaObject()
@@ -74,14 +88,8 @@ internal sealed class Fusion : Card, IRCard
                     {
                         thing = new PlasmaObject()
                         {
-                            yAnimation = 0.0
-                        }
-                    },
-                    new ASpawn()
-                    {
-                        thing = new LightningObject()
-                        {
-                            yAnimation = 0.0
+                            yAnimation = 0.0,
+                            bubbleShield = true
                         }
                     }
                 ];

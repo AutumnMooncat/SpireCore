@@ -67,8 +67,8 @@ public class Defect : IRCharacter
                 starterDeck: new StarterDeck
                 {
                     cards = [
-                        new Coolheaded(),
-                        new Rebound()
+                        new BallLightning(),
+                        new ChargeBattery()
                     ]
                 }
             )

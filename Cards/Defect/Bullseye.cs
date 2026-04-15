@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using AutumnMooncat.SpireCore.Features;
+using AutumnMooncat.SpireCore.Util;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
@@ -43,46 +44,56 @@ internal sealed class Bullseye : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = LockOnStatus.Entry.Status,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                     new AAttack()
                     {
                         damage = 1
                     },
-                    new AStatus()
-                    {
-                        status = LockOnStatus.Entry.Status,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
                 ];
                 break;
             case Upgrade.A:
                 actions = 
                 [
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = LockOnStatus.Entry.Status,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                     new AAttack()
                     {
                         damage = 1
                     },
-                    new AStatus()
-                    {
-                        status = LockOnStatus.Entry.Status,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
                 ];
                 break;
             case Upgrade.B:
                 actions = 
                 [
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = LockOnStatus.Entry.Status,
+                            statusAmount = 2,
+                            targetPlayer = true
+                        }).AsCardAction,
                     new AAttack()
                     {
-                        damage = 2
+                        damage = 1
                     },
-                    new AStatus()
+                    new AAttack()
                     {
-                        status = LockOnStatus.Entry.Status,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    }
+                        damage = 1
+                    },
                 ];
                 break;
         }

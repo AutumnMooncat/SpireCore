@@ -1,6 +1,7 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using AutumnMooncat.SpireCore.Util;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 
@@ -44,16 +45,18 @@ internal sealed class ChargeBattery : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.shield,
+                        status = Status.bubbleJuice,
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new AStatus()
-                    {
-                        status = Status.energyNextTurn,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = Status.energyNextTurn,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.A:
@@ -61,16 +64,18 @@ internal sealed class ChargeBattery : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.shield,
+                        status = Status.bubbleJuice,
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new AStatus()
-                    {
-                        status = Status.energyNextTurn,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = Status.energyNextTurn,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.B:
@@ -78,8 +83,8 @@ internal sealed class ChargeBattery : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.tempShield,
-                        statusAmount = 2,
+                        status = Status.bubbleJuice,
+                        statusAmount = 1,
                         targetPlayer = true
                     },
                     new AStatus()
@@ -87,7 +92,15 @@ internal sealed class ChargeBattery : Card, IRCard
                         status = Status.energyNextTurn,
                         statusAmount = 1,
                         targetPlayer = true
-                    }
+                    },
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AStatus()
+                        {
+                            status = Status.energyNextTurn,
+                            statusAmount = 1,
+                            targetPlayer = true
+                        }).AsCardAction,
                 ];
                 break;
         }

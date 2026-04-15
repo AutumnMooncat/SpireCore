@@ -31,7 +31,7 @@ internal sealed class Recursion : Card, IRCard, ITooltipHelper
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.A ? 0 : upgrade == Upgrade.B ? 2 : 1,
+            cost = upgrade == Upgrade.A ? 0 : 1,
             floppable = true,
             art = flipped ? StableSpr.cards_Adaptability_Bottom : StableSpr.cards_Adaptability_Top
         };
