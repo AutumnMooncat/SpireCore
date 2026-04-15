@@ -64,14 +64,21 @@ internal sealed class StormOfSteel : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
+                    new AStatus()
+                    {
+                        xHint = 1,
+                        status = ShivStatus.Entry.Status,
+                        statusAmount = CardsInHand(s),
+                        targetPlayer = true
+                    },
                     new ADiscard(),
-                    new ACascadingAddCard()
+                    /*new ACascadingAddCard()
                     {
                         xHint = 1,
                         amount = CardsInHand(s),
                         card = GetShiv(),
                         destination = CardDestination.Hand
-                    }
+                    }*/
                 ];
                 break;
             case Upgrade.A:
@@ -82,14 +89,14 @@ internal sealed class StormOfSteel : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
-                    new ADiscard(),
-                    new ACascadingAddCard()
+                    new AStatus()
                     {
                         xHint = 1,
-                        amount = CardsInHand(s),
-                        card = GetShiv(),
-                        destination = CardDestination.Hand
-                    }
+                        status = ShivStatus.Entry.Status,
+                        statusAmount = CardsInHand(s),
+                        targetPlayer = true
+                    },
+                    new ADiscard(),
                 ];
                 break;
             case Upgrade.B:
@@ -100,7 +107,6 @@ internal sealed class StormOfSteel : Card, IRCard
                         hand = true,
                         handAmount = CardsInHand(s)
                     },
-                    new ADiscard(),
                     new AStatus()
                     {
                         xHint = 1,
@@ -108,13 +114,14 @@ internal sealed class StormOfSteel : Card, IRCard
                         statusAmount = CardsInHand(s),
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
+                    new AStatus()
                     {
                         xHint = 1,
-                        amount = CardsInHand(s),
-                        card = GetShiv(),
-                        destination = CardDestination.Hand
-                    }
+                        status = ShivStatus.Entry.Status,
+                        statusAmount = CardsInHand(s),
+                        targetPlayer = true
+                    },
+                    new ADiscard(),
                 ];
                 break;
         }

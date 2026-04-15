@@ -60,12 +60,18 @@ internal sealed class BladeDance : Card, IRCard
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
+                    new AStatus()
+                    {
+                        status = ShivStatus.Entry.Status,
+                        statusAmount = 2,
+                        targetPlayer = true
+                    },
+                    /*new ACascadingAddCard()
                     {
                         amount = 2,
                         card = GetShiv(),
                         destination = CardDestination.Hand
-                    }
+                    }*/
                 ];
                 break;
             case Upgrade.A:
@@ -77,12 +83,12 @@ internal sealed class BladeDance : Card, IRCard
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
+                    new AStatus()
                     {
-                        amount = 3,
-                        card = GetShiv(),
-                        destination = CardDestination.Hand
-                    }
+                        status = ShivStatus.Entry.Status,
+                        statusAmount = 3,
+                        targetPlayer = true
+                    },
                 ];
                 break;
             case Upgrade.B:
@@ -94,12 +100,12 @@ internal sealed class BladeDance : Card, IRCard
                         statusAmount = 2,
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
+                    new AStatus()
                     {
-                        amount = 2,
-                        card = GetShiv(),
-                        destination = CardDestination.Hand
-                    }
+                        status = ShivStatus.Entry.Status,
+                        statusAmount = 2,
+                        targetPlayer = true
+                    },
                 ];
                 break;
         }

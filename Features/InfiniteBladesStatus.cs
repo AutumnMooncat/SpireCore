@@ -41,14 +41,15 @@ public class InfiniteBladesStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHo
             return args.Tooltips;
         }
         
-        List<Tooltip> ret = [];
+        /*List<Tooltip> ret = [];
         ret.AddRange(args.Tooltips);
         ret.Add(new TTCard()
         {
             card = new Shiv(),
             showCardTraitTooltips = true
         });
-        return ret;
+        return ret;*/
+        return [..args.Tooltips, ShivStatus.GetTooltip];
     }
 
     public bool HandleStatusTurnAutoStep(IKokoroApi.IV2.IStatusLogicApi.IHook.IHandleStatusTurnAutoStepArgs args)
@@ -65,12 +66,18 @@ public class InfiniteBladesStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHo
 
         if (args.Amount > 0)
         {
-            args.Combat.QueueImmediate(new ACascadingAddCard()
+            args.Combat.QueueImmediate(new AStatus()
+            {
+                status = ShivStatus.Entry.Status,
+                statusAmount = args.Amount,
+                targetPlayer = true
+            });
+            /*args.Combat.QueueImmediate(new ACascadingAddCard()
             {
                 amount = args.Amount,
                 card = new Shiv(),
                 destination = CardDestination.Hand
-            });
+            });*/
         }
         return false;
     }

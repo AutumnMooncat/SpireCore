@@ -549,7 +549,7 @@
     },
     "InfiniteBladesStatus": {
       "name": "Infinite Blades",
-      "description": "Gain {0} <c=action>Shiv</c> at the start of every turn."
+      "description": "Gain {0} <c=status>SHIVS</c> every turn."
     },
     "PierceChargeStatus": {
       "name": "Pierce Charge",
@@ -663,6 +663,10 @@
     "NoChargeStatus": {
       "name": "Blackout",
       "description": "<c=downside>You may not benefit from <c=status>CHARGE</c> this turn.</c>"
+    },
+    "ShivStatus": {
+      "name": "Shivs",
+      "description": "Whenever you attack, immediately fire a <c=keyword>1</c> damage <c=drone>projectile</c> from all unobstructed missile bays. <c=downside>Decreases by 1 every time it triggers.</c>"
     }
   },
   "action": {
