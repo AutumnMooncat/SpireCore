@@ -48,14 +48,12 @@ internal sealed class Bash : Card, IRCard
                         damage = GetDmg(s, 2),
                         moveEnemy = -2
                     },
-                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 3), 
-                        new AStatus()
-                        {
-                            status = Status.overdrive,
-                            statusAmount = 1,
-                            targetPlayer = true
-                        }).AsCardAction,
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = -1,
+                        targetPlayer = true
+                    }
                 ];
                 break;
             case Upgrade.A:
@@ -66,14 +64,12 @@ internal sealed class Bash : Card, IRCard
                         damage = GetDmg(s, 2),
                         moveEnemy = -2
                     },
-                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 3), 
-                        new AStatus()
-                        {
-                            status = Status.overdrive,
-                            statusAmount = 1,
-                            targetPlayer = true
-                        }).AsCardAction,
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = -1,
+                        targetPlayer = true
+                    }
                 ];
                 break;
             case Upgrade.B:
@@ -84,14 +80,12 @@ internal sealed class Bash : Card, IRCard
                         damage = GetDmg(s, 3),
                         moveEnemy = -3
                     },
-                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 3), 
-                        new AStatus()
-                        {
-                            status = Status.overdrive,
-                            statusAmount = 1,
-                            targetPlayer = true
-                        }).AsCardAction,
+                    new AStatus()
+                    {
+                        status = Status.heat,
+                        statusAmount = -1,
+                        targetPlayer = true
+                    }
                 ];
                 break;
         }
