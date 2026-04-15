@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using AutumnMooncat.SpireCore.Features;
 using AutumnMooncat.SpireCore.Patches;
 using Microsoft.Xna.Framework.Graphics;
+using Nickel;
 
 namespace AutumnMooncat.SpireCore;
 
@@ -100,6 +102,18 @@ public static class SpirecoreExtensions
     public static AAttack WithHeatTipFix(this AAttack a)
     {
         a.AddTooltipFix("status.heat", $"<c=boldPink>{(a.targetPlayer ? MG.inst.g.state.ship.heatTrigger : 3)}</c>");
+        return a;
+    }
+
+    public static AVariableHint WithChargeTipFix(this AVariableHint a, State s, Combat c)
+    {
+        a.AddTooltipFix("action.xHint.desc", new TooltipFixPatch.Defer(), $" </c>(<c=keyword>{ChargeStatus.EffectiveCharge(s, c, s.ship)}</c>)", "", "");
+        return a;
+    }
+
+    public static AVariableHint WithEnergyTipFix(this AVariableHint a, Combat c, int cardCost)
+    {
+        MainModFile.Instance.KokoroHelper.ModData.SetOptionalModData<int>(a, "energyTooltipOverride", c.energy - cardCost);
         return a;
     }
     
