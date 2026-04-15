@@ -302,17 +302,29 @@
     "BallLightning": {
       "name": "Ball Lightning"
     },
+    "BeamCell": {
+      "name": "Beam Cell"
+    },
     "Buffer": {
       "name": "Buffer"
     },
     "Bullseye": {
       "name": "Bullseye"
     },
+    "Capacitor": {
+      "name": "Capacitor"
+    },
     "ChargeBattery": {
       "name": "Charge Battery"
     },
+    "CompileDriver": {
+      "name": "Compile Driver"
+    },
     "Coolheaded": {
       "name": "Coolheaded"
+    },
+    "CoreSurge": {
+      "name": "Core Surge"
     },
     "CreativeAI": {
       "name": "Creative AI"
@@ -337,6 +349,9 @@
     },
     "Equilibrium": {
       "name": "Equilibrium"
+    },
+    "Fission": {
+      "name": "Fission"
     },
     "Fusion": {
       "name": "Fusion"
@@ -381,10 +396,19 @@
     "Seek": {
       "name": "Seek"
     },
+    "StaticDischarge": {
+      "name": "Static Discharge"
+    },
     "Streamline": {
       "name": "Streamline",
       "title": "Decrease Cost",
       "description": "Decrease this card's <c=energy>energy</c> cost by <c=keyword>{{Scale}}</c> until the end of combat."
+    },
+    "Tempest": {
+      "name": "Tempest"
+    },
+    "ThunderStrike": {
+      "name": "Thunder Strike"
     },
     "Turbo": {
       "name": "TURBO"
@@ -815,6 +839,10 @@
       "description2": "Play the card, at no <c=energy>energy</c> cost.",
       "title3": "Torch",
       "description3": "Exhaust the card and gain <c=keyword>1</c> <c=status>HEAT</c>."
+    },
+    "AFission": {
+      "title": "Fission",
+      "description": "Instantly destroy every <c=drone>object in the midrow</c>."
     }
   },
   "trait": {
