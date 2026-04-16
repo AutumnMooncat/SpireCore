@@ -51,8 +51,8 @@ internal sealed class EventDialogue : IRDialogue
 			bg = nameof(BGShop),
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = CType.Ironclad, loopTag = Anim.Neutral },
 				new Say { who = CType.Cleo, loopTag = Anim.Neutral, flipped = true },
+				new Say { who = CType.Ironclad, loopTag = Anim.Ironclad.Sword },
 				new Jump { key = "NewShop" }
 			],
 		};
@@ -63,8 +63,9 @@ internal sealed class EventDialogue : IRDialogue
 			bg = nameof(BGShop),
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = CType.Ironclad, loopTag = Anim.Neutral },
 				new Say { who = CType.Cleo, loopTag = Anim.Neutral, flipped = true },
+				new Say { who = CType.Ironclad, loopTag = Anim.Neutral },
+				new Say { who = CType.CAT, loopTag = Anim.Squint },
 				new Jump { key = "NewShop" }
 			],
 		};
@@ -93,7 +94,7 @@ internal sealed class EventDialogue : IRDialogue
 			allPresent = [CType.Ironclad],
 			lines = [
 				new Wait() { secs = 1.5 },
-				new Say { who = CType.Ironclad, loopTag = Anim.Neutral }
+				new Say { who = CType.Ironclad, loopTag = Anim.Ironclad.Sword }
 			]
 		};
 		
@@ -103,7 +104,7 @@ internal sealed class EventDialogue : IRDialogue
 			bg = nameof(BGBootSequence),
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = CType.Ironclad, loopTag = Anim.Squint },
+				new Say { who = CType.Ironclad, loopTag = Anim.Ironclad.Mad },
 				new Say { who = CType.CAT, loopTag = Anim.Neutral }
 			]
 		};

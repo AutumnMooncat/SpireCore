@@ -31,6 +31,7 @@ public static class Anim
     public static class Ironclad
     {
         public static string Mad => "mad";
+        public static string Sword => "sword";
     }
     
     // Silent, Defect, Watcher

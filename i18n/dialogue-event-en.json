@@ -3,12 +3,13 @@
     /*Normal*/
     "Shop": [
       [
-        /*IC*/ "",
-        /*Cleo*/ ""
+        /*Cleo*/ "Lookin' sharp!",
+        /*IC*/ "But of course."
       ],
       [
-        /*IC*/ "",
-        /*Cleo*/ ""
+        /*Cleo*/ "Are you supposed to be on fire?",
+        /*IC*/ "Yes.",
+        /*CAT*/ "No."
       ]
     ],
     
