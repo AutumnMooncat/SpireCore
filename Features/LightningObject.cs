@@ -12,7 +12,7 @@ public class LightningObject : StuffBase, ITooltipHelper
     public static string ID => nameof(LightningObject);
     public static Spr icon = CommonIcons.Find("lightningIcon");
     public static Spr obj = IRegisterable.LookUpSpr(IRegisterable.DefaultAssetPath + "stuff/lightning")!.Value;
-    public static int Damage => 2;
+    public static int Damage => 1;
 
     public StuffBase backup;
     
