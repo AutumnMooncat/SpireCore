@@ -1,6 +1,5 @@
 using System.Linq;
 using AutumnMooncat.SpireCore.ExternalAPI;
-using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 using AutumnMooncat.SpireCore.Util;
 using Nickel;
 

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using AutumnMooncat.SpireCore.Actions;
 using AutumnMooncat.SpireCore.Cards.Silent;
 using AutumnMooncat.SpireCore.ExternalAPI;
-using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 using AutumnMooncat.SpireCore.Util;
 using Nickel;
 

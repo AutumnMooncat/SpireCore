@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
+namespace AutumnMooncat.SpireCore.ExternalAPI;
 
 public partial interface IKokoroApi
 {

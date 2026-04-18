@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using AutumnMooncat.SpireCore.ExternalAPI;
-using AutumnMooncat.SpireCore.ExternalAPI.Kokoro;
 using AutumnMooncat.SpireCore.Util;
 using HarmonyLib;
 using JetBrains.Annotations;
