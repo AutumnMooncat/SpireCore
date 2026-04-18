@@ -68,8 +68,8 @@ public class Watcher : IRCharacter
                 starterDeck: new StarterDeck
                 {
                     cards = [
-                        new Evaluate(),
-                        new ThirdEye()
+                        new CutThroughFate(),
+                        new Prostrate()
                     ]
                 }
             )
