@@ -5,7 +5,7 @@ using AutumnMooncat.SpireCore.Features;
 
 namespace AutumnMooncat.SpireCore.Cards.Watcher;
 
-internal sealed class Tantrum : Card, IRCard
+internal sealed class Tantrum : Card, IRCard, IHasCustomCardTraits
 {
     public static string ID => nameof(Tantrum);
     public static ICardEntry Entry { get; set; }
@@ -30,9 +30,7 @@ internal sealed class Tantrum : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 1,
-            recycle = upgrade != Upgrade.B,
-            exhaust = upgrade == Upgrade.B
+            cost = 1
         };
         return data;
     }
@@ -77,17 +75,24 @@ internal sealed class Tantrum : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 0)
+                        damage = GetDmg(s, 0),
+                        piercing = true
                     },
                     new AStatus()
                     {
                         status = WrathStatus.Entry.Status,
-                        statusAmount = 3,
+                        statusAmount = 1,
                         targetPlayer = true
                     }
                 ];
                 break;
         }
         return actions;
+    }
+    
+    public IReadOnlySet<ICardTraitEntry> GetInnateTraits(State state)
+    {
+        HashSet<ICardTraitEntry> ret = [Reshuffling.Entry];
+        return ret;
     }
 }

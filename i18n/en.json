@@ -902,6 +902,10 @@
       "description": "This card can be played at the cost of <c=keyword>{{Amount}}</c> <c=status>POWER CORE</c>.",
       "titleAlt": "Core Discount",
       "descriptionAlt": "This card has been discounted by <c=status>POWER CORE</c>."
+    },
+    "Reshuffling": {
+      "title": "Reshuffle",
+      "description": "This card is shuffled into your <c=deck>draw pile</c> instead of going to your <c=deck>discard pile</c> when played."
     }
   },
   "stuff": {

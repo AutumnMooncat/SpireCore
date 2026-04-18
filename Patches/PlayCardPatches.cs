@@ -38,16 +38,24 @@ public static class PlayCardPatches
     {
         public static bool Prefix(Combat __instance, State s, Card card)
         {
-            if (cardInPlay != null && !card.GetDataWithOverrides(s).recycle && card != ignoreThis)
+            if (cardInPlay == card && card != ignoreThis)
             {
-                //MainModFile.Log("Rebound checking for {}", cardInPlay);
-                int rebound = s.ship.Get(ReboundStatus.Entry.Status);
-                if (rebound > 0)
+                if (!card.GetDataWithOverrides(s).recycle)
                 {
-                    MainModFile.Log("Rebound applied to {}", cardInPlay);
-                    s.ship.Set(ReboundStatus.Entry.Status, rebound - 1);
-                    s.SendCardToDeck(card);
-                    return false;
+                    if (MainModFile.GetHelper().Content.Cards.IsCardTraitActive(s, card, Reshuffling.Entry))
+                    {
+                        s.SendCardToDeck(card, false, true);
+                        return false;
+                    }
+                    
+                    int rebound = s.ship.Get(ReboundStatus.Entry.Status);
+                    if (rebound > 0)
+                    {
+                        //MainModFile.Log("Rebound applied to {}", cardInPlay);
+                        s.ship.Set(ReboundStatus.Entry.Status, rebound - 1);
+                        s.SendCardToDeck(card);
+                        return false;
+                    }
                 }
             }
             return true;
