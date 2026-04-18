@@ -50,12 +50,13 @@ internal sealed class Pray : Card, IRCard
                         statusAmount = 2,
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
+                    new AScry()
                     {
-                        amount = 1,
-                        card = new Insight(),
-                        destination = CardDestination.Deck,
-                        insertRandomly = true
+                        count = 1
+                    },
+                    new ADrawCard()
+                    {
+                        count = 1
                     }
                 ];
                 break;
@@ -68,12 +69,13 @@ internal sealed class Pray : Card, IRCard
                         statusAmount = 3,
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
+                    new AScry()
                     {
-                        amount = 1,
-                        card = new Insight(),
-                        destination = CardDestination.Deck,
-                        insertRandomly = true
+                        count = 1
+                    },
+                    new ADrawCard()
+                    {
+                        count = 1
                     }
                 ];
                 break;
@@ -86,12 +88,13 @@ internal sealed class Pray : Card, IRCard
                         statusAmount = 2,
                         targetPlayer = true
                     },
-                    new ACascadingAddCard()
+                    new AScry()
                     {
-                        amount = 2,
-                        card = new Insight(),
-                        destination = CardDestination.Deck,
-                        insertRandomly = true
+                        count = 2
+                    },
+                    new ADrawCard()
+                    {
+                        count = 2
                     }
                 ];
                 break;

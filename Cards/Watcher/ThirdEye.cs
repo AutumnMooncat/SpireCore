@@ -1,6 +1,7 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using AutumnMooncat.SpireCore.Actions;
 using AutumnMooncat.SpireCore.Features;
 
 namespace AutumnMooncat.SpireCore.Cards.Watcher;
@@ -49,12 +50,10 @@ internal sealed class ThirdEye : Card, IRCard
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new AStatus()
+                    new AScry()
                     {
-                        status = Status.evade,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                        count = 3
+                    },
                 ];
                 break;
             case Upgrade.A:
@@ -66,12 +65,10 @@ internal sealed class ThirdEye : Card, IRCard
                         statusAmount = 2,
                         targetPlayer = true
                     },
-                    new AStatus()
+                    new AScry()
                     {
-                        status = Status.evade,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
+                        count = 3
+                    },
                 ];
                 break;
             case Upgrade.B:
@@ -83,12 +80,10 @@ internal sealed class ThirdEye : Card, IRCard
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new AStatus()
+                    new AScry()
                     {
-                        status = Status.evade,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    }
+                        count = 5
+                    },
                 ];
                 break;
         }
