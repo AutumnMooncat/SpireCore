@@ -432,6 +432,9 @@
     "Zap": {
       "name": "Zap"
     },
+    "BattleHymn": {
+      "name": "Battle Hymn"
+    },
     "Brilliance": {
       "name": "Brilliance"
     },
@@ -440,6 +443,12 @@
     },
     "Crescendo": {
       "name": "Crescendo"
+    },
+    "CutThroughFate": {
+      "name": "Cut Through Fate"
+    },
+    "DeusExMachina": {
+      "name": "Deus Ex Machina"
     },
     "DevaForm": {
       "name": "Deva Form"
@@ -461,6 +470,9 @@
     },
     "Evaluate": {
       "name": "Evaluate"
+    },
+    "FearNoEvil": {
+      "name": "Fear No Evil"
     },
     "FlyingSleeves": {
       "name": "Flying Sleeves"
@@ -500,6 +512,9 @@
     "SimmeringFury": {
       "name": "Simmering Fury"
     },
+    "Smite": {
+      "name": "Smite"
+    },
     "SpiritShield": {
       "name": "Spirit Shield"
     },
@@ -520,6 +535,9 @@
     },
     "Vigilance": {
       "name": "Vigilance"
+    },
+    "Worship": {
+      "name": "Worship"
     },
     "SheepDream": {
       "name": "Sheep Dream",
@@ -683,6 +701,10 @@
     "ShivStatus": {
       "name": "Shivs",
       "description": "Whenever you attack, immediately fire a <c=keyword>1</c> damage <c=drone>projectile</c> from all unobstructed missile bays. <c=downside>Decreases by 1 every time it triggers.</c>"
+    },
+    "BattleHymnStatus": {
+      "name": "Battle Hymn",
+      "description": "At the start of your turn, if you don't have a <c=action>Smite</c> in your <c=deck>hand</c>, gain one with x = {0}."
     }
   },
   "action": {
