@@ -7,6 +7,7 @@ using AutumnMooncat.SpireCore.Features;
 
 namespace AutumnMooncat.SpireCore.Cards.Watcher;
 
+[IRegisterable.Ignore]
 internal sealed class InnerPeace : Card, IRCard
 {
     public static string ID => nameof(InnerPeace);
