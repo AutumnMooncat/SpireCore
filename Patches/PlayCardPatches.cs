@@ -1,4 +1,3 @@
-using System;
 using AutumnMooncat.SpireCore.Features;
 using HarmonyLib;
 

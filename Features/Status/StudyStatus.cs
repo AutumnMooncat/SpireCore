@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using AutumnMooncat.SpireCore.Actions;
-using AutumnMooncat.SpireCore.Cards.Silent;
 using AutumnMooncat.SpireCore.Cards.Watcher;
 using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.Util;

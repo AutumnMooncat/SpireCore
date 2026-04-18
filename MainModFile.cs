@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutumnMooncat.SpireCore.Actions;
 using AutumnMooncat.SpireCore.ExternalAPI;
-using AutumnMooncat.SpireCore.Features;
 using AutumnMooncat.SpireCore.Util;
 
 /* In the Cobalt Core modding community it is common for namespaces to be <Author>.<ModName>

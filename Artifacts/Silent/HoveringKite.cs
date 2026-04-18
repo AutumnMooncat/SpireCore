@@ -1,5 +1,4 @@
 ﻿using Nickel;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace AutumnMooncat.SpireCore.Artifacts.Silent;

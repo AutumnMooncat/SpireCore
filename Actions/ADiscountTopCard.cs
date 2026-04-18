@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using AutumnMooncat.SpireCore.Util;
-using Nickel;
 
 namespace AutumnMooncat.SpireCore.Actions;
 

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.Util;
-using HarmonyLib;
-using JetBrains.Annotations;
 using Nickel;
 
 namespace AutumnMooncat.SpireCore.Features;

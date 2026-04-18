@@ -1,10 +1,8 @@
-﻿using System;
-using Nickel;
+﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 using AutumnMooncat.SpireCore.Actions;
 using AutumnMooncat.SpireCore.Features;
-using AutumnMooncat.SpireCore.Util;
 
 namespace AutumnMooncat.SpireCore.Cards.Defect;
 

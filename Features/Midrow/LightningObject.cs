@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using AutumnMooncat.SpireCore.Actions;
 using AutumnMooncat.SpireCore.Patches;
 using AutumnMooncat.SpireCore.Util;
-using FMOD;
 
 namespace AutumnMooncat.SpireCore.Features;
 

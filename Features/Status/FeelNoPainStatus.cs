@@ -1,4 +1,3 @@
-using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.Util;
 using Nickel;
 
