@@ -48,7 +48,7 @@ internal sealed class BallLightning : Card, IRCard
                         MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
                         new AAttack()
                         {
-                            damage = GetDmg(s, 2)
+                            damage = GetDmg(s, 1)
                         }).AsCardAction,
                     new ASpawn()
                     {
@@ -73,7 +73,6 @@ internal sealed class BallLightning : Card, IRCard
                         thing = new LightningObject()
                         {
                             yAnimation = 0.0,
-                            bubbleShield = true
                         }
                     },
                 ];
@@ -81,15 +80,18 @@ internal sealed class BallLightning : Card, IRCard
             case Upgrade.B:
                 actions = 
                 [
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2)
-                    },
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(KokoroUtils.ChargeResource, 1), 
+                        new AAttack()
+                        {
+                            damage = GetDmg(s, 1)
+                        }).AsCardAction,
                     new ASpawn()
                     {
                         thing = new LightningObject()
                         {
-                            yAnimation = 0.0
+                            yAnimation = 0.0,
+                            bubbleShield = true
                         }
                     },
                 ];
