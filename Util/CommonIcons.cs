@@ -57,6 +57,7 @@ public class CommonIcons : IRegisterable
     public static Spr RightCard { get; set; }
     public static Spr LeftCard { get; set; }
     public static Spr Torch { get; set; }
+    public static Spr Scry { get; set; }
 
     public static void Register(IModHelper helper)
     {
@@ -109,6 +110,7 @@ public class CommonIcons : IRegisterable
         RightCard = Find("rightCard");
         LeftCard = Find("leftCard");
         Torch = StableSpr.icons_removeCard;
+        Scry = Find("scry");
         
         if (MainModFile.Instance.KokoroApi.V2.TemporaryUpgrades.UpgradeTooltip is GlossaryTooltip utt)
         {

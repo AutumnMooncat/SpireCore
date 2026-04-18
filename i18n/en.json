@@ -863,6 +863,11 @@
     "AFission": {
       "title": "Fission",
       "description": "Instantly destroy every <c=drone>object in the midrow</c>."
+    },
+    "AScry": {
+      "title": "Scry",
+      "description": "Look at the top <c=keyword>{{Cards}}</c> cards of your <c=deck>draw pile</c>. You may <c=action>discard</c> any of them.",
+      "text": "Choose any number of cards to discard."
     }
   },
   "trait": {
