@@ -45,9 +45,11 @@ internal sealed class EmptyMind : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new ADrawCard()
+                    new AStatus()
                     {
-                        count = 2
+                        status = Status.evade,
+                        statusAmount = 1,
+                        targetPlayer = true
                     },
                     new AStatus()
                     {
@@ -68,9 +70,11 @@ internal sealed class EmptyMind : Card, IRCard
             case Upgrade.A:
                 actions = 
                 [
-                    new ADrawCard()
+                    new AStatus()
                     {
-                        count = 3
+                        status = Status.evade,
+                        statusAmount = 2,
+                        targetPlayer = true
                     },
                     new AStatus()
                     {
@@ -91,9 +95,11 @@ internal sealed class EmptyMind : Card, IRCard
             case Upgrade.B:
                 actions = 
                 [
-                    new ADrawCard()
+                    new AStatus()
                     {
-                        count = 2
+                        status = Status.evade,
+                        statusAmount = 1,
+                        targetPlayer = true
                     },
                     new AStatus()
                     {
