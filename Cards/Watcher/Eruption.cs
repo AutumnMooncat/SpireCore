@@ -76,12 +76,16 @@ internal sealed class Eruption : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 2)
+                        damage = GetDmg(s, 1)
+                    },
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1)
                     },
                     new AStatus()
                     {
                         status = WrathStatus.Entry.Status,
-                        statusAmount = 2,
+                        statusAmount = 1,
                         targetPlayer = true
                     }
                 ];
