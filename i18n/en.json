@@ -265,6 +265,9 @@
     "Deflect": {
       "name": "Deflect"
     },
+    "EscapePlan": {
+      "name": "Escape Plan"
+    },
     "FlyingKnee": {
       "name": "Flying Knee"
     },
@@ -280,8 +283,14 @@
     "Outmaneuver": {
       "name": "Out maneuver"
     },
+    "Predator": {
+      "name": "Predator"
+    },
     "Prepared": {
       "name": "Prepared"
+    },
+    "QuickSlash": {
+      "name": "Quick Slash"
     },
     "Reflex": {
       "name": "Reflex"
