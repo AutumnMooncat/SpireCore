@@ -1,6 +1,7 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using AutumnMooncat.SpireCore.Actions;
 
 namespace AutumnMooncat.SpireCore.Cards.Silent;
 
@@ -29,7 +30,8 @@ internal sealed class Acrobatics : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 1
+            cost = 1,
+            flippable = upgrade == Upgrade.A
         };
         return data;
     }
@@ -42,51 +44,72 @@ internal sealed class Acrobatics : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new AStatus()
+                    new ACardContext()
                     {
-                        status = Status.evade,
-                        statusAmount = 1,
+                        context = ACardContext.Context.RightHand,
+                        thatIsnt = this,
+                        flipped = flipped,
+                        followup = new MoveSelectedCardToPile()
+                        {
+                            targetLocation = CardBrowse.Source.DiscardPile
+                        }
+                    },
+                    new AMove()
+                    {
+                        dir = 1,
                         targetPlayer = true
                     },
-                    new AStatus()
+                    new ADrawCard()
                     {
-                        status = MainModFile.Instance.KokoroApi.V2.RedrawStatus.Status,
-                        statusAmount = 1,
-                        targetPlayer = true
+                        count = 3
                     }
                 ];
                 break;
             case Upgrade.A:
                 actions = 
                 [
-                    new AStatus()
+                    new ACardContext()
                     {
-                        status = Status.evade,
-                        statusAmount = 2,
+                        context = ACardContext.Context.RightHand,
+                        thatIsnt = this,
+                        flipped = flipped,
+                        followup = new MoveSelectedCardToPile()
+                        {
+                            targetLocation = CardBrowse.Source.DiscardPile
+                        }
+                    },
+                    new AMove()
+                    {
+                        dir = 1,
                         targetPlayer = true
                     },
-                    new AStatus()
+                    new ADrawCard()
                     {
-                        status = MainModFile.Instance.KokoroApi.V2.RedrawStatus.Status,
-                        statusAmount = 1,
-                        targetPlayer = true
+                        count = 3
                     }
                 ];
                 break;
             case Upgrade.B:
                 actions = 
                 [
-                    new AStatus()
+                    new ACardContext()
                     {
-                        status = Status.evade,
-                        statusAmount = 1,
+                        context = ACardContext.Context.RightHand,
+                        thatIsnt = this,
+                        flipped = flipped,
+                        followup = new MoveSelectedCardToPile()
+                        {
+                            targetLocation = CardBrowse.Source.DiscardPile
+                        }
+                    },
+                    new AMove()
+                    {
+                        dir = 2,
                         targetPlayer = true
                     },
-                    new AStatus()
+                    new ADrawCard()
                     {
-                        status = MainModFile.Instance.KokoroApi.V2.RedrawStatus.Status,
-                        statusAmount = 2,
-                        targetPlayer = true
+                        count = 4
                     }
                 ];
                 break;

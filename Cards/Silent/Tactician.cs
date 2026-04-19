@@ -30,7 +30,7 @@ internal sealed class Tactician : Card, IRCard
         CardData data = new CardData()
         {
             cost = 0,
-            exhaust = upgrade != Upgrade.A
+            exhaust = upgrade != Upgrade.B
         };
         return data;
     }
@@ -43,11 +43,9 @@ internal sealed class Tactician : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new AStatus()
+                    new AEnergy()
                     {
-                        status = Status.energyNextTurn,
-                        statusAmount = 1,
-                        targetPlayer = true
+                        changeAmount = 1
                     },
                     MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new AEnergy()
                     {
@@ -58,15 +56,13 @@ internal sealed class Tactician : Card, IRCard
             case Upgrade.A:
                 actions = 
                 [
-                    new AStatus()
+                    new AEnergy()
                     {
-                        status = Status.energyNextTurn,
-                        statusAmount = 1,
-                        targetPlayer = true
+                        changeAmount = 2
                     },
                     MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new AEnergy()
                     {
-                        changeAmount = 1
+                        changeAmount = 2
                     }).AsCardAction
                 ];
                 break;
@@ -76,12 +72,12 @@ internal sealed class Tactician : Card, IRCard
                     new AStatus()
                     {
                         status = Status.energyNextTurn,
-                        statusAmount = 2,
+                        statusAmount = 1,
                         targetPlayer = true
                     },
                     MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new AEnergy()
                     {
-                        changeAmount = 2
+                        changeAmount = 1
                     }).AsCardAction
                 ];
                 break;

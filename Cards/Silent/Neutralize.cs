@@ -30,7 +30,8 @@ internal sealed class Neutralize : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 0
+            cost = 0,
+            exhaust = upgrade == Upgrade.B
         };
         return data;
     }
@@ -67,13 +68,9 @@ internal sealed class Neutralize : Card, IRCard
                 [
                     new AAttack()
                     {
-                        damage = GetDmg(s, 0)
-                    },
-                    new AStatus()
-                    {
+                        damage = GetDmg(s, 1),
                         status = FeebledriveStatus.Entry.Status,
-                        statusAmount = 1,
-                        targetPlayer = false
+                        statusAmount = 2
                     }
                 ];
                 break;

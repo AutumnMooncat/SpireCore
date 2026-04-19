@@ -108,16 +108,9 @@ internal sealed class StormOfSteel : Card, IRCard
                     },
                     new AStatus()
                     {
-                        xHint = 1,
-                        status = Status.evade,
-                        statusAmount = CardsInHand(s),
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        xHint = 1,
+                        xHint = 2,
                         status = ShivStatus.Entry.Status,
-                        statusAmount = CardsInHand(s),
+                        statusAmount = 2*CardsInHand(s),
                         targetPlayer = true
                     },
                     new ADiscard(),

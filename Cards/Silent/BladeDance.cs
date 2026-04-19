@@ -30,19 +30,10 @@ internal sealed class BladeDance : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 1
+            cost = 1,
+            flippable = upgrade == Upgrade.A
         };
         return data;
-    }
-
-    public Card GetShiv()
-    {
-        var shiv = new Shiv();
-        /*if (upgrade == Upgrade.B)
-        {
-            shiv.upgrade = Upgrade.A;
-        }*/
-        return shiv;
     }
     
     public override List<CardAction> GetActions(State s, Combat c)
@@ -53,10 +44,9 @@ internal sealed class BladeDance : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new AStatus()
+                    new AMove()
                     {
-                        status = Status.evade,
-                        statusAmount = 1,
+                        dir = -2,
                         targetPlayer = true
                     },
                     new AStatus()
@@ -76,16 +66,15 @@ internal sealed class BladeDance : Card, IRCard
             case Upgrade.A:
                 actions = 
                 [
-                    new AStatus()
+                    new AMove()
                     {
-                        status = Status.evade,
-                        statusAmount = 1,
+                        dir = -2,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
                         status = ShivStatus.Entry.Status,
-                        statusAmount = 3,
+                        statusAmount = 2,
                         targetPlayer = true
                     },
                 ];
@@ -93,16 +82,15 @@ internal sealed class BladeDance : Card, IRCard
             case Upgrade.B:
                 actions = 
                 [
-                    new AStatus()
+                    new AMove()
                     {
-                        status = Status.evade,
-                        statusAmount = 2,
+                        dir = -3,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
                         status = ShivStatus.Entry.Status,
-                        statusAmount = 2,
+                        statusAmount = 3,
                         targetPlayer = true
                     },
                 ];

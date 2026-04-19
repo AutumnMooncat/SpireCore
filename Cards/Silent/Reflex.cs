@@ -30,7 +30,7 @@ internal sealed class Reflex : Card, IRCard
         CardData data = new CardData()
         {
             cost = 0,
-            exhaust = upgrade != Upgrade.A
+            exhaust = upgrade != Upgrade.B
         };
         return data;
     }
@@ -43,7 +43,7 @@ internal sealed class Reflex : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    new AStatus()
+                    /*new AStatus()
                     {
                         status = Status.evade,
                         statusAmount = 1,
@@ -54,29 +54,22 @@ internal sealed class Reflex : Card, IRCard
                         status = Status.evade,
                         statusAmount = 1,
                         targetPlayer = true
-                    }).AsCardAction
-                    /*new ADrawCard()
+                    }).AsCardAction*/
+                    new ADrawCard()
                     {
-                        count = 1
+                        count = 2
                     },
-                    MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new ADrawCard{count = 2}).AsCardAction*/
+                    MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new ADrawCard{count = 2}).AsCardAction
                 ];
                 break;
             case Upgrade.A:
                 actions = 
                 [
-                    new AStatus()
+                    new ADrawCard()
                     {
-                        status = Status.evade,
-                        statusAmount = 1,
-                        targetPlayer = true
+                        count = 3
                     },
-                    MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new AStatus()
-                    {
-                        status = Status.evade,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }).AsCardAction
+                    MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new ADrawCard{count = 3}).AsCardAction
                 ];
                 break;
             case Upgrade.B:
@@ -84,16 +77,11 @@ internal sealed class Reflex : Card, IRCard
                 [
                     new AStatus()
                     {
-                        status = Status.evade,
+                        status = Status.drawNextTurn,
                         statusAmount = 2,
                         targetPlayer = true
                     },
-                    MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new AStatus()
-                    {
-                        status = Status.evade,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    }).AsCardAction
+                    MainModFile.Instance.KokoroApi.V2.OnDiscard.MakeAction(new ADrawCard{count = 2}).AsCardAction
                 ];
                 break;
         }

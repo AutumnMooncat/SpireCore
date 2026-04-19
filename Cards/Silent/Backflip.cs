@@ -29,8 +29,7 @@ internal sealed class Backflip : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = 1,
-            flippable = upgrade == Upgrade.A
+            cost = 1
         };
         return data;
     }
@@ -59,7 +58,7 @@ internal sealed class Backflip : Card, IRCard
                 [
                     new AMove()
                     {
-                        dir = 2,
+                        dir = 3,
                         targetPlayer = true
                     },
                     new ADrawCard()
