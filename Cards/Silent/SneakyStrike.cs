@@ -7,6 +7,7 @@ using AutumnMooncat.SpireCore.Util;
 
 namespace AutumnMooncat.SpireCore.Cards.Silent;
 
+[IRegisterable.Ignore]
 internal sealed class SneakyStrike : Card, IRCard
 {
     public static string ID => nameof(SneakyStrike);

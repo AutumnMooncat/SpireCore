@@ -5,6 +5,7 @@ using AutumnMooncat.SpireCore.Actions;
 
 namespace AutumnMooncat.SpireCore.Cards.Silent;
 
+[IRegisterable.Ignore]
 internal sealed class Setup : Card, IRCard
 {
     public static string ID => nameof(Setup);

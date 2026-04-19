@@ -4,6 +4,7 @@ using System.Reflection;
 
 namespace AutumnMooncat.SpireCore.Cards.Silent;
 
+[IRegisterable.Ignore]
 internal sealed class Backstab : Card, IRCard
 {
     public static string ID => nameof(Backstab);
