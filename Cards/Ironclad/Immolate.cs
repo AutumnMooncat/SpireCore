@@ -37,7 +37,12 @@ internal sealed class Immolate : Card, IRCard
 
     public int GetBaseDamage()
     {
-        return upgrade == Upgrade.B ? 6 : 4;
+        return upgrade switch
+        {
+            Upgrade.B => 6,
+            Upgrade.A => 2,
+            _ => 4
+        };
     }
     
     public override List<CardAction> GetActions(State s, Combat c)
@@ -49,11 +54,11 @@ internal sealed class Immolate : Card, IRCard
                 actions = 
                 [
                     MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 5), 
-                        new AHurt()
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 4), 
+                        new AAttack()
                         {
-                            hurtAmount = GetBaseDamage(),
-                            targetPlayer = false
+                            damage = GetDmg(s, GetBaseDamage()),
+                            piercing = true
                         }).AsCardAction,
                     new AStatus()
                     {
@@ -72,6 +77,20 @@ internal sealed class Immolate : Card, IRCard
             case Upgrade.A:
                 actions = 
                 [
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 2), 
+                        new AAttack()
+                        {
+                            damage = GetDmg(s, GetBaseDamage()),
+                            piercing = true
+                        }).AsCardAction,
+                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 2), 
+                        new AAttack()
+                        {
+                            damage = GetDmg(s, GetBaseDamage()),
+                            piercing = true
+                        }).AsCardAction,
                     new AStatus()
                     {
                         status = HeatCapStatus.Entry.Status,
@@ -84,13 +103,6 @@ internal sealed class Immolate : Card, IRCard
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 5), 
-                        new AHurt()
-                        {
-                            hurtAmount = GetBaseDamage(),
-                            targetPlayer = false
-                        }).AsCardAction,
                 ];
                 break;
             case Upgrade.B:
@@ -98,21 +110,21 @@ internal sealed class Immolate : Card, IRCard
                 [
                     MainModFile.Kokoro().ActionCosts.MakeCostAction(
                         MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 5), 
-                        new AHurt()
+                        new AAttack()
                         {
-                            hurtAmount = GetBaseDamage(),
-                            targetPlayer = false
+                            damage = GetDmg(s, GetBaseDamage()),
+                            piercing = true
                         }).AsCardAction,
                     new AStatus()
                     {
                         status = HeatCapStatus.Entry.Status,
-                        statusAmount = 1,
+                        statusAmount = 2,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
                         status = Status.heat,
-                        statusAmount = 1,
+                        statusAmount = 2,
                         targetPlayer = true
                     },
                 ];
