@@ -7,6 +7,7 @@ internal sealed class Brimstone : Artifact, IRArtifact
 {
     public static string ID => nameof(Brimstone);
     public static IArtifactEntry Entry { get; set; }
+    public static int Amount => 2;
     
     public static void Register(IModHelper helper)
     {
@@ -21,23 +22,28 @@ internal sealed class Brimstone : Artifact, IRArtifact
             },
             Sprite = IRArtifact.LookUpSpr(Characters.Ironclad.ArtifactAssetPath + ID)!.Value,
             Name = MainModFile.Instance.AnyLocalizations.Bind(["artifact", ID, "name"]).Localize,
-            Description = MainModFile.Instance.AnyLocalizations.Bind(["artifact", ID, "description"]).Localize
+            Description = MainModFile.Instance.AnyLocalizations.Bind(["artifact", ID, "description"], new {Amount}).Localize
         });
     }
 
     public override void OnTurnStart(State state, Combat combat)
     {
+        if (combat.turn != 1)
+        {
+            return;
+        }
+        
         combat.QueueImmediate([
             new AStatus()
             {
                 status = Status.overdrive,
-                statusAmount = 1,
+                statusAmount = Amount,
                 targetPlayer = true
             },
             new AStatus()
             {
                 status = Status.overdrive,
-                statusAmount = 1,
+                statusAmount = Amount,
                 targetPlayer = false
             }
         ]);

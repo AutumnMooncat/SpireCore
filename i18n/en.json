@@ -20,7 +20,7 @@
   "artifact": {
     "Brimstone": {
       "name": "BRIMSTONE",
-      "description": "Gain 1 <c=status>OVERDRIVE</c> every turn. <c=downside>Your enemy also gains 1 <c=status>OVERDRIVE</c> every turn.</c>"
+      "description": "Gain {{Amount}} <c=status>OVERDRIVE</c> on the first turn. <c=downside>Your enemy also gains {{Amount}} <c=status>OVERDRIVE</c> on the first turn.</c>"
     },
     "CharonsAshes": {
       "name": "CHARON'S ASHES",
@@ -32,7 +32,7 @@
     },
     "RedSkull": {
       "name": "RED SKULL",
-      "description": "While you have no <c=status>SHIELD</c>, all of <c=bf3f43>Ironclad's</c> card attacks deal +1 damage."
+      "description": "Once per combat, when you <c=downside>overheat</c>, gain 1 <c=status>POWERDRIVE</c>."
     },
     "HoveringKite": {
       "name": "HOVERING KITE",
@@ -48,7 +48,7 @@
     },
     "WristBlade": {
       "name": "WRIST BLADE",
-      "description": "All attacks from 0-cost cards deal +1 damage."
+      "description": "At the start of combat, gain a <c=card>Backstab</c>."
     },
     "EmotionChip": {
       "name": "EMOTION CHIP",

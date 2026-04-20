@@ -4,7 +4,6 @@ using System.Reflection;
 
 namespace AutumnMooncat.SpireCore.Cards.Silent;
 
-[IRegisterable.Ignore]
 internal sealed class Backstab : Card, IRCard
 {
     public static string ID => nameof(Backstab);
@@ -18,7 +17,8 @@ internal sealed class Backstab : Card, IRCard
             Meta = new CardMeta
             {
                 deck = Characters.Silent.DeckEntry.Deck,
-                rarity = Rarity.uncommon,
+                rarity = Rarity.common,
+                dontOffer = true,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = MainModFile.Bind(["card", ID, "name"]).Localize,
@@ -31,8 +31,8 @@ internal sealed class Backstab : Card, IRCard
         CardData data = new CardData()
         {
             cost = 0,
-            buoyant = true,
-            exhaust = true
+            retain = true,
+            temporary = true
         };
         return data;
     }
@@ -72,7 +72,7 @@ internal sealed class Backstab : Card, IRCard
                     },
                     new ADrawCard()
                     {
-                        count = 2
+                        count = 1
                     }
                 ];
                 break;

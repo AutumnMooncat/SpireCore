@@ -1,5 +1,7 @@
-﻿using Nickel;
+﻿using System.Collections.Generic;
+using Nickel;
 using System.Reflection;
+using AutumnMooncat.SpireCore.Cards.Silent;
 
 namespace AutumnMooncat.SpireCore.Artifacts.Silent;
 
@@ -23,8 +25,29 @@ internal sealed class WristBlade : Artifact, IRArtifact
             Description = MainModFile.Instance.AnyLocalizations.Bind(["artifact", ID, "description"]).Localize
         });
     }
+    
+    public override List<Tooltip> GetExtraTooltips()
+    {
+        return [
+            new TTCard
+            {
+                card = new Backstab()
+            },
+            new TTGlossary("cardtrait.retain"),
+        ];
+    }
+    
+    public override void OnCombatStart(State state, Combat combat)
+    {
+        combat.QueueImmediate(new AAddCard
+        {
+            card = new Backstab(),
+            destination = CardDestination.Hand,
+            amount = 1
+        });
+    }
 
-    private bool _lock;
+    /*private bool _lock;
     
     public override int ModifyBaseDamage(int baseDamage, Card card, State state, Combat combat, bool fromPlayer)
     {
@@ -37,5 +60,5 @@ internal sealed class WristBlade : Artifact, IRArtifact
         var data = card.GetDataWithOverrides(state);
         _lock = false;
         return data.cost == 0 ? 1 : 0;
-    }
+    }*/
 }
