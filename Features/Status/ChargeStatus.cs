@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutumnMooncat.SpireCore.ExternalAPI;
 using AutumnMooncat.SpireCore.Util;
 using Nickel;
@@ -57,16 +58,24 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
 
     public static int EffectiveCharge(State s, Combat c, Ship ship)
     {
-        return Math.Min(Max, RealCharge(s, c, ship));
+        return Math.Max(0, Math.Min(Max, RealCharge(s, c, ship)));
     }
     
     private static int RealCharge(State s, Combat c, Ship ship)
     {
+        int amt = BaseCharge(s, c, ship);
         if ((ship?.Get(NoChargeStatus.Entry.Status) ?? 0) > 0)
         {
-            return 0;
+            amt = 0;
         }
-        return BaseCharge(s, c, ship);
+        foreach (var pair in c.stuff)
+        {
+            if (pair.Value is DarkObject)
+            {
+                amt--;
+            }
+        }
+        return amt;
     }
     
     private static int BaseCharge(State s, Combat c, Ship ship)
@@ -84,11 +93,20 @@ public class ChargeStatus : IRStatus, IKokoroApi.IV2.IStatusLogicApi.IHook, IKok
         }
         return charge;
     }
+
+    private static bool ChargeIsRelevant(State s, Combat c, Ship ship)
+    {
+        if ((ship?.Get(PowerCoreStatus.Entry.Status) ?? 0) > 0)
+        {
+            return true;
+        }
+        return c.stuff.Any(pair => pair.Value is LightningObject or PlasmaObject or DarkObject);
+    }
     
 
     public IEnumerable<(Status Status, double Priority)> GetExtraStatusesToShow(IKokoroApi.IV2.IStatusRenderingApi.IHook.IGetExtraStatusesToShowArgs args)
     {
-        if (args.Ship.isPlayerShip && BaseCharge(args.State, args.Combat, args.Ship) > 0)
+        if (args.Ship.isPlayerShip && ChargeIsRelevant(args.State, args.Combat, args.Ship))
         {
             return [(Entry.Status, 0)];
         }

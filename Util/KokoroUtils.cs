@@ -51,6 +51,12 @@ public class KokoroUtils : IRegisterable
                 textRenderer.Text = "+" + (newArgs.Amount - threshold);
                 width += textRenderer.Render(newArgs);
             }
+            else if (newArgs.Amount < 0)
+            {
+                newArgs.Position += new Vec(width, 0);
+                textRenderer.Text = newArgs.Amount.ToString();
+                width += textRenderer.Render(newArgs);
+            }
             return width;
         }
     }

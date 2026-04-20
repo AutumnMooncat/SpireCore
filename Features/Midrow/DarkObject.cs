@@ -12,8 +12,7 @@ public class DarkObject : StuffBase, ITooltipHelper, IDroneShieldOverride
     public static string ID => nameof(DarkObject);
     public static Spr icon = CommonIcons.Find("darkIcon");
     public static Spr obj = IRegisterable.LookUpSpr(IRegisterable.DefaultAssetPath + "stuff/dark")!.Value;
-
-    public int damage;
+    public static int Damage => 2;
     
     public override bool IsHostile()
     {
@@ -34,7 +33,7 @@ public class DarkObject : StuffBase, ITooltipHelper, IDroneShieldOverride
     {
         List<Tooltip> ret =
         [
-            ITooltipHelper.MakeTooltip("stuff", ID, GetIcon(), Colors.drone, null, new {Damage = damage})
+            ITooltipHelper.MakeTooltip("stuff", ID, GetIcon(), Colors.drone, null, new {Damage})
         ];
         if (bubbleShield)
             ret.Add(new TTGlossary("midrow.bubbleShield"));
@@ -52,7 +51,7 @@ public class DarkObject : StuffBase, ITooltipHelper, IDroneShieldOverride
         Vec off = GetOffset(g, true);
         Vec vec = v + off + bob;
         Vec org = new Vec(8, 15);
-        var spinny = damage > 0 ? damage : 0.25;
+        var spinny = Damage;
         if (ShouldDrawHilight(g))
         {
             Texture2D outlined = SpriteLoader.GetOutlined(obj);
@@ -74,26 +73,13 @@ public class DarkObject : StuffBase, ITooltipHelper, IDroneShieldOverride
         g.Pop();
     }
 
-    public override List<CardAction> GetActions(State s, Combat c)
-    {
-        return [
-            new DelegateAction()
-            {
-                begin = ((g, state, combat, thiz) => { 
-                    damage++;
-                    return null;
-                })
-            }
-        ];
-    }
-
     public override List<CardAction> GetActionsOnDestroyed(State s, Combat c, bool wasPlayer, int worldX)
     {
         var atk = new AAttack()
         {
             fromDroneX = worldX,
             targetPlayer = false,
-            damage = damage
+            damage = Damage
         };
         MainModFile.GetHelper().ModData.SetModData(atk, AttackPatches.DroneOverrideKey, true);
         return [atk];

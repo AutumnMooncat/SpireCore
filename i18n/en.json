@@ -932,7 +932,7 @@
     },
     "DarkObject": {
       "title": "Dark",
-      "description": "Destroying it will shoot a <c=damage>{{Damage}}</c> damage shot at the enemy. Damage increases by <c=damage>1</c> once per turn."
+      "description": "Contributes <c=downside>-1</c> <c=status>CHARGE</c>. Destroying it will shoot a <c=damage>{{Damage}}</c> damage shot at the enemy."
     },
     "PlasmaObject": {
       "title": "Plasma",
