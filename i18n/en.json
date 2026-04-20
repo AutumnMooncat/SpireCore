@@ -22,6 +22,14 @@
       "name": "BRIMSTONE",
       "description": "Gain {{Amount}} <c=status>OVERDRIVE</c> on the first turn. <c=downside>Your enemy also gains {{Amount}} <c=status>OVERDRIVE</c> on the first turn.</c>"
     },
+    "BurningBlood": {
+      "name": "BURNING BLOOD",
+      "description": "Once per combat, when you <c=downside>overheat</c>, immediately <c=hull>heal 1</c> and gain 1 <c=status>HEAT CAPACITY</c>."
+    },
+    "ChampionBelt": {
+      "name": "CHAMPION BELT",
+      "description": "Every time you gain any <c=status>OVERDRIVE</c>, the enemy gains 1 <c=status>DRIVE INHIBITOR</c>."
+    },
     "CharonsAshes": {
       "name": "CHARON'S ASHES",
       "description": "Whenever a card is <c=action>exhausted</c>, fire for 1 damage immediately."
@@ -38,6 +46,14 @@
       "name": "HOVERING KITE",
       "description": "The first time you <c=action>discard</c> a card each turn, gain 1 <c=energy>ENERGY</c>."
     },
+    "NinjaScroll": {
+      "name": "NINJA SCROLL",
+      "description": "Gain 3 <c=status>SHIVS</c> on the first turn."
+    },
+    "SnakeRing": {
+      "name": "RING OF THE SNAKE",
+      "description": "At the start of combat, draw 2 random <c=6fc057>Silent</c> cards."
+    },
     "Tingsha": {
       "name": "TINGSHA",
       "description": "Whenever you <c=action>discard</c> a card during your turn, fire for 1 damage immediately."
@@ -49,6 +65,10 @@
     "WristBlade": {
       "name": "WRIST BLADE",
       "description": "At the start of combat, gain a <c=card>Backstab</c>."
+    },
+    "CrackedCore": {
+      "name": "CRACKED CORE",
+      "description": "A <c=midrow>lightning</c> will always be near your ship at the start of combat."
     },
     "EmotionChip": {
       "name": "EMOTION CHIP",
@@ -66,6 +86,10 @@
       "name": "RUNIC CAPACITOR",
       "description": "Gain stored <c=energy>ENERGY</c> on the first turn. At the end of combat, store unspent <c=energy>ENERGY</c>."
     },
+    "SymbioticVirus": {
+      "name": "SYMBIOTIC VIRUS",
+      "description": "Two <c=midrow>dark</c> will always be near your ship at the start of combat."
+    },
     "Damaru": {
       "name": "DAMARU",
       "description": "Every 5 <c=924bbf>Watcher</c> cards played, gain 2 <c=status>MANTRA</c>."
@@ -73,6 +97,14 @@
     "Duality": {
       "name": "DUALITY",
       "description": "Whenever you play 2 <c=action>ATTACK</c> cards, gain 1 <c=status>TEMP SHIELD</c>."
+    },
+    "Melange": {
+      "name": "MELANGE",
+      "description": "At the start of combat, <c=action>scry {{Count}}</c>."
+    },
+    "PureWater": {
+      "name": "PURE WATER",
+      "description": "At the start of combat, gain a <c=card>Miracle</c>."
     },
     "TeardropLocket": {
       "name": "TEARDROP LOCKET",
@@ -667,11 +699,13 @@
     },
     "FeebledriveStatus": {
       "name": "Drive Inhibitor",
-      "description": "Remove {0} damage from all attacks. <c=downside>Goes away at start of next turn.</c>"
+      "description": "Remove {0} damage from all attacks. <c=downside>Goes away at start of next turn.</c>",
+      "descriptionAlt": "Removes damage from all attacks. <c=downside>Goes away at start of next turn.</c>"
     },
     "HeatCapStatus": {
       "name": "Heat Capacity",
-      "description": "Increases <c=downside>overheat</c> threshold by {0}."
+      "description": "Increases <c=downside>overheat</c> threshold by {0}.",
+      "descriptionAlt": "Increases <c=downside>overheat</c> threshold."
     },
     "DemonFormStatus": {
       "name": "Demon Form",
