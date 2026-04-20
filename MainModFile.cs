@@ -84,6 +84,21 @@ public sealed class MainModFile : SimpleMod
                     Log("Added missing card {} with key {}", pair.Value.Name, card.Key());
                 }
             }
+            
+            Log("Checking for missing artifacts in codex");
+            foreach (var pair in DB.artifacts)
+            {
+                if (DB.artifactMetas[pair.Key].pools.Contains(ArtifactPool.Unreleased))
+                {
+                    continue;
+                }
+
+                var tifact = (Artifact) Activator.CreateInstance(pair.Value);
+                if (MG.inst.g.state.persistentStoryVars.artifactsOwned.Add(tifact.Key()))
+                {
+                    Log("Added missing artifact {} with key {}", pair.Value.Name, tifact.Key());
+                }
+            }
         }
     }
 
