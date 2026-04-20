@@ -42,7 +42,8 @@ public class ShivStatus : IRStatus, IKokoroApi.IV2.IStatusRenderingApi.IHook
             var amt = state.ship.Get(Entry.Status);
             if (amt <= 0) return;
             
-            var bays = state.ship.parts.Select((p, i) => p is { type: PType.missiles, active: true } ? i : -1).Where(i => i >= 0 && !combat.stuff.ContainsKey(i + state.ship.x)).ToList();
+            //&& !combat.stuff.ContainsKey(i + state.ship.x)
+            var bays = state.ship.parts.Select((p, i) => p is { type: PType.missiles, active: true } ? i : -1).Where(i => i >= 0).ToList();
             if (bays.Count <= 0) return;
             
             state.ship.Set(Entry.Status, amt - 1);

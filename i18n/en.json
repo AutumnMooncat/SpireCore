@@ -709,7 +709,7 @@
     },
     "ShivStatus": {
       "name": "Shivs",
-      "description": "Whenever you attack, immediately fire a <c=keyword>1</c> damage <c=drone>projectile</c> from all unobstructed missile bays. <c=downside>Decreases by 1 every time it triggers.</c>"
+      "description": "Whenever you attack, immediately fire a <c=keyword>1</c> damage <c=drone>projectile</c> from your missile bay. <c=downside>Decreases by 1 every time it triggers.</c>"
     },
     "BattleHymnStatus": {
       "name": "Battle Hymn",
