@@ -62,13 +62,13 @@ internal sealed class Immolate : Card, IRCard
                         }).AsCardAction,
                     new AStatus()
                     {
-                        status = HeatCapStatus.Entry.Status,
+                        status = Status.heat,
                         statusAmount = 1,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
-                        status = Status.heat,
+                        status = HeatCapStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     },
@@ -93,13 +93,13 @@ internal sealed class Immolate : Card, IRCard
                         }).AsCardAction,
                     new AStatus()
                     {
-                        status = HeatCapStatus.Entry.Status,
+                        status = Status.heat,
                         statusAmount = 1,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
-                        status = Status.heat,
+                        status = HeatCapStatus.Entry.Status,
                         statusAmount = 1,
                         targetPlayer = true
                     },
@@ -117,13 +117,13 @@ internal sealed class Immolate : Card, IRCard
                         }).AsCardAction,
                     new AStatus()
                     {
-                        status = HeatCapStatus.Entry.Status,
+                        status = Status.heat,
                         statusAmount = 2,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
-                        status = Status.heat,
+                        status = HeatCapStatus.Entry.Status,
                         statusAmount = 2,
                         targetPlayer = true
                     },

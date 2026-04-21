@@ -1,6 +1,7 @@
 ﻿using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using AutumnMooncat.SpireCore.Features;
 
 namespace AutumnMooncat.SpireCore.Cards.Ironclad;
 
@@ -42,24 +43,8 @@ internal sealed class FlameBarrier : Card, IRCard
             case Upgrade.None:
                 actions = 
                 [
-                    /*MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
-                        new AStatus()
-                        {
-                            status = Status.heat,
-                            statusAmount = 3,
-                            targetPlayer = true
-                        }).AsCardAction,*/
                     MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
-                        new AStatus()
-                        {
-                            status = Status.maxShield,
-                            statusAmount = 1,
-                            targetPlayer = true
-                        }).AsCardAction,
-                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 2), 
                         new AStatus()
                         {
                             status = Status.shield,
@@ -71,22 +56,20 @@ internal sealed class FlameBarrier : Card, IRCard
                         status = Status.heat,
                         statusAmount = 2,
                         targetPlayer = true
-                    }
+                    },
+                    new AStatus()
+                    {
+                        status = HeatCapStatus.Entry.Status,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    },
                 ];
                 break;
             case Upgrade.A:
                 actions = 
                 [
                     MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
-                        new AStatus()
-                        {
-                            status = Status.maxShield,
-                            statusAmount = 1,
-                            targetPlayer = true
-                        }).AsCardAction,
-                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
+                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 2), 
                         new AStatus()
                         {
                             status = Status.shield,
@@ -98,34 +81,36 @@ internal sealed class FlameBarrier : Card, IRCard
                         status = Status.heat,
                         statusAmount = 2,
                         targetPlayer = true
-                    }
+                    },
+                    new AStatus()
+                    {
+                        status = HeatCapStatus.Entry.Status,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    },
                 ];
                 break;
             case Upgrade.B:
                 actions = 
                 [
-                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
-                        new AStatus()
-                        {
-                            status = Status.maxShield,
-                            statusAmount = 2,
-                            targetPlayer = true
-                        }).AsCardAction,
-                    MainModFile.Kokoro().ActionCosts.MakeCostAction(
-                        MainModFile.Kokoro().ActionCosts.MakeResourceCost(MainModFile.Kokoro().ActionCosts.MakeStatusResource(Status.heat), 1), 
-                        new AStatus()
-                        {
-                            status = Status.shield,
-                            statusAmount = 4,
-                            targetPlayer = true
-                        }).AsCardAction,
+                    new AStatus()
+                    {
+                        status = Status.shield,
+                        statusAmount = 3,
+                        targetPlayer = true
+                    },
                     new AStatus()
                     {
                         status = Status.heat,
-                        statusAmount = 2,
+                        statusAmount = 1,
                         targetPlayer = true
-                    }
+                    },
+                    new AStatus()
+                    {
+                        status = HeatCapStatus.Entry.Status,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    },
                 ];
                 break;
         }
