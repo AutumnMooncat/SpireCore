@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutumnMooncat.SpireCore.Features;
@@ -9,6 +10,12 @@ namespace AutumnMooncat.SpireCore;
 
 public static class SpirecoreExtensions
 {
+    public static T EditThis<T>(this T thing, Action<T> edit)
+    {
+        edit(thing);
+        return thing;
+    }
+
     public static void SetData<T>(this object o, string key, T data)
     {
         MainModFile.SetData(o, key, data);
@@ -19,10 +26,27 @@ public static class SpirecoreExtensions
         return MainModFile.GetData(o, key, out data);
     }
 
+    public static T WithData<T, D>(this T o, string key, D data)
+    {
+        o.SetData(key, data);
+        return o;
+    }
+    
+    public static T WithoutData<T>(this T o, string key)
+    {
+        o.RemoveData(key);
+        return o;
+    }
+
     public static void RemoveData(this object o, string key)
     {
         MainModFile.RemoveData(o, key);
     }
+
+    public static string PrefixID(this string s)
+    {
+        return MainModFile.MakeID(s);
+    } 
 
     public static Texture2D GetTex(this Spr spr)
     {
@@ -39,7 +63,7 @@ public static class SpirecoreExtensions
         return a.GetData(RenderActionPatches.ExtraPayloadKey, out pl);
     }
     
-    public static CardAction WithExtraIcons(this CardAction a, List<Records.RenderPayload> pl)
+    public static T WithExtraIcons<T>(this T a, List<Records.RenderPayload> pl) where T : CardAction
     {
         a.SetExtraIcons(pl);
         return a;
@@ -63,7 +87,7 @@ public static class SpirecoreExtensions
         return a.GetData(TooltipFixPatch.TooltipFixKey, out dict);
     }
 
-    public static CardAction WithTooltipFix(this CardAction a, string key, params object[] vals)
+    public static T WithTooltipFix<T>(this T a, string key, params object[] vals) where T : CardAction
     {
         a.AddTooltipFix(key, vals);
         return a;
@@ -87,13 +111,13 @@ public static class SpirecoreExtensions
         return a.GetData(TooltipFixPatch.TooltipAdditionKey, out tips);
     }
 
-    public static CardAction WithExtraTooltips(this CardAction a, params Tooltip[] vals)
+    public static T WithExtraTooltips<T>(this T a, params Tooltip[] vals) where T : CardAction
     {
         a.AddExtraTooltips(vals);
         return a;
     }
     
-    public static CardAction WithDisabled(this CardAction a, bool disabled)
+    public static T WithDisabled<T>(this T a, bool disabled) where T : CardAction
     {
         a.disabled = disabled;
         return a;
