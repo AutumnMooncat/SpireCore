@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace AutumnMooncat.SpireCore.Features.Dialogue;
 
 public static class CType
@@ -17,6 +20,9 @@ public static class CType
     public static string CAT => "comp";
 
     public static string RandomCrew => "crew";
+    public static List<string> AllVanilla => [Dizzy, Riggs, Peri, Isaac, Drake, Max, Books, CAT];
+    public static List<string> AllModded => MainModFile.GetHelper().Content.Characters.V2.RegisteredPlayableCharacters.Values.Select(e => e.CharacterType).ToList();
+    public static List<string> AllPlayable => [..AllVanilla, ..AllModded];
 
     public static string Cleo => "nerd";
 }

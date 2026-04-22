@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AutumnMooncat.SpireCore.Features;
+using AutumnMooncat.SpireCore.Features.Dialogue;
 using Nickel;
 
 namespace AutumnMooncat.SpireCore;
@@ -143,8 +144,35 @@ internal interface IRDialogue : IRegisterable
             DB.story.all[realKey] = node;
 
             for (var i = 0; i < node.lines.Count; i++)
+            {
                 if (node.lines[i] is Say say)
+                {
                     say.hash = i.ToString();
+                }
+                else if (node.lines[i] is SaySwitch saySwitch)
+                {
+                    if (saySwitch.HasSplitFlag())
+                    {
+                        foreach (var saySwitchLine in saySwitch.lines)
+                        {
+                            saySwitchLine.hash = i.ToString();
+                        }
+                    }
+                    else
+                    {
+                        int switchIndex = 0;
+                        foreach (var saySwitchLine in saySwitch.lines)
+                        {
+                            if (saySwitchLine.HasCopyFlag())
+                            {
+                                switchIndex--;
+                            }
+                            saySwitchLine.hash = i + ":" + switchIndex;
+                            switchIndex++;
+                        }
+                    }
+                }
+            }
             
             //MainModFile.Log("Register Normal Node {}", realKey);
         }
@@ -204,6 +232,26 @@ internal interface IRDialogue : IRegisterable
                 {
                     //MainModFile.Log("Skipping non say line in {}", realKey);
                     index--;
+                }
+                else if (line is SaySwitch saySwitch)
+                {
+                    if (saySwitch.HasSplitFlag())
+                    {
+                        e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString()]);
+                    }
+                    else
+                    {
+                        int switchIndex = 0;
+                        foreach (var saySwitchLine in saySwitch.lines)
+                        {
+                            if (saySwitchLine.HasCopyFlag())
+                            {
+                                continue;
+                            }
+                            e.Localizations[$"{realKey}:{index}:{switchIndex}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString(), switchIndex.ToString()]);
+                            switchIndex++;
+                        }
+                    }
                 }
                 else
                 {

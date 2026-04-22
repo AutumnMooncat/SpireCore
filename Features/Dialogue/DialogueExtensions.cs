@@ -1,10 +1,67 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Nickel;
 
 namespace AutumnMooncat.SpireCore.Features.Dialogue;
 
 internal static class DialogueExt
 {
+	public static SaySwitch SplitWith(this Say say, params string[] thatIs)
+	{
+		//MainModFile.Log("AllPlayable: {}", CType.AllPlayable.Aggregate((a,b) => a+", "+b));
+		return new SaySwitch()
+		{
+			lines = say.CopyWith(thatIs)
+		}.WithSplitFlag();
+	}
+	
+	public static SaySwitch SplitWithout(this Say say, params string[] thatIsnt)
+	{
+		return new SaySwitch()
+		{
+			lines = say.CopyWithout(thatIsnt)
+		}.WithSplitFlag();
+	}
+
+	public static SaySwitch WithSplitFlag(this SaySwitch say)
+	{
+		return say.WithData("SplitSwitch", true);
+	}
+
+	public static bool HasSplitFlag(this SaySwitch say)
+	{
+		return say.GetData("SplitSwitch", out bool has) && has;
+	}
+
+	public static List<Say> CopyWith(this Say say, params string[] thatIs)
+	{
+		return CType.AllPlayable.Where(thatIs.Contains)
+			.Select(s => Mutil.DeepCopy(say).WithCopyFlag()
+				.EditThis(thiz => thiz.who = s))
+			.ToList()
+			.EditThis(thiz => thiz.FirstOrDefault()?.WithCopyFlag(false));
+	}
+
+	public static List<Say> CopyWithout(this Say say, params string[] thatIsnt)
+	{
+		return CType.AllPlayable.Where(s => !thatIsnt.Contains(s))
+			.Select(s => Mutil.DeepCopy(say).WithCopyFlag()
+				.EditThis(thiz => thiz.who = s))
+			.ToList()
+			.EditThis(thiz => thiz.FirstOrDefault()?.WithCopyFlag(false));
+	}
+
+	public static Say WithCopyFlag(this Say say, bool val = true)
+	{
+		return say.WithData("CopySay", val);
+	}
+
+	public static bool HasCopyFlag(this Say say)
+	{
+		return say.GetData("CopySay", out bool has) && has;
+	}
+	
 	public static int GetMinShieldLostThisTurn(this StoryNode node)
 		=> MainModFile.GetHelper().ModData.GetModDataOrDefault<int>(node, "MinShieldLostThisTurn");
 
