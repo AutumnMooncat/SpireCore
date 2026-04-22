@@ -1,6 +1,7 @@
 using System.Linq;
 using AutumnMooncat.SpireCore.Characters;
 using AutumnMooncat.SpireCore.Features.Dialogue;
+using FMOD;
 using HarmonyLib;
 using Nickel;
 
@@ -17,6 +18,30 @@ public class DialoguePatches : IRDialogue
                 return;
             state.storyVars.SetJustPlayedRecycleCard(true);
         }, double.NegativeInfinity);
+    }
+
+    [HarmonyPatch(typeof(Shout), nameof(Shout.GetCharBabble))]
+    public static class BabblePatch
+    {
+        public static void Postfix(ref GUID __result, string name)
+        {
+            if (name == CType.Ironclad)
+            {
+                __result = FSPRO.Event.Babble_chunk;
+            }
+            else if (name == CType.Silent)
+            {
+                __result = FSPRO.Event.Babble_peri;
+            }
+            else if (name == CType.Defect)
+            {
+                __result = FSPRO.Event.Babble_scrap;
+            }
+            else if (name == CType.Watcher)
+            {
+                __result = FSPRO.Event.Babble_riggs;
+            }
+        }
     }
 
     [HarmonyPatch(typeof(StoryVars), nameof(StoryVars.ResetAfterCombatLine))]
