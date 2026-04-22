@@ -25,10 +25,14 @@ public static class PlayCardPatches
 
         public static void Postfix(Combat __instance, bool __result, State s, Card card)
         {
-            if (__result && card.GetData(PowerCoreDiscount.ID, out int amt) && amt > 0)
+            if (__result)
             {
-                s.ship.Add(PowerCoreStatus.Entry.Status, -amt);
-                card.RemoveData(PowerCoreDiscount.ID);
+                DialoguePatches.OnPlayCard(__instance, card);
+                if (card.GetData(PowerCoreDiscount.ID, out int amt) && amt > 0)
+                {
+                    s.ship.Add(PowerCoreStatus.Entry.Status, -amt);
+                    card.RemoveData(PowerCoreDiscount.ID);
+                }
             }
         }
     }

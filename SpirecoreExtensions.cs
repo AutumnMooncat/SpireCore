@@ -43,6 +43,17 @@ public static class SpirecoreExtensions
         MainModFile.RemoveData(o, key);
     }
 
+    public static V GetOrAddValue<K, V>(this Dictionary<K, V> dict, K key, V value)
+    {
+        if (dict.TryGetValue(key, out var found))
+        {
+            return found;
+        }
+
+        dict[key] = value;
+        return value;
+    }
+
     public static string PrefixID(this string s)
     {
         return MainModFile.MakeID(s);

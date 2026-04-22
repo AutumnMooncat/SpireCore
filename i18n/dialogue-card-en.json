@@ -1,38 +1,20 @@
 {
-  "Ironclad": {
-    "Played": {
-      "WarCry": [
-        [ "Bow down before me!" ]
-      ],
-      "Juggernaut": [
-        /*IC*/ "Im the-",
-        /*CAT*/ "Don't say it.",
-        /*IC*/ "... Greatest warrior of the Three Kingdoms?",
-        /*CAT*/ "Wrong game!"
-      ],
-      "ShieldGun": [
-        /*IC*/ "Where I'm from, this would have been a common.",
-        /*Dizzy*/ "Is that even balanced?"
-      ]
-    }
-  },
   "Played": {
-    "Quarter1": [
-      "Time to get the ball rolling."
+    "Anger": [
+      /*IC*/ ">:(",
+      /*Switch*/ [
+        /*Defect*/ ":(",
+        /*Silent*/ ":thinking:",
+        /*Others*/ "How are you saying that out loud?"
+      ]
     ],
-    "Deadline": [
-      [ "About time we finished this, no?" ],
-      [ "This has been fun, but let's wrap things up." ],
-      [ "Let's touch base on your imminent demise." ]
+    "Juggernaut": [
+      /*IC*/ "Im the-",
+      /*Any*/ "Don't."
     ],
-    "LayoutOrStrategize": [
-      [ "I think I have an idea." ],
-      [ "Something like this should do the trick." ],
-      [ "Let's see what I can bring to the table." ]
-    ],
-    "Downsize": [
-      [ "Sorry, looks like we're going to have to let you go." ],
-      [ "Make sure to clean out your desk by the end of the fight." ]
+    "ShieldGun": [
+      /*IC*/ "Where I'm from, this would have been a common.",
+      /*Dizzy*/ "Is that even balanced?"
     ]
   }
 }

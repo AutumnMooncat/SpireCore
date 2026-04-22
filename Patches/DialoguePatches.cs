@@ -20,6 +20,14 @@ public class DialoguePatches : IRDialogue
         }, double.NegativeInfinity);
     }
 
+    public static void OnPlayCard(Combat c, Card card)
+    {
+        if (CardDialogue.CardLookups.TryGetValue(card.GetType(), out var key))
+        {
+            c.QueueImmediate(new ADummyAction { dialogueSelector = "."+key });
+        }
+    }
+
     [HarmonyPatch(typeof(Shout), nameof(Shout.GetCharBabble))]
     public static class BabblePatch
     {
