@@ -207,4 +207,9 @@ public sealed class MainModFile : SimpleMod
             getTips = tips
         }).SetShowTooltips(true).AsCardAction;
     }
+
+    internal static CardAction AddDialogue(string key)
+    {
+        return Kokoro().HiddenActions.MakeAction(new ADummyAction(){dialogueSelector = key}).AsCardAction;
+    }
 }
