@@ -59,6 +59,10 @@ public class Defect : IRCharacter
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Mini, 1);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Squint, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.GameOver, 1);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.Mad, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.MadRed, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.ReallyMad, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.ReallyMadRed, 5);
         
         helper.ModRegistry.AwaitApi<IMoreDifficultiesApi>(
             "TheJazMaster.MoreDifficulties",

@@ -39,8 +39,24 @@ public static class Anim
         public static string Mad => "mad";
         public static string Sword => "sword";
     }
-    
-    // Silent, Defect, Watcher
+
+    public static class Silent
+    {
+        
+    }
+
+    public static class Defect
+    {
+        public static string Mad => "mad";
+        public static string MadRed => "madRed";
+        public static string ReallyMad => "reallyMad";
+        public static string ReallyMadRed => "reallyMadRed";
+    }
+
+    public static class Watcher
+    {
+        
+    }
 
     public static class Dizzy
     {
