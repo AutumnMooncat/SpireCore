@@ -171,6 +171,11 @@ public sealed class MainModFile : SimpleMod
     {
         Instance.Logger.LogInformation(s, args);
     }
+    
+    internal static void LogError(string s, params object[] args)
+    {
+        Instance.Logger.LogError(s, args);
+    }
 
     internal static IKokoroApi.IV2 Kokoro()
     {

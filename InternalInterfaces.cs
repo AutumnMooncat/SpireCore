@@ -122,6 +122,53 @@ internal interface IRCharacter : IRegisterable
 
 internal interface IRDialogue : IRegisterable
 {
+    internal class DialogueRegistry<T>(Func<IReadOnlyList<string>, T, string> realKeyFunc, Func<IReadOnlyList<string>, T, IReadOnlyList<string>> lookupKeyFunc)
+    {
+        private readonly Dictionary<string, int> _keyCounter = [];
+        private readonly Dictionary<IReadOnlyList<string>, T> _stuff = [];
+        
+        private static string Format(IReadOnlyList<string> key)
+        {
+            return key.Aggregate((a, b) => (a ?? "<null>") + ", " + (b ?? "<null>"));
+        }
+
+        internal void Register(IReadOnlyList<string> key, T value)
+        {
+            var check = Format(key);
+            _keyCounter.TryAdd(check, 0);
+            /*if (!_keyCounter.TryAdd(check, 0))
+            {
+                MainModFile.Log("Incrementing key {}", check);
+            }
+            else
+            {
+                MainModFile.Log("Starting key {}", check);
+            }*/
+            _stuff[[..key, _keyCounter[check].ToString()]] = value;
+            _keyCounter[check] = _keyCounter[check]++;
+        }
+
+        internal Dictionary<IReadOnlyList<string>, T> Get()
+        {
+            return _stuff;
+        }
+
+        internal string GetRealKey(IReadOnlyList<string> key, T val) => realKeyFunc(key, val);
+        internal IReadOnlyList<string> GetLookupKey(IReadOnlyList<string> key, T val) => lookupKeyFunc(key, val);
+    }
+    
+    static DialogueRegistry<StoryNode> MakeNormalRegistry() => new(
+        (key,val) => MainModFile.MakeID(string.Join(".", key)),
+        (key, val) => key);
+
+    static DialogueRegistry<StoryNode> MakeHardcodedRegistry() => new(
+        (key,val) => string.Join(".", key.Select(s => s.Replace("{{CharacterType}}", key[0])[1..])),
+        (key, val) => key.Skip(1).ToList());
+
+    static DialogueRegistry<Say> MakeSaySwitchRegistry() => new(
+        (key,val) => string.Join(".", key.Skip(1)),
+        (key, val) => key.Skip(1).ToList());
+    
     static INonNullLocalizationProvider<IReadOnlyList<string>> GetLoc(Func<string, Stream> localeStreamFunction)
     {
         return new MissingPlaceholderNonBoundLocalizationProvider<IReadOnlyList<string>>(
@@ -130,8 +177,144 @@ internal interface IRDialogue : IRegisterable
                     tokenExtractor: new SimpleLocalizationTokenExtractor(),
                     localeStreamFunction: localeStreamFunction
                 )
-            )
+            ),
+            list =>
+            {
+                var msg = list.Aggregate((a, b) => (a??"<null>")+", "+(b??"<null>"));
+                MainModFile.LogError("Failed to Loc [{}]", msg);
+                return msg;
+            }
         );    
+    }
+
+    static void InjectStory(DialogueRegistry<StoryNode> reg, NodeType newNodeType)
+    {
+        foreach (var (key, node) in reg.Get())
+        {
+            var realKey = reg.GetRealKey(key, node);
+
+            node.type = newNodeType;
+            DB.story.all[realKey] = node;
+
+            for (var i = 0; i < node.lines.Count; i++)
+            {
+                if (node.lines[i] is Say say)
+                {
+                    say.hash = i.ToString();
+                }
+                else if (node.lines[i] is SaySwitch saySwitch)
+                {
+                    if (saySwitch.HasSplitFlag())
+                    {
+                        foreach (var saySwitchLine in saySwitch.lines)
+                        {
+                            saySwitchLine.hash = i.ToString();
+                        }
+                    }
+                    else
+                    {
+                        int switchIndex = 0;
+                        foreach (var saySwitchLine in saySwitch.lines)
+                        {
+                            if (saySwitchLine.HasCopyFlag())
+                            {
+                                switchIndex--;
+                            }
+                            saySwitchLine.hash = i + ":" + switchIndex;
+                            switchIndex++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static void InjectSwitches(DialogueRegistry<Say> reg, NodeType newNodeType)
+    {
+        foreach (var (key, line) in reg.Get())
+        {
+            var realKey = reg.GetRealKey(key, line);
+            if (!DB.story.all.TryGetValue(realKey, out var node))
+            {
+                MainModFile.Log("Failed to Register Missing SaySwitch Node {}", realKey);
+                continue;
+            }
+
+            if (node.lines.OfType<SaySwitch>().LastOrDefault() is not { } saySwitch)
+            {
+                MainModFile.Log("Failed to Register Non-SaySwitch Node {}", realKey);
+                continue;
+            }
+
+            if (string.IsNullOrEmpty(line.hash))
+                line.hash = $"{key[0]}::{realKey}";
+            saySwitch.lines.Add(line);
+        }
+    }
+
+    static void LocalizeStory(INonNullLocalizationProvider<IReadOnlyList<string>> loc, DialogueRegistry<StoryNode> reg,
+        LoadStringsForLocaleEventArgs e)
+    {
+        foreach (var (key, node) in reg.Get())
+        {
+            var realKey = reg.GetRealKey(key, node);
+            var lookupKey = reg.GetLookupKey(key, node);
+
+            var index = 0;
+            foreach (var line in node.lines)
+            {
+                if (line is Say say)
+                {
+                    e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [..lookupKey, index.ToString()]);
+                    //MainModFile.Log("Loc Normal Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
+                }
+                else if (line is Wait or Jump)
+                {
+                    //MainModFile.Log("Skipping non say line in {}", realKey);
+                    index--;
+                }
+                else if (line is SaySwitch saySwitch)
+                {
+                    if (saySwitch.HasSplitFlag())
+                    {
+                        e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [..lookupKey, index.ToString()]);
+                    }
+                    else
+                    {
+                        int switchIndex = 0;
+                        foreach (var saySwitchLine in saySwitch.lines)
+                        {
+                            if (saySwitchLine.HasCopyFlag())
+                            {
+                                continue;
+                            }
+                            e.Localizations[$"{realKey}:{index}:{switchIndex}"] = loc.Localize(e.Locale, [..lookupKey, index.ToString(), switchIndex.ToString()]);
+                            switchIndex++;
+                        }
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException($"Unhandled story node type {line.GetType().Name} for key {realKey}");
+                }
+                index++;
+            }
+        }
+    }
+
+    static void LocalizeSwitches(INonNullLocalizationProvider<IReadOnlyList<string>> loc,
+        DialogueRegistry<Say> reg,
+        LoadStringsForLocaleEventArgs e)
+    {
+        foreach (var (key, line) in reg.Get())
+        {
+            var realKey = reg.GetRealKey(key, line);
+            var lookupKey = reg.GetLookupKey(key, line);
+            if (string.IsNullOrEmpty(line.hash))
+                line.hash = $"{key[0]}::{realKey}";
+
+            e.Localizations[$"{realKey}:{line.hash}"] = loc.Localize(e.Locale, [..lookupKey]);
+        }
     }
     
     static void InjectStory(string lookupKey, string characterType, Dictionary<IReadOnlyList<string>, StoryNode> newNodes, Dictionary<IReadOnlyList<string>, StoryNode> newHardcodedNodes, Dictionary<IReadOnlyList<string>, Say> saySwitchNodes, NodeType newNodeType)
