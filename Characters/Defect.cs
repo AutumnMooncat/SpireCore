@@ -66,6 +66,7 @@ public class Defect : IRCharacter
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.MadRed, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.ReallyMad, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.ReallyMadRed, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.Sad, 5);
         
         helper.ModRegistry.AwaitApi<IMoreDifficultiesApi>(
             "TheJazMaster.MoreDifficulties",

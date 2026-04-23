@@ -54,6 +54,7 @@ public static class Anim
         public static string MadRed => "madRed";
         public static string ReallyMad => "reallyMad";
         public static string ReallyMadRed => "reallyMadRed";
+        public static string Sad => "sad";
     }
 
     public static class Watcher
