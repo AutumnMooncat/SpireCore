@@ -17,27 +17,26 @@ internal sealed class CardDialogue : IRDialogue
 	public static void Register(IModHelper helper)
 	{
 		var loc = IRDialogue.GetLoc(locale => MainModFile.GetFile($"i18n/dialogue-card-{locale}.json").OpenRead());
-		var cardNodes = MakeCardNodes();
+		var normal = MakeNormalNodes();
 		
 		helper.Events.OnModLoadPhaseFinished += (_, phase) =>
 		{
 			if (phase != ModLoadPhase.AfterDbInit)
 				return;
-			IRDialogue.InjectStory("Played", null, cardNodes, [], [], NodeType.combat);
+			IRDialogue.InjectStory(normal, NodeType.combat);
 		};
 		
 		helper.Events.OnLoadStringsForLocale += (_, e) =>
 		{
-			IRDialogue.InjectLocalizations("Played", null, loc, cardNodes, [], [], e);
+			IRDialogue.LocalizeStory(loc, normal, e);
 		};
 	}
-
-	public static Dictionary<IReadOnlyList<string>, StoryNode> MakeCardNodes()
+	
+	public static IRDialogue.DialogueRegistry<StoryNode> MakeNormalNodes()
 	{
-		var newNodes = new Dictionary<IReadOnlyList<string>, StoryNode>();
-
-		/*RegisterLookup(typeof(Anger));
-		newNodes[[nameof(Anger)]] = new()
+		var reg = IRDialogue.MakeNormalRegistry();
+		RegisterLookup(typeof(Anger));
+		reg.Register(["Played", nameof(Anger)], new()
 		{
 			lookup = [CardLookups[typeof(Anger)]],
 			priority = true,
@@ -47,16 +46,16 @@ internal sealed class CardDialogue : IRDialogue
 				new SaySwitch()
 				{
 					lines = [
-						new Say { who = CType.Defect, loopTag = Anim.Squint },
+						new Say { who = CType.Defect, loopTag = Anim.Neutral },
 						new Say { who = CType.Silent, loopTag = Anim.Squint },
 						..new Say { loopTag = Anim.Neutral}.CopyWithout(CType.Ironclad, CType.Defect, CType.Silent)
 					]
 				}
 			],
-		};*/
+		});
 
 		RegisterLookup(typeof(Juggernaut));
-		newNodes[[nameof(Juggernaut)]] = new()
+		reg.Register(["Played", nameof(Juggernaut)], new()
 		{
 			lookup = [CardLookups[typeof(Juggernaut)]],
 			priority = true,
@@ -64,12 +63,18 @@ internal sealed class CardDialogue : IRDialogue
 			allPresent = [CType.Ironclad],
 			lines = [
 				new Say { who = CType.Ironclad, loopTag = Anim.Neutral },
-				new Say { loopTag = Anim.Squint }.SplitWithout(CType.Ironclad)
+				new SaySwitch()
+				{
+					lines = [
+						new Say { who = CType.Defect, loopTag = Anim.Squint },
+						..new Say { loopTag = Anim.Squint }.CopyWithout(CType.Ironclad, CType.Defect)
+					]
+				}
 			],
-		};
+		});
 		
 		RegisterLookup(typeof(ShieldGun));
-		newNodes[[nameof(ShieldGun)]] = new()
+		reg.Register(["Played", nameof(ShieldGun)], new()
 		{
 			lookup = [CardLookups[typeof(ShieldGun)]],
 			priority = true,
@@ -79,8 +84,7 @@ internal sealed class CardDialogue : IRDialogue
 				new Say { who = CType.Ironclad, loopTag = Anim.Squint },
 				new Say { who = CType.Dizzy, loopTag = Anim.Neutral }
 			],
-		};
-		
-		return newNodes;
+		});
+		return reg;
 	}
 }

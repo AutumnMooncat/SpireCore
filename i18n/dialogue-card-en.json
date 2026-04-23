@@ -1,20 +1,30 @@
 {
   "Played": {
+    // Used for easy testing
     "Anger": [
-      /*IC*/ ">:(",
-      /*Switch*/ [
-        /*Defect*/ ":(",
-        /*Silent*/ ":thinking:",
-        /*Others*/ "How are you saying that out loud?"
+      [
+        /*IC*/ "\\(^o^)/",
+        /*Switch*/ [
+          /*Defect*/ "=^_^=",
+          /*Silent*/ "=^_^=",
+          /*Others*/ "How are you saying that out loud?"
+        ]
       ]
     ],
     "Juggernaut": [
-      /*IC*/ "Im the-",
-      /*Any*/ "Don't."
+      [
+        /*IC*/ "Im the-",
+        [
+          /*Defect*/ ":X ...!",
+          /*Others*/ "Don't."
+        ]
+      ]
     ],
     "ShieldGun": [
-      /*IC*/ "Where I'm from, this would have been a common.",
-      /*Dizzy*/ "Is that even balanced?"
+      [
+        /*IC*/ "Where I'm from, this would have been a common.",
+        /*Dizzy*/ "Is that even balanced?"
+      ]
     ]
   }
 }
