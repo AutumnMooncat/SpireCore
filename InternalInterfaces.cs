@@ -126,26 +126,14 @@ internal interface IRDialogue : IRegisterable
     {
         private readonly Dictionary<string, int> _keyCounter = [];
         private readonly Dictionary<IReadOnlyList<string>, T> _stuff = [];
-        
-        private static string Format(IReadOnlyList<string> key)
-        {
-            return key.Aggregate((a, b) => (a ?? "<null>") + ", " + (b ?? "<null>"));
-        }
 
         internal void Register(IReadOnlyList<string> key, T value)
         {
-            var check = Format(key);
+            var check = Format(lookupKeyFunc(key, value));
             _keyCounter.TryAdd(check, 0);
-            /*if (!_keyCounter.TryAdd(check, 0))
-            {
-                MainModFile.Log("Incrementing key {}", check);
-            }
-            else
-            {
-                MainModFile.Log("Starting key {}", check);
-            }*/
+            //MainModFile.Log(!_keyCounter.TryAdd(check, 0) ? "Incrementing key {}" : "Starting key {}", check);
             _stuff[[..key, _keyCounter[check].ToString()]] = value;
-            _keyCounter[check] = _keyCounter[check]++;
+            _keyCounter[check] += 1;
         }
 
         internal Dictionary<IReadOnlyList<string>, T> Get()
@@ -157,6 +145,11 @@ internal interface IRDialogue : IRegisterable
         internal IReadOnlyList<string> GetLookupKey(IReadOnlyList<string> key, T val) => lookupKeyFunc(key, val);
     }
     
+    internal static string Format(IReadOnlyList<string> key)
+    {
+        return key.Aggregate((a, b) => (a ?? "<null>") + ", " + (b ?? "<null>"));
+    }
+    
     static DialogueRegistry<StoryNode> MakeNormalRegistry() => new(
         (key,val) => MainModFile.MakeID(string.Join(".", key)),
         (key, val) => key);
@@ -166,8 +159,8 @@ internal interface IRDialogue : IRegisterable
         (key, val) => key.Skip(1).ToList());
 
     static DialogueRegistry<Say> MakeSaySwitchRegistry() => new(
-        (key,val) => string.Join(".", key.Skip(1)),
-        (key, val) => key.Skip(1).ToList());
+        (key,val) => key[^2],
+        (key, val) => key);
     
     static INonNullLocalizationProvider<IReadOnlyList<string>> GetLoc(Func<string, Stream> localeStreamFunction)
     {
@@ -180,7 +173,7 @@ internal interface IRDialogue : IRegisterable
             ),
             list =>
             {
-                var msg = list.Aggregate((a, b) => (a??"<null>")+", "+(b??"<null>"));
+                var msg = Format(list);
                 MainModFile.LogError("Failed to Loc [{}]", msg);
                 return msg;
             }
@@ -192,7 +185,7 @@ internal interface IRDialogue : IRegisterable
         foreach (var (key, node) in reg.Get())
         {
             var realKey = reg.GetRealKey(key, node);
-
+            //MainModFile.Log("Injecting story [{}]", Format(key));
             node.type = newNodeType;
             DB.story.all[realKey] = node;
 
@@ -234,6 +227,7 @@ internal interface IRDialogue : IRegisterable
         foreach (var (key, line) in reg.Get())
         {
             var realKey = reg.GetRealKey(key, line);
+            //MainModFile.Log("Injected switch [{}]", Format(key));
             if (!DB.story.all.TryGetValue(realKey, out var node))
             {
                 MainModFile.Log("Failed to Register Missing SaySwitch Node {}", realKey);
@@ -247,7 +241,7 @@ internal interface IRDialogue : IRegisterable
             }
 
             if (string.IsNullOrEmpty(line.hash))
-                line.hash = $"{key[0]}::{realKey}";
+                line.hash = $"{line.who}::{realKey}";
             saySwitch.lines.Add(line);
         }
     }
@@ -259,6 +253,7 @@ internal interface IRDialogue : IRegisterable
         {
             var realKey = reg.GetRealKey(key, node);
             var lookupKey = reg.GetLookupKey(key, node);
+            //MainModFile.Log("Attempting to loc story [{}]", Format(key));
 
             var index = 0;
             foreach (var line in node.lines)
@@ -266,11 +261,9 @@ internal interface IRDialogue : IRegisterable
                 if (line is Say say)
                 {
                     e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [..lookupKey, index.ToString()]);
-                    //MainModFile.Log("Loc Normal Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
                 }
                 else if (line is Wait or Jump)
                 {
-                    //MainModFile.Log("Skipping non say line in {}", realKey);
                     index--;
                 }
                 else if (line is SaySwitch saySwitch)
@@ -310,8 +303,9 @@ internal interface IRDialogue : IRegisterable
         {
             var realKey = reg.GetRealKey(key, line);
             var lookupKey = reg.GetLookupKey(key, line);
+            //MainModFile.Log("Attempting to loc switch [{}]", Format(key));
             if (string.IsNullOrEmpty(line.hash))
-                line.hash = $"{key[0]}::{realKey}";
+                line.hash = $"{line.who}::{realKey}";
 
             e.Localizations[$"{realKey}:{line.hash}"] = loc.Localize(e.Locale, [..lookupKey]);
         }
