@@ -1,4 +1,151 @@
 {
+  "Artifacts": {
+    "HardMode": { // run "HARDMODE"
+      "Generic": [],
+      "Ironclad": [],
+      "Silent": [],
+      "Defect": [],
+      "Watcher":[],
+      "Dizzy": [],
+      "Riggs": [],
+      "Isaac": [],
+      "Drake": [],
+      "Max": [],
+      "Books": [],
+      "CAT": []
+    }
+  },
+  "Enemies": {
+    // Normal
+    
+    // SaySwitch
+    // Dahlia - Mornin' y'all. Three servings of missiles, coming right up.
+    "BanditThreats_Multi_0": [],
+    // Smiff - Do you like my custom engines? They all glow different colors.
+    "BatboyKeepsTalking_Multi_0": []
+  },
+  "WeShot": {
+    // combat none "Recalibrator","GrazerBeam"
+    "Missed": [],
+    // run combat
+    "HitArmor": [],
+    // run combat
+    "HitArmorALot": [],
+    // run combat "EnemyArmorPierced"
+    "HitArmorAndPierced": [],
+    "DidDamage": {
+      "Generic": [],
+      // combat "XShotThatGuy"
+      "Ironclad": [],
+      "Silent": [],
+      "Defect": [],
+      "Watcher":[],
+      "Dizzy": [],
+      "Riggs": [],
+      "Isaac": [],
+      "Drake": [],
+      "Max": [],
+      "Books": [],
+      "CAT": []
+    },
+    // run "XBigHit"
+    "DidBigDamage": {
+      "Ironclad": [],
+      "Silent": [],
+      "Defect": [],
+      "Watcher": []
+    },
+    "DidOverThree": [],
+    "DidOverFive": []
+  },
+  "Position": {
+    // prio run combat "NoOverlapBetweenShips" none "crab","scrap"
+    "NoOverlap": [],
+    // prio combat "NoOverlapBetweenShips" none "crab" hostile "missile_seeker"
+    "NoOverlapButSeeker": [],
+    "MovingALot": []
+  },
+  "TheyShot": {
+    "Missed": [],
+    "TookZero": [],
+    "TookZeroLowHP": [],
+    "TookOne": [],
+    // run combat "WowArmorISPrettyCoolHuh"
+    "InArmor": [],
+    // run combat "YowzaThatWasALOTofArmorBlock"
+    "InArmorALot": [],
+    // run combat "aboutToDie"
+    "AboutToDie": [],
+    // run combat "aboutToDie"
+    "OneHPThisIsFine": [],
+    
+    // SaySwitch
+    "TookDamageHave2HP_Multi_0": [],
+    "TookDamageHave2HP_Multi_1": [],
+    "TookDamageHave2HP_Multi_2": []
+  },
+  "State": {
+    "WeLostALotOfHP": [],
+    "TheyLostALotOfHP": [],
+    // prio run combat "XWentMissing"
+    "WentMissing": {
+      "Ironclad": [],
+      "Silent": [],
+      "Defect": [],
+      "Watcher": [],
+      "Dizzy": [],
+      "Riggs": [],
+      "Isaac": [],
+      "Drake": [],
+      "Max": [],
+      "Books": [],
+      "CAT": []
+    },
+    // prio run
+    "NoLongerMissing": [],
+    // run "yelledAboutBrittle"
+    "EnemyHasBrittle": [],
+    // run "yelledAboutWeakness"
+    "EnemyHasWeak": [],
+    // combat "manyTurns"
+    "LongCombat": [],
+    // run combat "veryManyTurns"
+    "VeryLongCombat": [],
+    // combat
+    "ManyFlips": []
+  },
+  "Status": {
+    // combat "OverheatIroncladsFault"
+    "OverheatingIroncladsFault": [],
+    // combat "OverheatIroncladFix"
+    "OverheatingIroncladFix": [],
+    // combat "OverheatGeneric"
+    "OverheatingGeneric": [],
+    // combat "WeJustOverheated"
+    "JustOverheated": [],
+    // combat "IroncladPleaseFixHeat
+    "JustGainedHeatIroncladHere": [],
+    
+    // SaySwitch
+    "WeJustGainedHeatAndDrakeIsHere_Multi_0": [],
+    "OverheatDrakesFault_Multi_9": []
+  },
+  "Hand": {
+    "Empty": [],
+    "EmptyWithEnergy": [],
+    // run combat "handOnlyHasTrashCards"
+    "OnlyTrash": [],
+    // run combat "handFullOfUnplayableCards"
+    "OnlyUnplayable": [],
+    "PlayedManyCards": [],
+    // run combat "CheapCardPlayed"
+    "PlayedCheapCard": [],
+    // run combat "ExpensiveCardPlayed"
+    "PlayedExpensiveCard": [],
+    
+    // SaySwitch
+    "JustPlayedASashaCard_Multi_2": []
+  },
   "Ironclad": {
     /*Normal*/
     "TookDamage": {
