@@ -60,6 +60,8 @@ public class Defect : IRCharacter
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Squint, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.GameOver, 1);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.Frown, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.Happy, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.Intense, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.Mad, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.MadRed, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Defect.ReallyMad, 5);

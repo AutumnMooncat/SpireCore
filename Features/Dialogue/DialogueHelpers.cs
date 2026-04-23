@@ -48,6 +48,8 @@ public static class Anim
     public static class Defect
     {
         public static string Frown => "frown";
+        public static string Happy => "happy";
+        public static string Intense => "intense";
         public static string Mad => "mad";
         public static string MadRed => "madRed";
         public static string ReallyMad => "reallyMad";
