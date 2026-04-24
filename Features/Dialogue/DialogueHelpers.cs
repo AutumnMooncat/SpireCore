@@ -36,6 +36,7 @@ public static class Anim
     
     public static class Ironclad
     {
+        public static string Intense => "intense";
         public static string Mad => "mad";
         public static string Sword => "sword";
     }
