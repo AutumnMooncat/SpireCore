@@ -33,6 +33,36 @@ internal static class DialogueExt
 	{
 		return say.GetData("SplitSwitch", out bool has) && has;
 	}
+	
+	public static Say WithSilentFlag(this Say say)
+	{
+		return say.WithData("IsSilent", true);
+	}
+
+	public static bool HasSilentFlag(this Say say)
+	{
+		return say.GetData("IsSilent", out bool has) && has;
+	}
+	
+	public static Say WithNotSilentFlag(this Say say)
+	{
+		return say.WithData("IsSilent", false);
+	}
+
+	public static bool HasNotSilentFlag(this Say say)
+	{
+		return say.GetData("IsSilent", out bool has) && !has;
+	}
+	
+	public static Shout WithSilentFlag(this Shout shout)
+	{
+		return shout.WithData("IsSilent", true);
+	}
+
+	public static bool HasSilentFlag(this Shout shout)
+	{
+		return shout.GetData("IsSilent", out bool has) && has;
+	}
 
 	public static List<Say> CopyWith(this Say say, params string[] thatIs)
 	{
@@ -60,6 +90,92 @@ internal static class DialogueExt
 	public static bool HasCopyFlag(this Say say)
 	{
 		return say.GetData("CopySay", out bool has) && has;
+	}
+
+	public static Say WithOnExecute(this Say say, Records.OnExecutePayload epl)
+	{
+		var data = say.GetOrMakeData("OnExecute", new List<Records.OnExecutePayload>());
+		data.Add(epl);
+		return say;
+	}
+
+	public static bool GetOnExecutes(this Say say, out List<Records.OnExecutePayload> data)
+	{
+		return say.GetData("OnExecute", out data);
+	}
+
+	public static StoryNode WithRequirement(this StoryNode node, Records.RequirementPayload cpl)
+	{
+		var data = node.GetOrMakeData("ExtraRequirements", new List<Records.RequirementPayload>());
+		data.Add(cpl);
+		return node;
+	}
+
+	public static bool GetRequirements(this StoryNode node, out List<Records.RequirementPayload> data)
+	{
+		return node.GetData("ExtraRequirements", out data);
+	}
+
+	public static void AddPersistentData(this StoryVars vars, string key, object data)
+	{
+		vars.SetData(key, data);
+	}
+	
+	public static void AddRunData(this StoryVars vars, string key, object data)
+	{
+		vars.SetData(key, data);
+		var list = vars.GetOrMakeData("RunResettingData", new List<string>());
+		list.Add(key);
+	}
+	
+	public static void AddCombatData(this StoryVars vars, string key, object data)
+	{
+		vars.SetData(key, data);
+		var list = vars.GetOrMakeData("CombatResettingData", new List<string>());
+		list.Add(key);
+	}
+	
+	public static void AddTurnData(this StoryVars vars, string key, object data)
+	{
+		vars.SetData(key, data);
+		var list = vars.GetOrMakeData("TurnResettingData", new List<string>());
+		list.Add(key);
+	}
+
+	public static void ClearRunData(this StoryVars vars)
+	{
+		if (vars.GetData("RunResettingData", out List<string> data))
+		{
+			foreach (var key in data)
+			{
+				vars.RemoveData(key);
+			}
+			vars.RemoveData("RunResettingData");
+		}
+	}
+	
+	public static void ClearCombatData(this StoryVars vars)
+	{
+		if (vars.GetData("CombatResettingData", out List<string> data))
+		{
+			foreach (var key in data)
+			{
+				vars.RemoveData(key);
+			}
+			vars.RemoveData("CombatResettingData");
+		}
+	}
+	
+	public static void ClearTurnData(this StoryVars vars)
+	{
+		if (vars.GetData("TurnResettingData", out List<string> data))
+		{
+			foreach (var key in data)
+			{
+				vars.RemoveData(key);
+			}
+			vars.RemoveData("TurnResettingData");
+		}
 	}
 	
 	public static int GetMinShieldLostThisTurn(this StoryNode node)

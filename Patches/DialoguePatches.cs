@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using AutumnMooncat.SpireCore.Characters;
 using AutumnMooncat.SpireCore.Features.Dialogue;
 using FMOD;
@@ -52,11 +55,103 @@ public class DialoguePatches : IRDialogue
         }
     }
 
+    [HarmonyPatch(typeof(Say), nameof(Say.Execute))]
+    public static class SayPatch
+    {
+        public static string ReplacementKey => "Replacements";
+        
+        public static void Postfix(Say __instance, bool __result, G g)
+        {
+            //MainModFile.Log("Ran Say [{},{}], result {}", __instance.who, __instance._keyCache, __result);
+            if (!__result && __instance.GetOnExecutes(out var data))
+            {
+                foreach (var payload in data)
+                {
+                    payload.Apply(g.state.storyVars);
+                }
+            }
+        }
+
+        public static Shout ManipulateShout(Shout shout, Say say, ScriptCtx ctx)
+        {
+            //MainModFile.Log("Shout assembled for {}, key {}", shout.who, shout.key);
+            if (say.GetData(ReplacementKey, out Dictionary<string, Say> data))
+            {
+                //MainModFile.Log("Found replacements: [{}], has {}", data.Keys, shout.who);
+                if (data.TryGetValue(shout.who, out var line))
+                {
+                    //line._keyCache ??= Say.GetLocKey(ctx.script, $"{line.who}::{line.hash}");
+                    //shout.flipped = line.flipped;
+                    shout.loopTag = line.loopTag ?? shout.loopTag;
+                    shout.key = Say.GetLocKey(ctx.script, $"{line.who}::{line.hash}");
+                    //shout.delay = line.delay;
+                    //__instance.choiceFunc = line.choiceFunc;
+                    MainModFile.Log("Applied replacement [{}]", shout.key);
+
+                    if (line.HasSilentFlag() || (shout.who == CType.Silent && !line.HasNotSilentFlag()))
+                    {
+                        return shout.WithSilentFlag();
+                    }
+                }
+            }
+
+            if (say.HasSilentFlag() || (shout.who == CType.Silent && !say.HasNotSilentFlag()))
+            {
+                return shout.WithSilentFlag();
+            }
+            return shout;
+        }
+
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> input, ILGenerator generator)
+        {
+            var codes = input.ToList();
+            var sayChoice = AccessTools.Field(typeof(Say), nameof(Say.choiceFunc));
+            var shoutChoice = AccessTools.Field(typeof(Shout), nameof(Shout.choiceFunc));
+            var inserted = false;
+            for (var i = 0; i < codes.Count; i++)
+            {
+                if (!inserted && i >= 2 && codes[i - 1].opcode == OpCodes.Stfld &&
+                    codes[i - 1].operand is FieldInfo f1 && f1 == shoutChoice && codes[i - 2].opcode == OpCodes.Ldfld &&
+                    codes[i - 2].operand is FieldInfo f2 && f2 == sayChoice)
+                {
+                    inserted = true;
+                    yield return CodeInstruction.LoadArgument(0);
+                    yield return CodeInstruction.LoadArgument(3);
+                    yield return CodeInstruction.Call(typeof(SayPatch), nameof(ManipulateShout));
+                }
+                
+                yield return codes[i];
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Shout), nameof(Shout.IsSilentLine))]
+    public static class ShoutPatch
+    {
+        public static void Postfix(Shout __instance, ref bool __result) 
+        {
+            if (__instance.HasSilentFlag())
+            {
+                __result = true;
+            }
+        }
+    }
+    
+    [HarmonyPatch(typeof(StoryVars), nameof(StoryVars.ResetAfterRun))]
+    public static class StoryVarResetAfterRun
+    {
+        public static void Postfix(StoryVars __instance)
+        {
+            __instance.ClearRunData();
+        }
+    }
+
     [HarmonyPatch(typeof(StoryVars), nameof(StoryVars.ResetAfterCombatLine))]
     public static class StoryVarResetAfterCombat
     {
         public static void Postfix(StoryVars __instance)
         {
+            __instance.ClearCombatData();
             MainModFile.GetHelper().ModData.RemoveModData(__instance, "JustPlayedRecycleCard");
             MainModFile.GetHelper().ModData.RemoveModData(__instance, "Strengthened");
             MainModFile.GetHelper().ModData.RemoveModData(__instance, "Discounted");
@@ -68,6 +163,7 @@ public class DialoguePatches : IRDialogue
     {
         public static void Postfix(StoryVars __instance)
         {
+            __instance.ClearTurnData();
             MainModFile.GetHelper().ModData.RemoveModData(__instance, "ShieldLostThisTurn");
         }
     }
@@ -80,6 +176,18 @@ public class DialoguePatches : IRDialogue
             if (!__result)
                 return;
 
+            if (n.GetRequirements(out var data))
+            {
+                foreach (var req in data)
+                {
+                    if (!req.Test(s.storyVars))
+                    {
+                        __result = false;
+                        return;
+                    }
+                }
+            }
+            
             if (s.storyVars.GetShieldLostThisTurn() < n.GetMinShieldLostThisTurn())
             {
                 __result = false;

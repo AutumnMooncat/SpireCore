@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using AutumnMooncat.SpireCore.Features;
 using AutumnMooncat.SpireCore.Features.Dialogue;
+using AutumnMooncat.SpireCore.Patches;
 using Nickel;
 
 namespace AutumnMooncat.SpireCore;
@@ -162,6 +163,10 @@ internal interface IRDialogue : IRegisterable
         (key,val) => key[^2],
         (key, val) => key);
     
+    static DialogueRegistry<Say> MakeHashReplacerRegistry() => new(
+        (key,val) => key[^2],
+        (key, val) => key);
+    
     static INonNullLocalizationProvider<IReadOnlyList<string>> GetLoc(Func<string, Stream> localeStreamFunction)
     {
         return new MissingPlaceholderNonBoundLocalizationProvider<IReadOnlyList<string>>(
@@ -234,6 +239,7 @@ internal interface IRDialogue : IRegisterable
                 continue;
             }
 
+            // TODO can only hit last switch
             if (node.lines.OfType<SaySwitch>().LastOrDefault() is not { } saySwitch)
             {
                 MainModFile.Log("Failed to Register Non-SaySwitch Node {}", realKey);
@@ -243,6 +249,28 @@ internal interface IRDialogue : IRegisterable
             if (string.IsNullOrEmpty(line.hash))
                 line.hash = $"{line.who}::{realKey}";
             saySwitch.lines.Add(line);
+        }
+    }
+
+    static void InjectHashReplacements(DialogueRegistry<Say> reg, NodeType newNodeType)
+    {
+        foreach (var (key, line) in reg.Get())
+        {
+            var realKey = reg.GetRealKey(key, line);
+            if (!DB.story.all.TryGetValue(realKey, out var node))
+            {
+                MainModFile.Log("Failed to Register Missing Hash Replacement {}", realKey);
+                continue;
+            }
+
+            if (node.lines.OfType<Say>().FirstOrDefault(s => s.hash == line.hash) is not { } say)
+            {
+                MainModFile.Log("Failed to Find Node {}", realKey);
+                continue;
+            }
+            
+            var data = say.GetOrMakeData(DialoguePatches.SayPatch.ReplacementKey, new Dictionary<string, Say>());
+            data[line.who] = line;
         }
     }
 
@@ -307,7 +335,19 @@ internal interface IRDialogue : IRegisterable
             if (string.IsNullOrEmpty(line.hash))
                 line.hash = $"{line.who}::{realKey}";
 
-            e.Localizations[$"{realKey}:{line.hash}"] = loc.Localize(e.Locale, [..lookupKey]);
+            e.Localizations[$"{realKey}:{line.hash}"] = loc.Localize(e.Locale, lookupKey);
+        }
+    }
+
+    static void LocalizeHashReplacements(INonNullLocalizationProvider<IReadOnlyList<string>> loc,
+        DialogueRegistry<Say> reg,
+        LoadStringsForLocaleEventArgs e)
+    {
+        foreach (var (key, line) in reg.Get())
+        {
+            var realKey = reg.GetRealKey(key, line);
+            var lookupKey = reg.GetLookupKey(key, line);
+            e.Localizations[$"{realKey}:{line.who}::{line.hash}"] = loc.Localize(e.Locale, lookupKey);
         }
     }
     

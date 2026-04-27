@@ -27,6 +27,12 @@ public static class CType
     public static string Cleo => "nerd";
 }
 
+public static class StoryTags
+{
+    public static string ICHasCupcakes => "cupcakesGet";
+    public static string AboutToDie => "aboutToDie";
+}
+
 public static class Anim
 {
     public static string Neutral => "neutral";

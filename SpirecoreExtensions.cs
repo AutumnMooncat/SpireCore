@@ -26,6 +26,16 @@ public static class SpirecoreExtensions
         return MainModFile.GetData(o, key, out data);
     }
 
+    public static T GetOrMakeData<T>(this object o, string key, T def = default)
+    {
+        if (o.GetData(key, out T res))
+        {
+            return res;
+        }
+        o.SetData(key, def);
+        return def;
+    }
+
     public static T WithData<T, D>(this T o, string key, D data)
     {
         o.SetData(key, data);
@@ -41,6 +51,25 @@ public static class SpirecoreExtensions
     public static void RemoveData(this object o, string key)
     {
         MainModFile.RemoveData(o, key);
+    }
+
+    public static bool TryAdd<T>(this T thiz, T that, out T result)
+    {
+        dynamic l = thiz;
+        dynamic r = that;
+        
+        try
+        {
+            result = l + r;
+            return true;
+        }
+        catch
+        {
+            // ignored
+        }
+
+        result = default;
+        return false;
     }
 
     public static V GetOrAddValue<K, V>(this Dictionary<K, V> dict, K key, V value)
