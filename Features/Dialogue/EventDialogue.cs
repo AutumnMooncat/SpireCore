@@ -11,6 +11,7 @@ internal sealed class EventDialogue : IRDialogue
 		var normal = MakeNormalNodes();
 		var hardcoded = MakeHardcodedNodes();
 		var sayswitch = MakeSaySwitches();
+		var replacers = MakeHashReplacements();
 		
 		helper.Events.OnModLoadPhaseFinished += (_, phase) =>
 		{
@@ -19,6 +20,7 @@ internal sealed class EventDialogue : IRDialogue
 			IRDialogue.InjectStory(normal, NodeType.@event);
 			IRDialogue.InjectStory(hardcoded, NodeType.@event);
 			IRDialogue.InjectSwitches(sayswitch, NodeType.@event);
+			IRDialogue.InjectHashReplacements(replacers, NodeType.@event);
 		};
 		
 		helper.Events.OnLoadStringsForLocale += (_, e) =>
@@ -26,6 +28,7 @@ internal sealed class EventDialogue : IRDialogue
 			IRDialogue.LocalizeStory(loc, normal, e);
 			IRDialogue.LocalizeStory(loc, hardcoded, e);
 			IRDialogue.LocalizeSwitches(loc, sayswitch, e);
+			IRDialogue.LocalizeHashReplacements(loc, replacers, e);
 		};
 	}
 
@@ -122,29 +125,70 @@ internal sealed class EventDialogue : IRDialogue
 	{
 		var reg = IRDialogue.MakeSaySwitchRegistry();
 		
-		reg.Register(["GrandmaShop"], new()
+		reg.Register(["GrandmaShop"], new Say()
+		{
+			who = CType.Ironclad,
+			loopTag = Anim.Neutral
+		}.WithOnExecute(new Records.OnExecutePayload()
+		{
+			key = StoryTags.ICHasCupcakes, 
+			lifetime = Records.OnExecutePayload.Lifetime.Run, 
+			value = true
+		}));
+
+		reg.Register(["GrandmaShop"], new Say()
+		{
+			who = CType.Defect,
+			loopTag = Anim.Neutral
+		});
+		
+		
+		reg.Register(["LoseCharacterCard"], new Say()
 		{
 			who = CType.Ironclad,
 			loopTag = Anim.Neutral
 		});
 		
-		
-		reg.Register(["LoseCharacterCard"], new()
+		reg.Register(["CrystallizedFriendEvent"], new Say()
 		{
 			who = CType.Ironclad,
 			loopTag = Anim.Neutral
 		});
 		
-		reg.Register(["CrystallizedFriendEvent"], new()
+		reg.Register(["ShopKeepBattleInsult"], new Say()
 		{
 			who = CType.Ironclad,
 			loopTag = Anim.Neutral
 		});
-		
-		reg.Register(["ShopKeepBattleInsult"], new()
+		return reg;
+	}
+
+	public static IRDialogue.DialogueRegistry<Say> MakeHashReplacements()
+	{
+		var reg = IRDialogue.MakeHashReplacerRegistry();
+		reg.Register(["Replacements", "ChoiceCardRewardOfYourColorChoice"], new Say()
 		{
-			who = CType.Ironclad,
-			loopTag = Anim.Neutral
+			who = CType.Defect,
+			loopTag = Anim.Squint,
+			hash = "1ef5ed18"
+		});
+		reg.Register(["Replacements", "ChoiceCardRewardOfYourColorChoice"], new Say()
+		{
+			who = CType.Defect,
+			loopTag = Anim.Squint,
+			hash = "3afc930f"
+		});
+		reg.Register(["Replacements", "ChoiceCardRewardOfYourColorChoice"], new Say()
+		{
+			who = CType.Silent,
+			loopTag = Anim.Squint,
+			hash = "1ef5ed18"
+		});
+		reg.Register(["Replacements", "ChoiceCardRewardOfYourColorChoice"], new Say()
+		{
+			who = CType.Silent,
+			loopTag = Anim.Squint,
+			hash = "3afc930f"
 		});
 		return reg;
 	}

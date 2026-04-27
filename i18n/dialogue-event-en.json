@@ -39,7 +39,9 @@
   // What do we want?
   "GrandmaShop": [
     // IC
-    ["Ill have a strawberry cupcake."]
+    ["I'd like some strawberry cupcakes."],
+    // Defect
+    ["      ,  ,  ,  ,\n_.-|-|-|-|-._\n|-.,'_'_'_',.-|\n|                      |\n(                     )\n'-.______.-'"]
   ],
   // Oopsie black hole time
   "LoseCharacterCard": [
@@ -72,5 +74,27 @@
   ],
   "AbandonedShipyard_Repaired": [
     [""]
-  ]
+  ],
+  
+  /*Hash Replace*/
+  "Replacements": {
+    "ChoiceCardRewardOfYourColorChoice": [
+      // 1ef5ed18 -> Is anyone else getting a really bad headache?
+      // 3afc930f -> No, it's from that high-pitched... static... what is that?
+      // Defect
+      [
+        "*annoyed beep*"
+      ],
+      [
+        "*confused beep*"
+      ],
+      // Silent
+      [
+        "<c=disabledText>(Is anyone else getting a really bad headache?)</c>"
+      ],
+      [
+        "<c=disabledText>(No, it's from that high-pitched... static... what is that?)</c>"
+      ]
+    ]
+  }
 }
