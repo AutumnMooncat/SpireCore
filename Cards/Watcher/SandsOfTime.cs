@@ -146,4 +146,9 @@ internal sealed class SandsOfTime : Card, IRCard
         }
         return actions;
     }
+    
+    public override void OnExitCombat(State s, Combat c)
+    {
+        retains = 0;
+    }
 }
