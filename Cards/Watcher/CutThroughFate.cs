@@ -30,7 +30,7 @@ internal sealed class CutThroughFate : Card, IRCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.A ? 0 : 1
+            cost = 1
         };
         return data;
     }
