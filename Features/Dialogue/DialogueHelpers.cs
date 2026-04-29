@@ -49,6 +49,7 @@ public static class Anim
     
     public static class Ironclad
     {
+        public static string Blush => "blush";
         public static string Happy => "happy";
         public static string Intense => "intense";
         public static string Mad => "mad";
