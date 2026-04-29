@@ -14,8 +14,8 @@ internal sealed class BurningBlood : Artifact, IRArtifact
     
     public static void Register(IModHelper helper)
     {
-        OnSpr = IRArtifact.LookUpSpr(Characters.Ironclad.ArtifactAssetPath + ID+"2")!.Value;
-        OffSpr = IRArtifact.LookUpSpr(Characters.Ironclad.ArtifactAssetPath + ID+"2Off")!.Value;
+        OnSpr = IRArtifact.LookUpSpr(Characters.Ironclad.ArtifactAssetPath + ID+"Triggered")!.Value;
+        OffSpr = IRArtifact.LookUpSpr(Characters.Ironclad.ArtifactAssetPath + ID)!.Value;
         Entry = helper.Content.Artifacts.RegisterArtifact(ID, new ArtifactConfiguration
         {
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -47,7 +47,7 @@ internal sealed class BurningBlood : Artifact, IRArtifact
 
     public override Spr GetSprite()
     {
-        return triggered ? OffSpr : OnSpr;
+        return triggered ? OnSpr : OffSpr;
     }
 
     public override void OnCombatEnd(State state)
