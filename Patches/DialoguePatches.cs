@@ -224,7 +224,7 @@ public class DialoguePatches : IRDialogue
         private static Matrix? backup;
         private static readonly Matrix sheer = new Matrix(
             1f, 0f, 0f, 0f, 
-            -0.5f, 1f, 0f, 0f, 
+            -0.25f, 1f, 0f, 0f, 
             0f, 0f, 1f, 0f, 
             0f, 0f, 0f, 1f);
 
