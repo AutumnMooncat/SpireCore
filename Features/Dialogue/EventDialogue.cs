@@ -37,11 +37,11 @@ internal sealed class EventDialogue : IRDialogue
 		var reg = IRDialogue.MakeNormalRegistry();
 		reg.Register(["Shop"], new()
 		{
-			lookup = ["shopBefore"],
+			lookup = [LookupKeys.ShopBefore],
 			bg = nameof(BGShop),
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = CType.Cleo, loopTag = Anim.Neutral, flipped = true },
+				new Say { who = CType.Events.Cleo, loopTag = Anim.Neutral, flipped = true },
 				new Say { who = CType.Ironclad, loopTag = Anim.Ironclad.Sword },
 				new Jump { key = "NewShop" }
 			],
@@ -49,11 +49,11 @@ internal sealed class EventDialogue : IRDialogue
 		
 		reg.Register(["Shop"], new()
 		{
-			lookup = ["shopBefore"],
+			lookup = [LookupKeys.ShopBefore],
 			bg = nameof(BGShop),
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = CType.Cleo, loopTag = Anim.Neutral, flipped = true },
+				new Say { who = CType.Events.Cleo, loopTag = Anim.Neutral, flipped = true },
 				new Say { who = CType.Ironclad, loopTag = Anim.Neutral },
 				new Say { who = CType.CAT, loopTag = Anim.Squint },
 				new Jump { key = "NewShop" }

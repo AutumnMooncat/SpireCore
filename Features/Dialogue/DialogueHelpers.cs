@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using AutumnMooncat.SpireCore.Characters;
 
 namespace AutumnMooncat.SpireCore.Features.Dialogue;
 
@@ -24,13 +25,89 @@ public static class CType
     public static List<string> AllModded => MainModFile.GetHelper().Content.Characters.V2.RegisteredPlayableCharacters.Values.Select(e => e.CharacterType).ToList();
     public static List<string> AllPlayable => [..AllVanilla, ..AllModded];
 
-    public static string Cleo => "nerd";
+    public static class Events
+    {
+        public static string Brimford => "walrus";
+        public static string Cleo => "nerd";
+        public static string Dracula => "dracula";
+        public static string DrBjorn => "scientist";
+        public static string GarboGirl => "garbogirl";
+        public static string Grandma => "grandma";
+        public static string Sasha => "sasha";
+        public static string Selene => "selene";
+        public static string Slug => "slug";
+        public static string Soggens => "soggens";
+        public static string Tooth => "tooth";
+        public static string Wren => "wren";
+    }
+    
+    public static class Enemies
+    {
+        public static string Brac => "crab";
+        public static string Crystal => "crystal";
+        public static string Dahlia => "bandit";
+        public static string Dillian => "dillian";
+        public static string DrakePirate => "pirate";
+        public static string Duncan => "skunk";
+        public static string Gemma => "gemma";
+        public static string George => "spike";
+        public static string Jumbo => "miner";
+        public static string Lira => "lizard";
+        public static string Ratzo => "knight";
+        public static string RiggsPirate => "pirateBoss";
+        public static string Smiff => "batboy";
+        public static string Snute => "snoot";
+        public static string Spike => "oxygenguy";
+        public static string Stardog => "wolf";
+        public static string Wizbo => "wizard";
+
+        public static class Robots
+        {
+            public static string Biped => "biped";
+            public static string Chunk => "chunk";
+            public static string DrakeBot => "drakebot";
+            public static string Janitor => "dual";
+            public static string Rail => "rail";
+            public static string Scrap => "scrap";
+            public static string Wasp => "wasp";
+
+        }
+    }
+}
+
+public static class DType
+{
+    public static Deck Ironclad => Characters.Ironclad.DeckEntry.Deck;
+    public static Deck Silent => Characters.Silent.DeckEntry.Deck;
+    public static Deck Defect => Characters.Defect.DeckEntry.Deck;
+    public static Deck Watcher => Characters.Watcher.DeckEntry.Deck;
+
+    public static Deck Dizzy => Deck.dizzy;
+    public static Deck Riggs => Deck.riggs;
+    public static Deck Peri => Deck.peri;
+    public static Deck Isaac => Deck.goat;
+    public static Deck Drake => Deck.eunice;
+    public static Deck Max => Deck.hacker;
+    public static Deck Books => Deck.shard;
+    public static Deck CAT => Deck.colorless;
+}
+
+public static class LookupKeys
+{
+    public static string ShopBefore => "shopBefore";
+    
+    public static string IroncladReturnedFromMissing => MainModFile.MakeID(Ironclad.ID+"ReturningFromMissing");
+    public static string SilentReturnedFromMissing => MainModFile.MakeID(Silent.ID+"ReturningFromMissing");
+    public static string DefectReturnedFromMissing => MainModFile.MakeID(Defect.ID+"ReturningFromMissing");
+    public static string WatcherReturnedFromMissing => MainModFile.MakeID(Watcher.ID+"ReturningFromMissing");
 }
 
 public static class StoryTags
 {
     // Vanilla
     public static string AboutToDie => "aboutToDie";
+    public static string NoOverlap => "NoOverlapBetweenShips";
+    public static string NoOverlapSeeker => "NoOverlapBetweenShipsSeeker";
     
     // New
     public static string ICHasCupcakes => "CupcakesGet";
@@ -38,6 +115,23 @@ public static class StoryTags
     public static string ICDrakeTheBetIsOn => "IroncladDrakeBetIsOn";
     public static string ICBeatDrakeCounter => "IroncladWinsVsDrake";
     public static string DrakeBeatICCounter => "DrakesWinsVsIronclad";
+
+    public static class WentMissing
+    {
+        public static string Ironclad => "ironcladWentMissing";
+        public static string Silent => "silentWentMissing";
+        public static string Defect => "defectWentMissing";
+        public static string Watcher => "watcherWentMissing";
+        
+        public static string Riggs => "riggsWentMissing";
+        public static string Dizzy => "dizzyWentMissing";
+        public static string Peri => "periWentMissing";
+        public static string Isaac => "isaacWentMissing";
+        public static string Drake => "drakeWentMissing";
+        public static string Max => "maxWentMissing";
+        public static string Books => "booksWentMissing";
+        public static string CAT => "CatWentMissing";
+    }
 }
 
 public static class Anim

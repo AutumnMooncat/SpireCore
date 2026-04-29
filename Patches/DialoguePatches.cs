@@ -484,16 +484,16 @@ public class DialoguePatches : IRDialogue
                 return;
 
             if (__instance.status == Ironclad.Entry.MissingStatus.Status && __state > 0 && s.ship.Get(Ironclad.Entry.MissingStatus.Status) <= 0)
-                c.QueueImmediate(new ADummyAction { dialogueSelector = MainModFile.MakeID(Ironclad.ID+"ReturningFromMissing") });
+                c.QueueImmediate(new ADummyAction { dialogueSelector = LookupKeys.IroncladReturnedFromMissing });
             
             if (__instance.status == Silent.Entry.MissingStatus.Status && __state > 0 && s.ship.Get(Silent.Entry.MissingStatus.Status) <= 0)
-                c.QueueImmediate(new ADummyAction { dialogueSelector = MainModFile.MakeID(Silent.ID+"ReturningFromMissing") });
+                c.QueueImmediate(new ADummyAction { dialogueSelector = LookupKeys.SilentReturnedFromMissing });
             
             if (__instance.status == Defect.Entry.MissingStatus.Status && __state > 0 && s.ship.Get(Defect.Entry.MissingStatus.Status) <= 0)
-                c.QueueImmediate(new ADummyAction { dialogueSelector = MainModFile.MakeID(Defect.ID+"ReturningFromMissing") });
+                c.QueueImmediate(new ADummyAction { dialogueSelector = LookupKeys.DefectReturnedFromMissing });
             
             if (__instance.status == Watcher.Entry.MissingStatus.Status && __state > 0 && s.ship.Get(Watcher.Entry.MissingStatus.Status) <= 0)
-                c.QueueImmediate(new ADummyAction { dialogueSelector = MainModFile.MakeID(Watcher.ID+"ReturningFromMissing") });
+                c.QueueImmediate(new ADummyAction { dialogueSelector = LookupKeys.WatcherReturnedFromMissing });
         }
     }
 
