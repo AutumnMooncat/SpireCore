@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using AutumnMooncat.SpireCore.Characters;
 using Nickel;
 
@@ -9,1045 +8,880 @@ internal sealed class CombatDialogue : IRDialogue
 	public static void Register(IModHelper helper)
 	{
 		var loc = IRDialogue.GetLoc(locale => MainModFile.GetFile($"i18n/dialogue-combat-{locale}.json").OpenRead());
-		var ironcladNodes = MakeICNodes();
-		var ironcladSay = MakeICSay();
-		var silentNodes = MakeSilentNodes();
-		var silentSay = MakeSilentSay();
-		var defectNodes = MakeDefectNodes();
-		var defectSay = MakeDefectSay();
-		var watcherNodes = MakeWatcherNodes();
-		var watcherSay = MakeWatcherSay();
+		var normal = MakeNormalNodes();
+		var sayswitch = MakeSaySwitches();
 		
 		helper.Events.OnModLoadPhaseFinished += (_, phase) =>
 		{
 			if (phase != ModLoadPhase.AfterDbInit)
 				return;
-			IRDialogue.InjectStory(Ironclad.ID, CType.Ironclad, ironcladNodes, [], ironcladSay, NodeType.combat);
-			IRDialogue.InjectStory(Silent.ID, CType.Silent, silentNodes, [], silentSay, NodeType.combat);
-			IRDialogue.InjectStory(Defect.ID, CType.Defect, defectNodes, [], defectSay, NodeType.combat);
-			IRDialogue.InjectStory(Watcher.ID, CType.Watcher, watcherNodes, [], watcherSay, NodeType.combat);
+			IRDialogue.InjectStory(normal, NodeType.combat);
+			IRDialogue.InjectSwitches(sayswitch, NodeType.combat);
 		};
 		
 		helper.Events.OnLoadStringsForLocale += (_, e) =>
 		{
-			IRDialogue.InjectLocalizations(Ironclad.ID, CType.Ironclad, loc, ironcladNodes, [], ironcladSay, e);
-			IRDialogue.InjectLocalizations(Silent.ID, CType.Silent, loc, silentNodes, [], silentSay, e);
-			IRDialogue.InjectLocalizations(Defect.ID, CType.Defect, loc, defectNodes, [], defectSay, e);
-			IRDialogue.InjectLocalizations(Watcher.ID, CType.Watcher, loc, watcherNodes, [], watcherSay, e);
+			IRDialogue.LocalizeStory(loc, normal, e);
+			IRDialogue.LocalizeSwitches(loc, sayswitch, e);
 		};
 	}
 	
-	public static Dictionary<IReadOnlyList<string>, StoryNode> MakeICNodes()
+	public static IRDialogue.DialogueRegistry<StoryNode> MakeNormalNodes()
 	{
-		var newNodes = new Dictionary<IReadOnlyList<string>, StoryNode>();
+		var reg = IRDialogue.MakeNormalRegistry();
 		
-		for (var i = 0; i < 3; i++)
-			newNodes[["TookDamage", "Basic", i.ToString()]] = new StoryNode
-			{
-				enemyShotJustHit = true,
-				minDamageDealtToPlayerThisTurn = 1,
-				allPresent = [CType.Ironclad],
-				lines = [
-					new Say {who = CType.Ironclad, loopTag = Anim.Squint},
-				]
-			};
+		AddArtifactNodes(reg);
+		AddEnemyNodes(reg);
+		AddWeShotNodes(reg);
+		AddTheyShotNodes(reg);
+		AddPositionNodes(reg);
+		AddStateNodes(reg);
+		AddStatusNodes(reg);
+		AddHandNodes(reg);
 		
-		newNodes[["TookDamage", "Dizzy"]] = new StoryNode
+		return reg;
+	}
+
+	private static void AddArtifactNodes(IRDialogue.DialogueRegistry<StoryNode> reg)
+	{
+		
+	}
+	
+	private static void AddEnemyNodes(IRDialogue.DialogueRegistry<StoryNode> reg)
+	{
+		#region StartedBattle
+
+		reg.Register(["Enemies", "StartedBattle", "AgainstDrake"], new StoryNode
 		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [CType.Ironclad, CType.Dizzy],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
-				new Say {who = CType.Dizzy, loopTag = Anim.Dizzy.Explains}
-			]
-		};
-		
-		newNodes[["TookDamage", "Riggs"]] = new StoryNode
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [CType.Ironclad, CType.Riggs],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
-				new Say {who = CType.Riggs, loopTag = Anim.Neutral}
-			]
-		};
-		
-		newNodes[["TookDamage", "Peri"]] = new StoryNode
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [CType.Ironclad, CType.Peri],
-			lines = [
-				new Say {who = CType.Peri, loopTag = Anim.Neutral},
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint}
-			]
-		};
-		
-		newNodes[["TookDamage", "Isaac"]] = new StoryNode
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			maxHullPercent = 0.5,
+			turnStart = true,
+			oncePerRun = true,
 			oncePerCombat = true,
+			maxTurnsThisCombat = 1,
+			allPresent = [CType.Ironclad, CType.Enemies.DrakePirate],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+				new Say {who = CType.Enemies.DrakePirate, loopTag = Anim.Drake.Sly},
+			]
+		});
+
+		reg.Register(["Enemies", "StartedBattle", "AgainstWizbo"], new StoryNode
+		{
+			turnStart = true,
+			oncePerRun = true,
+			oncePerCombat = true,
+			maxTurnsThisCombat = 1,
+			allPresent = [CType.Ironclad, CType.Enemies.Wizbo],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.Mad},
+			]
+		});
+		
+		#endregion
+	}
+	
+	private static void AddWeShotNodes(IRDialogue.DialogueRegistry<StoryNode> reg)
+	{
+		#region Missed
+
+		reg.Register(["WeShot", "Missed"], new StoryNode
+		{
+			playerShotJustMissed = true,
+			oncePerCombat = true,
+			doesNotHaveArtifacts = [nameof(Recalibrator), nameof(GrazerBeam)],
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+			]
+		});
+
+		#endregion
+
+		#region HitArmor
+
+		
+
+		#endregion
+
+		#region HitArmorALot
+
+		
+
+		#endregion
+
+		#region HitArmorAndPierced
+
+		
+
+		#endregion
+
+		#region DidDamage
+
+		#region Generic
+
+		reg.Register(["WeShot", "DidDamage", "Generic"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+				new SaySwitch()
+				{
+					lines = [
+						new Say {who = CType.Silent, loopTag = Anim.Neutral},
+						new Say {who = CType.Riggs, loopTag = Anim.Neutral},
+					]
+				}
+			]
+		});
+
+		reg.Register(["WeShot", "DidDamage", "Generic"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+			]
+		});
+
+		reg.Register(["WeShot", "DidDamage", "Generic"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.Mad},
+			]
+		});
+		
+		reg.Register(["WeShot", "DidDamage", "Generic"], new StoryNode
+		{
+			playerShotJustHit = true,
+			oncePerRun = true,
+			minDamageDealtToEnemyThisAction = 1,
 			allPresent = [CType.Ironclad, CType.Isaac],
 			lines = [
-				new Say {who = CType.Isaac, loopTag = Anim.Isaac.Panic},
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint}
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+				new Say {who = CType.Isaac, loopTag = Anim.Neutral},
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
 			]
-		};
+		});
 		
-		newNodes[["TookDamage", "Drake", "0"]] = new StoryNode
+		reg.Register(["WeShot", "DidDamage", "Generic"], new StoryNode
 		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [CType.Ironclad, CType.Drake],
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			allPresent = [CType.Ironclad],
 			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
-				new Say {who = CType.Drake, loopTag = Anim.Drake.Sly}
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
 			]
-		};
+		});
+
+		#endregion
+
+		#region Specific
+
+		// Ironclad
+		reg.Register(["WeShot", "DidDamage", "Ironclad"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			whoDidThat = DType.Ironclad,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+				new SaySwitch()
+				{
+					lines = [
+						new Say {who = CType.Max, loopTag = Anim.Max.Smile},
+						new Say {who = CType.CAT, loopTag = Anim.Squint},
+					]
+				}
+			]
+		});
 		
-		// Drake Alt
+		reg.Register(["WeShot", "DidDamage", "Ironclad"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			whoDidThat = DType.Ironclad,
+			allPresent = [CType.Ironclad, CType.Peri],
+			lines = [
+				new Say {who = CType.Peri, loopTag = Anim.Peri.Vengeful},
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+			]
+		});
+		
+		// Silent
+		
+		// Defect
+		
+		// Watcher
+		
+		// Riggs
+		
+		// Dizzy
+		reg.Register(["WeShot", "DidDamage", "Dizzy"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			whoDidThat = DType.Dizzy,
+			allPresent = [CType.Ironclad, CType.Dizzy],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.Mad},
+				new Say {who = CType.Dizzy, loopTag = Anim.Dizzy.Serious},
+			]
+		});
+		
+		// Peri
+		
+		// Isaac
+		
+		// Drake
 		
 		// Max
 		
-		newNodes[["TookDamage", "Books"]] = new StoryNode
+		// Books
+		reg.Register(["WeShot", "DidDamage", "Books"], new StoryNode
 		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			whoDidThat = DType.Books,
 			allPresent = [CType.Ironclad, CType.Books],
 			lines = [
-				new Say {who = CType.Books, loopTag = Anim.Books.Paws},
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint}
+				new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.Happy},
+				new Say {who = CType.Books, loopTag = Anim.Books.Blush},
 			]
-		};
+		});
 		
-		// CAT, Silent, Defect, Watcher
+		// CAT
+
+		#endregion
 		
-		newNodes[["TookNonHullDamage", "Basic"]] = new StoryNode
+		#endregion
+
+		#region DidBigDamage
+
+		reg.Register(["WeShot", "DidBigDamage", "Ironclad"], new StoryNode
 		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 0,
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 3,
+			whoDidThat = DType.Ironclad,
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint}
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
 			]
-		};
+		});
+
+		#endregion
+
+		#region DidOverThree
+
+		reg.Register(["WeShot", "DidOverThree"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 4,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+			]
+		});
+
+		#endregion
+
+		#region DidOverFive
+
+		reg.Register(["WeShot", "DidOverFive"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 6,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+			]
+		});
+
+		#endregion
+	}
+	
+	private static void AddTheyShotNodes(IRDialogue.DialogueRegistry<StoryNode> reg)
+	{
+		#region Missed
+
 		
-		newNodes[["ShieldedDamage", "Basic"]] = new StoryNode
+
+		#endregion
+
+		#region TookZero
+
+		reg.Register(["TheyShot", "TookZero"], new StoryNode
 		{
 			enemyShotJustHit = true,
 			maxDamageDealtToPlayerThisTurn = 0,
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral}
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
 			]
-		}.SetMinShieldLostThisTurn(1);
-		
-		for (var i = 0; i < 2; i++)
-			newNodes[["AboutToDie", "Basic", i.ToString()]] = new StoryNode
-			{
-				maxHull = 2,
-				oncePerCombatTags = ["aboutToDie"],
-				oncePerRun = true,
-				allPresent = [CType.Ironclad],
-				lines = [
-					new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.Mad}
-				]
-			};
-		
-		newNodes[["AboutToDie", "Basic", "2"]] = new StoryNode
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [CType.Ironclad],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint}
-			]
-		};
-		
-		newNodes[["AboutToDie", "Dizzy"]] = new StoryNode
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [CType.Ironclad, CType.Dizzy],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
-				new Say {who = CType.Dizzy, loopTag = Anim.Dizzy.Explains}
-			]
-		};
-		
-		newNodes[["AboutToDie", "Riggs"]] = new StoryNode
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [CType.Ironclad, CType.Riggs],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
-				new Say {who = CType.Riggs, loopTag = Anim.Neutral}
-			]
-		};
-		
-		// Peri, Isaac, Max, Books, CAT, Silent, Defect
-		
-		newNodes[["AboutToDie", "Watcher"]] = new StoryNode
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [CType.Ironclad, CType.Watcher],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
-				new Say {who = CType.Watcher, loopTag = Anim.Neutral}
-			]
-		};
-		
-		for (var i = 0; i < 4; i++)
-			newNodes[["DealtDamage", "Basic", i.ToString()]] = new StoryNode
-			{
-				playerShotJustHit = true,
-				minDamageDealtToEnemyThisTurn = 1,
-				allPresent = [CType.Ironclad],
-				lines = [
-					new Say {who = CType.Ironclad, loopTag = Anim.Neutral}
-				]
-			};
-		
-		newNodes[["DealtDamage", "Self", "0"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = Ironclad.DeckEntry.Deck,
-			allPresent = [CType.Ironclad],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral}
-			]
-		};
+		});
 
-		newNodes[["DealtDamage", "Dizzy"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = Deck.dizzy,
-			allPresent = [CType.Ironclad, CType.Dizzy],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.Dizzy, loopTag = Anim.Neutral}
-			]
-		};
-		
-		newNodes[["DealtDamage", "Riggs"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			allPresent = [CType.Ironclad, CType.Riggs],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.Riggs, loopTag = Anim.Neutral}
-			]
-		};
-		
-		newNodes[["DealtDamage", "Peri"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = Ironclad.DeckEntry.Deck,
-			allPresent = [CType.Ironclad, CType.Peri],
-			lines = [
-				new Say {who = CType.Peri, loopTag = Anim.Neutral},
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral}
-			]
-		};
-		
-		newNodes[["DealtDamage", "Isaac"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			allPresent = [CType.Ironclad, CType.Isaac],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.Isaac, loopTag = Anim.Neutral},
-				new Say {who = CType.Ironclad, loopTag = Anim.Squint}
-			]
-		};
-		
-		newNodes[["DealtDamage", "Drake"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = Deck.eunice,
-			allPresent = [CType.Ironclad, CType.Drake],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.Drake, loopTag = Anim.Drake.Sly}
-			]
-		};
-		
-		newNodes[["DealtDamage", "Max"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = Ironclad.DeckEntry.Deck,
-			allPresent = [CType.Ironclad, CType.Max],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.Max, loopTag = Anim.Neutral}
-			]
-		};
-		
-		newNodes[["DealtDamage", "Books"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = Deck.shard,
-			allPresent = [CType.Ironclad, CType.Books],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.Books, loopTag = Anim.Books.Stoked}
-			]
-		};
-		
-		newNodes[["DealtDamage", "CAT"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = Ironclad.DeckEntry.Deck,
-			allPresent = [CType.Ironclad, CType.CAT],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.CAT, loopTag = Anim.Neutral}
-			]
-		};
-		
-		newNodes[["DealtDamage", "Silent"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			allPresent = [CType.Ironclad, CType.Silent],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.Silent, loopTag = Anim.Neutral}
-			]
-		};
-		
-		// Defect
-		
-		newNodes[["DealtDamage", "Watcher"]] = new StoryNode
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = Watcher.DeckEntry.Deck,
-			allPresent = [CType.Ironclad, CType.Watcher],
-			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
-				new Say {who = CType.Watcher, loopTag = Anim.Neutral}
-			]
-		};
-		
-		for (var i = 0; i < 3; i++)
-			newNodes[["DealtBigDamage", "Basic", i.ToString()]] = new StoryNode
-			{
-				playerShotJustHit = true,
-				minDamageDealtToEnemyThisTurn = 6,
-				allPresent = [CType.Ironclad],
-				lines = [
-					new Say {who = CType.Ironclad, loopTag = Anim.Neutral}
-				]
-			};
-		
-		return newNodes;
-	}
-
-	public static Dictionary<IReadOnlyList<string>, Say> MakeICSay()
-	{
-		var newSay = new Dictionary<IReadOnlyList<string>, Say>();
-		newSay[["CrabFacts1_Multi_0"]] = new Say
-		{
-			who = CType.Ironclad,
-			loopTag = "neutral"
-		};
-		newSay[["CrabFacts2_Multi_0"]] = new Say
-		{
-			who = CType.Ironclad,
-			loopTag = "neutral"
-		};
-		return newSay;
-	}
-	
-	public static Dictionary<IReadOnlyList<string>, StoryNode> MakeSilentNodes()
-	{
-		var newNodes = new Dictionary<IReadOnlyList<string>, StoryNode>();
-		return newNodes;
-	}
-	
-	public static Dictionary<IReadOnlyList<string>, Say> MakeSilentSay()
-	{
-		var newSay = new Dictionary<IReadOnlyList<string>, Say>();
-		return newSay;
-	}
-	
-	public static Dictionary<IReadOnlyList<string>, StoryNode> MakeDefectNodes()
-	{
-		var newNodes = new Dictionary<IReadOnlyList<string>, StoryNode>();
-		return newNodes;
-	}
-	
-	public static Dictionary<IReadOnlyList<string>, Say> MakeDefectSay()
-	{
-		var newSay = new Dictionary<IReadOnlyList<string>, Say>();
-		return newSay;
-	}
-	
-	public static Dictionary<IReadOnlyList<string>, StoryNode> MakeWatcherNodes()
-	{
-		var newNodes = new Dictionary<IReadOnlyList<string>, StoryNode>();
-		return newNodes;
-	}
-	
-	public static Dictionary<IReadOnlyList<string>, Say> MakeWatcherSay()
-	{
-		var newSay = new Dictionary<IReadOnlyList<string>, Say>();
-		return newSay;
-	}
-	
-	/*public CombatDialogue() : base(locale => ModEntry.Instance.Package.PackageRoot.GetRelativeFile($"i18n/dialogue-combat-{locale}.json").OpenRead())
-	{
-		var johnsonDeck = ModEntry.Instance.JohnsonDeck.Deck;
-		var johnsonType = ModEntry.Instance.JohnsonCharacter.CharacterType;
-		var newNodes = new Dictionary<IReadOnlyList<string>, StoryNode>();
-		var saySwitchNodes = new Dictionary<IReadOnlyList<string>, Say>();
-
-		ModEntry.Instance.Helper.Events.OnModLoadPhaseFinished += (_, phase) =>
-		{
-			if (phase != ModLoadPhase.AfterDbInit)
-				return;
-			InjectStory(newNodes, [], saySwitchNodes, NodeType.combat);
-		};
-		ModEntry.Instance.Helper.Events.OnLoadStringsForLocale += (_, e) => InjectLocalizations(newNodes, [], saySwitchNodes, e);
-
-		#region TookDamage
-		for (var i = 0; i < 3; i++)
-			newNodes[["TookDamage", "Basic", i.ToString()]] = new()
-			{
-				enemyShotJustHit = true,
-				minDamageDealtToPlayerThisTurn = 1,
-				lines = [
-					new Say { who = johnsonType, loopTag = "squint" },
-				],
-			};
-
-		newNodes[["TookDamage", "Dizzy"]] = new()
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [johnsonType, Deck.dizzy.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "fiddling" },
-				new Say { who = Deck.dizzy.Key(), loopTag = "squint" },
-			],
-		};
-		newNodes[["TookDamage", "Riggs"]] = new()
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [johnsonType, Deck.riggs.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "fiddling" },
-				new Say { who = Deck.riggs.Key(), loopTag = "neutral" },
-			],
-		};
-		newNodes[["TookDamage", "Peri"]] = new()
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [johnsonType, Deck.peri.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-				new Say { who = Deck.peri.Key(), loopTag = "squint" },
-			],
-		};
-		newNodes[["TookDamage", "Isaac"]] = new()
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [johnsonType, Deck.goat.Key()],
-			lines = [
-				new Say { who = Deck.goat.Key(), loopTag = "squint" },
-				new Say { who = johnsonType, loopTag = "neutral" },
-			],
-		};
-		newNodes[["TookDamage", "Drake"]] = new()
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [johnsonType, Deck.eunice.Key()],
-			lines = [
-				new Say { who = Deck.eunice.Key(), loopTag = "squint" },
-				new Say { who = johnsonType, loopTag = "squint" },
-			],
-		};
-		newNodes[["TookDamage", "Max"]] = new()
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [johnsonType, Deck.hacker.Key()],
-			lines = [
-				new Say { who = Deck.hacker.Key(), loopTag = "mad" },
-				new Say { who = johnsonType, loopTag = "flashing" },
-			],
-		};
-		newNodes[["TookDamage", "Books"]] = new()
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [johnsonType, Deck.shard.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-				new Say { who = Deck.shard.Key(), loopTag = "intense" },
-			],
-		};
-		newNodes[["TookDamage", "CAT"]] = new()
-		{
-			enemyShotJustHit = true,
-			minDamageDealtToPlayerThisTurn = 1,
-			allPresent = [johnsonType, "comp"],
-			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-				new Say { who = "comp", loopTag = "grumpy" },
-			],
-		};
 		#endregion
 
-		for (var i = 0; i < 1; i++)
-			newNodes[["TookNonHullDamage", "Basic", i.ToString()]] = new StoryNode()
-			{
-				enemyShotJustHit = true,
-				maxDamageDealtToPlayerThisTurn = 0,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			};
+		#region TookZeroLowHP
 
-		#region DealtDamage
-		for (var i = 0; i < 4; i++)
-			newNodes[["DealtDamage", "Basic", i.ToString()]] = new()
-			{
-				playerShotJustHit = true,
-				minDamageDealtToEnemyThisTurn = 1,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			};
+		reg.Register(["TheyShot", "TookZeroLowHP"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			maxDamageDealtToPlayerThisTurn = 0,
+			maxHull = 2,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+			]
+		});
 
-		newNodes[["DealtDamage", "Dizzy"]] = new()
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = johnsonDeck,
-			allPresent = [johnsonType, Deck.dizzy.Key()],
-			lines = [
-				new Say { who = Deck.dizzy.Key(), loopTag = "neutral" },
-				new Say { who = johnsonType, loopTag = "fiddling" },
-			],
-		};
-		newNodes[["DealtDamage", "Riggs"]] = new()
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			allPresent = [johnsonType, Deck.riggs.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "neutral" },
-				new Say { who = Deck.riggs.Key(), loopTag = "neutral" },
-			],
-		};
-		newNodes[["DealtDamage", "Peri"]] = new()
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = johnsonDeck,
-			allPresent = [johnsonType, Deck.peri.Key()],
-			lines = [
-				new Say { who = Deck.peri.Key(), loopTag = "neutral" },
-				new Say { who = johnsonType, loopTag = "fiddling" },
-			],
-		};
-		newNodes[["DealtDamage", "Isaac"]] = new()
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			whoDidThat = johnsonDeck,
-			allPresent = [johnsonType, Deck.goat.Key()],
-			lines = [
-				new Say { who = Deck.goat.Key(), loopTag = "neutral" },
-				new Say { who = johnsonType, loopTag = "neutral" },
-			],
-		};
-		newNodes[["DealtDamage", "Drake"]] = new()
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			allPresent = [johnsonType, Deck.eunice.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "fiddling" },
-				new Say { who = Deck.eunice.Key(), loopTag = "mad" },
-			],
-		};
-		newNodes[["DealtDamage", "Max"]] = new()
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			allPresent = [johnsonType, Deck.hacker.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "neutral" },
-				new Say { who = Deck.hacker.Key(), loopTag = "squint" },
-			],
-		};
-		newNodes[["DealtDamage", "Books"]] = new()
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			allPresent = [johnsonType, Deck.shard.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "neutral" },
-				new Say { who = Deck.shard.Key(), loopTag = "blush" },
-			],
-		};
-		newNodes[["DealtDamage", "CAT"]] = new()
-		{
-			playerShotJustHit = true,
-			minDamageDealtToEnemyThisTurn = 1,
-			allPresent = [johnsonType, "comp"],
-			lines = [
-				new Say { who = "comp", loopTag = "smug" },
-				new Say { who = johnsonType, loopTag = "squint" },
-			],
-		};
 		#endregion
 
-		for (var i = 0; i < 3; i++)
-			newNodes[["DealtBigDamage", "Basic", i.ToString()]] = new()
-			{
-				playerShotJustHit = true,
-				minDamageDealtToEnemyThisTurn = 6,
-				whoDidThat = johnsonDeck,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "flashing" },
-				],
-			};
+		#region TookOne
 
-		for (var i = 0; i < 1; i++)
-			newNodes[["ShieldedDamage", "Basic", i.ToString()]] = new StoryNode()
-			{
-				enemyShotJustHit = true,
-				maxDamageDealtToPlayerThisTurn = 0,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			}.SetMinShieldLostThisTurn(1);
+		reg.Register(["TheyShot", "TookOne"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 1,
+			maxDamageDealtToPlayerThisTurn = 1,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+				new SaySwitch()
+				{
+					lines = [
+						new Say {who = CType.Dizzy, loopTag = Anim.Dizzy.Explains}
+					]
+				}
+			]
+		});
 
-		newNodes[["Missed", "Basic", "0"]] = new()
-		{
-			playerShotJustMissed = true,
-			allPresent = [johnsonType],
-			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-			],
-		};
-		newNodes[["Missed", "Basic", "1"]] = new()
-		{
-			playerShotJustMissed = true,
-			allPresent = [johnsonType],
-			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-			],
-		};
-		newNodes[["Missed", "Basic", "2"]] = new()
-		{
-			playerShotJustMissed = true,
-			allPresent = [johnsonType],
-			lines = [
-				new Say { who = johnsonType, loopTag = "fiddling" },
-			],
-		};
+		#endregion
+
+		#region InArmor
+
+		
+
+		#endregion
+
+		#region InArmorALot
+
+		
+
+		#endregion
 
 		#region AboutToDie
-		newNodes[["AboutToDie", "Basic", "0"]] = new()
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [johnsonType],
-			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-			],
-		};
-		newNodes[["AboutToDie", "Basic", "1"]] = new()
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [johnsonType],
-			lines = [
-				new Say { who = johnsonType, loopTag = "fiddling" },
-			],
-		};
-		newNodes[["AboutToDie", "Basic", "2"]] = new()
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [johnsonType],
-			lines = [
-				new Say { who = johnsonType, loopTag = "neutral" },
-			],
-		};
 
-		newNodes[["AboutToDie", "Dizzy"]] = new()
+		reg.Register(["TheyShot", "AboutToDie"], new StoryNode
 		{
+			enemyShotJustHit = true,
 			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
+			oncePerCombatTags = [StoryTags.AboutToDie],
 			oncePerRun = true,
-			allPresent = [johnsonType, Deck.dizzy.Key()],
+			allPresent = [CType.Ironclad, CType.Isaac],
 			lines = [
-				new Say { who = Deck.dizzy.Key(), loopTag = "neutral" },
-				new Say { who = johnsonType, loopTag = "neutral" },
-			],
-		};
-		newNodes[["AboutToDie", "Riggs"]] = new()
+				new Say {who = CType.Isaac, loopTag = Anim.Isaac.Panic},
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+			]
+		});
+		
+		reg.Register(["TheyShot", "AboutToDie"], new StoryNode
 		{
+			enemyShotJustHit = true,
 			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
+			oncePerCombatTags = [StoryTags.AboutToDie],
 			oncePerRun = true,
-			allPresent = [johnsonType, Deck.riggs.Key()],
+			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = Deck.riggs.Key(), loopTag = "nervous" },
-				new Say { who = johnsonType, loopTag = "squint" },
-			],
-		};
-		newNodes[["AboutToDie", "Peri"]] = new()
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [johnsonType, Deck.peri.Key()],
-			lines = [
-				new Say { who = Deck.peri.Key(), loopTag = "neutral" },
-				new Say { who = johnsonType, loopTag = "fiddling" },
-			],
-		};
-		newNodes[["AboutToDie", "Isaac"]] = new()
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [johnsonType, Deck.goat.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "fiddling" },
-				new Say { who = Deck.goat.Key(), loopTag = "squint" },
-			],
-		};
-		newNodes[["AboutToDie", "Drake"]] = new()
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [johnsonType, Deck.eunice.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "fiddling" },
-				new Say { who = Deck.eunice.Key(), loopTag = "mad" },
-			],
-		};
-		newNodes[["AboutToDie", "Books"]] = new()
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [johnsonType, Deck.shard.Key()],
-			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-				new Say { who = Deck.shard.Key(), loopTag = "intense" },
-			],
-		};
-		newNodes[["AboutToDie", "CAT"]] = new()
-		{
-			maxHull = 2,
-			oncePerCombatTags = ["aboutToDie"],
-			oncePerRun = true,
-			allPresent = [johnsonType, "comp"],
-			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-				new Say { who = "comp", loopTag = "mad" },
-			],
-		};
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+				new SaySwitch()
+				{
+					lines = [
+						new Say {who = CType.Dizzy, loopTag = Anim.Dizzy.Intense},
+						new Say {who = CType.Max, loopTag = Anim.Squint}
+					]
+				}
+			]
+		});
+
 		#endregion
 
-		for (var i = 0; i < 1; i++)
-			newNodes[["HitArmor", "Basic", i.ToString()]] = new()
-			{
-				playerShotJustHit = true,
-				minDamageBlockedByEnemyArmorThisTurn = 1,
-				oncePerCombat = true,
-				oncePerRun = true,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			};
+		#region OneHPThisIsFine
 
-		for (var i = 0; i < 1; i++)
-			newNodes[["ExcessEnergy", "Basic", i.ToString()]] = new()
-			{
-				handEmpty = true,
-				minEnergy = 1,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "squint" },
-				],
-			};
-
-		for (var i = 0; i < 1; i++)
-			newNodes[["EmptyHand", "Basic", i.ToString()]] = new()
-			{
-				handEmpty = true,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			};
-
-		for (var i = 0; i < 1; i++)
-			newNodes[["TrashHand", "Basic", i.ToString()]] = new()
-			{
-				handFullOfTrash = true,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			};
-
-		for (var i = 0; i < 1; i++)
-			newNodes[["PlayedRecycle", "Basic", i.ToString()]] = new StoryNode
-			{
-				allPresent = [johnsonType],
-				oncePerCombat = true,
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			}.SetJustPlayedRecycleCard(true);
-
-		for (var i = 0; i < 2; i++)
-			newNodes[["NewNonJohnsonNonTrashTempCard", "Basic", i.ToString()]] = new()
-			{
-				lookup = [$"{ModEntry.Instance.Package.Manifest.UniqueName}::NewNonJohnsonNonTrashTempCard"],
-				oncePerCombat = true,
-				oncePerCombatTags = [$"{ModEntry.Instance.Package.Manifest.UniqueName}::NewNonJohnsonNonTrashTempCard"],
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "fiddling" },
-				],
-			};
-
-		for (var i = 0; i < 1; i++)
-			newNodes[["StartedBattle", "Basic", i.ToString()]] = new()
-			{
-				turnStart = true,
-				maxTurnsThisCombat = 1,
-				oncePerCombat = true,
-				oncePerRun = true,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "flashing" },
-				],
-			};
-
-		for (var i = 0; i < 2; i++)
-			newNodes[["NoOverlap", "Basic", i.ToString()]] = new()
-			{
-				priority = true,
-				shipsDontOverlapAtAll = true,
-				oncePerCombatTags = ["NoOverlapBetweenShips"],
-				oncePerRun = true,
-				nonePresent = ["crab", "scrap"],
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			};
-
-		for (var i = 0; i < 2; i++)
-			newNodes[["NoOverlapButSeeker", "Basic", i.ToString()]] = new()
-			{
-				priority = true,
-				shipsDontOverlapAtAll = true,
-				oncePerCombatTags = ["NoOverlapBetweenShipsSeeker"],
-				oncePerRun = true,
-				anyDronesHostile = ["missile_seeker"],
-				nonePresent = ["crab"],
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "squint" },
-				],
-			};
-
-		for (var i = 0; i < 2; i++)
-			newNodes[["LongFight", "Basic", i.ToString()]] = new()
-			{
-				minTurnsThisCombat = 9,
-				oncePerCombatTags = ["manyTurns"],
-				oncePerRun = true,
-				turnStart = true,
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "fiddling" },
-				],
-			};
-
-		for (var i = 0; i < 1; i++)
-			newNodes[["GoingMissing", "Basic", i.ToString()]] = new()
-			{
-				priority = true,
-				lastTurnPlayerStatuses = [ModEntry.Instance.JohnsonCharacter.MissingStatus.Status],
-				oncePerCombatTags = ["johnsonWentMissing"],
-				oncePerRun = true,
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			};
-
-		for (var i = 0; i < 1; i++)
-			newNodes[["ReturningFromMissing", "Basic", i.ToString()]] = new()
-			{
-				priority = true,
-				lookup = [$"{ModEntry.Instance.Package.Manifest.UniqueName}::ReturningFromMissing"],
-				oncePerRun = true,
-				lines = [
-					new Say { who = johnsonType, loopTag = "fiddling" },
-				],
-			};
-
-		#region GoingToOverheat
-		for (var i = 0; i < 2; i++)
-			newNodes[["GoingToOverheat", "Basic", i.ToString()]] = new()
-			{
-				goingToOverheat = true,
-				oncePerCombatTags = ["OverheatGeneric"],
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "squint" },
-				],
-			};
-
-		newNodes[["GoingToOverheat", "Drake"]] = new()
+		reg.Register(["TheyShot", "OneHPThisIsFine"], new StoryNode
 		{
-			goingToOverheat = true,
-			oncePerCombatTags = ["OverheatGeneric"],
-			allPresent = [johnsonType, Deck.eunice.Key()],
+			enemyShotJustHit = true,
+			maxHull = 1,
+			oncePerCombatTags = [StoryTags.AboutToDie],
+			oncePerRun = true,
+			allPresent = [CType.Ironclad, CType.Books],
 			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-				new Say { who = Deck.eunice.Key(), loopTag = "neutral" },
-			],
-		};
+				new Say {who = CType.Books, loopTag = Anim.Books.Paws},
+				new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.Intense},
+			]
+		});
+
+		#endregion
+	}
+	
+	private static void AddPositionNodes(IRDialogue.DialogueRegistry<StoryNode> reg)
+	{
+		#region NoOverlap
+
+		reg.Register(["Position", "NoOverlap"], new StoryNode
+		{
+			priority = true,
+			shipsDontOverlapAtAll = true,
+			oncePerRun = true,
+			oncePerCombatTags = [StoryTags.NoOverlap],
+			allPresent = [CType.Ironclad],
+			nonePresent = [CType.Enemies.Brac, CType.Enemies.Robots.Scrap],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+			]
+		});
+
 		#endregion
 		
-		for (var i = 0; i < 3; i++)
-			newNodes[["Strengthened", "Basic", i.ToString()]] = new StoryNode
-			{
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "flashing" },
-				],
-			}.SetStrengthened(true);
+		#region NoOverlapCrab
+
+		reg.Register(["Position", "NoOverlapCrab"], new StoryNode
+		{
+			priority = true,
+			shipsDontOverlapAtAll = true,
+			oncePerRun = true,
+			oncePerCombatTags = [StoryTags.NoOverlap],
+			allPresent = [CType.Ironclad, CType.Enemies.Brac],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+			]
+		});
+
+		#endregion
+
+		#region NoOverlapButSeeker
+
+		reg.Register(["Position", "NoOverlapButSeeker"], new StoryNode
+		{
+			priority = true,
+			shipsDontOverlapAtAll = true,
+			oncePerRun = true,
+			oncePerCombatTags = [StoryTags.NoOverlapSeeker],
+			anyDronesHostile = ["missile_seeker"],
+			allPresent = [CType.Ironclad],
+			nonePresent = [CType.Enemies.Brac],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+			]
+		});
+
+		#endregion
+
+		#region MovingALot
+
 		
-		for (var i = 0; i < 3; i++)
-			newNodes[["Discounted", "Basic", i.ToString()]] = new StoryNode
-			{
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "flashing" },
-				],
-			}.SetDiscounted(true);
 
-		for (var i = 0; i < 1; i++)
-			newNodes[["Recalibrator", "Basic", i.ToString()]] = new()
-			{
-				playerShotJustMissed = true,
-				hasArtifacts = ["Recalibrator"],
-				allPresent = [johnsonType],
-				lines = [
-					new Say { who = johnsonType, loopTag = "neutral" },
-				],
-			};
-
-		newNodes[["StartedBattleAgainstDuncan"]] = new()
+		#endregion
+	}
+	
+	private static void AddStateNodes(IRDialogue.DialogueRegistry<StoryNode> reg)
+	{
+		#region WeLostALotOfHPTimeForTheBet
+		
+		// IC Drake Bet Starts
+		reg.Register(["State", "WeLostALotOfHPTimeForTheBet"], new StoryNode
 		{
-			priority = true,
-			turnStart = true,
-			maxTurnsThisCombat = 1,
-			oncePerCombat = true,
-			allPresent = [johnsonType, "skunk"],
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 3,
+			allPresent = [CType.Ironclad, CType.Drake],
 			lines = [
-				new Say { who = johnsonType, loopTag = "flashing" },
-				new Say { who = "skunk", loopTag = "neutral" },
-			],
-		};
-
-		newNodes[["StartedBattleAgainstDahlia"]] = new()
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+				new Say {who = CType.Drake, loopTag = Anim.Drake.Sly},
+				new Say {who = CType.Ironclad, loopTag = Anim.Neutral},
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint}.WithOnExecute(new Records.OnExecutePayload
+				{
+					key = StoryTags.ICDrakeTheBetIsOn, 
+					value = true, 
+					lifetime = Records.OnExecutePayload.Lifetime.Persistent
+				}),
+			]
+		}.WithRequirements(new Records.StoryDataPayload()
 		{
-			priority = true,
-			turnStart = true,
-			maxTurnsThisCombat = 1,
-			oncePerCombat = true,
-			allPresent = [johnsonType, "bandit"],
+			key = StoryTags.ICDrakeTheBetIsOn, 
+			value = null
+		}));
+		
+		// IC Drake 1-0
+		reg.Register(["State", "WeLostALotOfHPTimeForTheBet"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 3,
+			oncePerRun = true,
+			allPresent = [CType.Ironclad, CType.Drake],
 			lines = [
-				new Say { who = "bandit", loopTag = "neutral" },
-				new Say { who = johnsonType, loopTag = "squint" },
-			],
-		};
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+				new Say {who = CType.Drake, loopTag = Anim.Drake.SlyBlush},
+			]
+		}.WithRequirements(
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.ICDrakeTheBetIsOn, 
+				value = true
+			},
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.ICBeatDrakeCounter, value = 0, not = true
+			},
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.DrakeBeatICCounter, value = 0
+			}));
+		
+		// IC Drake 0-1
+		reg.Register(["State", "WeLostALotOfHPTimeForTheBet"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 3,
+			oncePerRun = true,
+			allPresent = [CType.Ironclad, CType.Drake],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+				new Say {who = CType.Drake, loopTag = Anim.Drake.Sly},
+			]
+		}.WithRequirements(
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.ICDrakeTheBetIsOn, 
+				value = true
+			},
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.ICBeatDrakeCounter, value = 0
+			},
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.DrakeBeatICCounter, value = 0, not = true
+			}));
+		
+		// IC Drake 1-1
+		reg.Register(["State", "WeLostALotOfHPTimeForTheBet"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 3,
+			oncePerRun = true,
+			allPresent = [CType.Ironclad, CType.Drake],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+				new Say {who = CType.Drake, loopTag = Anim.Drake.Sly},
+			]
+		}.WithRequirements(
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.ICDrakeTheBetIsOn, 
+				value = true
+			},
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.ICBeatDrakeCounter, value = 0, not = true
+			},
+			new Records.StoryDataPayload()
+			{
+				key = StoryTags.DrakeBeatICCounter, value = 0, not = true
+			}));
 
-		newNodes[["StartedBattleAgainstBigCrystal"]] = new()
+		#endregion
+
+		#region WeLostALotOfHP
+		
+		reg.Register(["State", "WeLostALotOfHP"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 3,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+				new SaySwitch()
+				{
+					lines = [
+						new Say {who = CType.Dizzy, loopTag = Anim.Dizzy.Intense}
+					]
+				}
+			]
+		});
+		
+		reg.Register(["State", "WeLostALotOfHP"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 3,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+				new SaySwitch()
+				{
+					lines = [
+						new Say {who = CType.Riggs, loopTag = Anim.Neutral}
+					]
+				}
+			]
+		});
+		
+		reg.Register(["State", "WeLostALotOfHP"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 3,
+			allPresent = [CType.Ironclad],
+			lines = [
+				new SaySwitch()
+				{
+					lines = [
+						new Say {who = CType.Peri, loopTag = Anim.Peri.Mad}
+					]
+				},
+				new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.Intense},
+			]
+		}.WithRequirements(new Records.StoryDataPayload()
+		{
+			key = StoryTags.ICHasCupcakes, 
+			value = true
+		}));
+		
+		reg.Register(["State", "WeLostALotOfHP"], new StoryNode
+		{
+			enemyShotJustHit = true,
+			minDamageDealtToPlayerThisTurn = 3,
+			allPresent = [CType.Peri],
+			lines = [
+				new Say {who = CType.Peri, loopTag = Anim.Peri.Mad},
+				new SaySwitch()
+				{
+					lines = [
+						new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+						new Say {who = CType.Watcher, loopTag = Anim.Neutral}
+					]
+				}
+			]
+		}.WithRequirements(new Records.AtLeastOnePresentPayload()
+		{
+			chars = [CType.Ironclad, CType.Watcher]
+		}));
+
+		#endregion
+
+		#region TheyLostALotOfHP
+
+		reg.Register(["State", "TheyLostALotOfHP"], new StoryNode
+		{
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisTurn = 10,
+			allPresent = [CType.Ironclad],
+			lines =
+			[
+				new Say { who = CType.Ironclad, loopTag = Anim.Neutral },
+			]
+		});
+
+		#endregion
+
+		#region WentMissing
+		
+		// Ironclad
+		
+		// Silent
+		
+		// Defect
+		reg.Register(["State", "WentMissing", "Defect"], new StoryNode
 		{
 			priority = true,
+			lastTurnPlayerStatuses = [Defect.Entry.MissingStatus.Status],
+			oncePerCombatTags = [StoryTags.WentMissing.Defect],
+			oncePerRun = true,
+			lines = [
+				new Say { who = CType.Defect, loopTag = Anim.Neutral },
+			],
+		});
+		
+		// Watcher
+		
+		// Riggs
+		
+		// Dizzy
+		
+		// Peri
+		
+		// Isaac
+		
+		// Drake
+		
+		// Max
+		
+		// Books
+		
+		// CAT
+
+		#endregion
+
+		#region NoLongerMissing
+
+		reg.Register(["State", "NoLongerMissing"], new StoryNode
+		{
+			priority = true,
+			lookup = [LookupKeys.IroncladReturnedFromMissing],
+			oncePerRun = true,
+			lines = [
+				new Say { who = CType.Ironclad, loopTag = Anim.Squint },
+			],
+		});
+
+		#endregion
+
+		#region EnemyHasBrittle
+
+		
+
+		#endregion
+
+		#region EnemyHasWeak
+
+		
+
+		#endregion
+
+		#region LongCombat
+
+		reg.Register(["State", "LongCombat"], new StoryNode
+		{
 			turnStart = true,
 			oncePerRun = true,
-			requiredScenes = ["Crystal_1", "Crystal_1_1"],
-			excludedScenes = ["Crystal_2"],
-			allPresent = [johnsonType, "crystal"],
+			oncePerCombatTags = ["manyTurns"],
+			minTurnsThisCombat = 9,
+			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = johnsonType, loopTag = "fiddling" },
-			],
-		};
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+			]
+		});
 
-		newNodes[["StartedBattleAgainstDrake"]] = new()
+		#endregion
+
+		#region VeryLongCombat
+
+		reg.Register(["State", "VeryLongCombat"], new StoryNode
 		{
-			priority = true,
 			turnStart = true,
-			maxTurnsThisCombat = 1,
-			oncePerCombat = true,
-			allPresent = [johnsonType, "pirate"],
+			oncePerRun = true,
+			oncePerCombatTags = ["veryManyTurns"],
+			minTurnsThisCombat = 20,
+			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = johnsonType, loopTag = "squint" },
-				new Say { who = "pirate", loopTag = "mad" },
-			],
-		};
+				new Say {who = CType.Ironclad, loopTag = Anim.Squint},
+			]
+		});
 
-		saySwitchNodes[["CrabFacts1_Multi_0"]] = new()
+		#endregion
+	}
+	
+	private static void AddStatusNodes(IRDialogue.DialogueRegistry<StoryNode> reg)
+	{
+		#region OverheatingIroncladsFault
+
+		
+
+		#endregion
+
+		#region OverheatingIroncladFix
+
+		
+
+		#endregion
+
+		#region OverheatingGeneric
+
+		
+
+		#endregion
+
+		#region JustOverheated
+
+		
+
+		#endregion
+
+		#region JustGainedHeatIroncladHere
+
+		
+
+		#endregion
+	}
+	
+	private static void AddHandNodes(IRDialogue.DialogueRegistry<StoryNode> reg)
+	{
+		#region Empty
+
+		
+
+		#endregion
+
+		#region EmptyWithEnergy
+
+		
+
+		#endregion
+
+		#region OnlyTrash
+
+		
+
+		#endregion
+
+		#region OnlyUnplayable
+
+		
+
+		#endregion
+
+		#region PlayedManyCards
+
+		
+
+		#endregion
+
+		#region PlayedCheapCard
+
+		
+
+		#endregion
+
+		#region PlayedExpensiveCard
+
+		
+
+		#endregion
+
+		#region ManyFlips
+
+		
+
+		#endregion
+	}
+	
+	public static IRDialogue.DialogueRegistry<Say> MakeSaySwitches()
+	{
+		var reg = IRDialogue.MakeSaySwitchRegistry();
+		reg.Register(["SaySwitches", "CrabFacts1_Multi_0", "1"], new Say()
 		{
-			who = johnsonType,
-			loopTag = "neutral"
-		};
-		saySwitchNodes[["CrabFacts2_Multi_0"]] = new()
+			who = CType.Ironclad,
+			loopTag = Anim.Neutral
+		});
+		
+		reg.Register(["SaySwitches", "CrabFacts2_Multi_0", "1"], new Say()
 		{
-			who = johnsonType,
-			loopTag = "phone"
-		};
-	}*/
+			who = CType.Ironclad,
+			loopTag = Anim.Neutral
+		});
+		return reg;
+	}
 }

@@ -17,16 +17,26 @@
   },
   "Enemies": {
     // Normal
-    
-    // SaySwitch
-    // Dahlia - Mornin' y'all. Three servings of missiles, coming right up.
-    "BanditThreats_Multi_0": [],
-    // Smiff - Do you like my custom engines? They all glow different colors.
-    "BatboyKeepsTalking_Multi_0": []
+    "StartedBattle": {
+      "Generic": [],
+      "AgainstDrake": [
+        [
+          /*IC*/ "You dare stand before me? You have courage!",
+          /*Drake*/ "I have guns."
+        ]
+      ],
+      "AgainstWizbo": [
+        // IC
+        ["What is magic? There is no magic before the might of my blade! Onward!"]
+      ]
+    }
   },
   "WeShot": {
     // combat none "Recalibrator","GrazerBeam"
-    "Missed": [],
+    "Missed": [
+      // IC
+      [ "Tch." ]
+    ],
     // run combat
     "HitArmor": [],
     // run combat
@@ -34,67 +44,203 @@
     // run combat "EnemyArmorPierced"
     "HitArmorAndPierced": [],
     "DidDamage": {
-      "Generic": [],
+      "Generic": [
+        // IC
+        [ 
+          "Die!",
+          [
+            /*Silent*/ "Die! Die!",
+            /*Riggs*/ "What he said!"
+          ]
+        ],
+        [ "Crush them!" ],
+        [ "Give it up!" ],
+        [
+          /*IC*/ "Give it up!",
+          /*Isaac*/ "Okay.",
+          /*IC*/ "Not you."
+        ],
+        [ "Not bad!" ]
+      ],
       // combat "XShotThatGuy"
-      "Ironclad": [],
+      "Ironclad": [
+        [ 
+          "Leave it to me!",
+          [
+            /*Max*/ "Nice, I could use a break.",
+            /*CAT*/ "Is that a good idea?"
+          ]
+        ],
+        [
+          /*Peri*/ "You fight well.",
+          /*IC*/ "You're pretty good yourself."
+        ]
+      ],
       "Silent": [],
       "Defect": [],
       "Watcher":[],
-      "Dizzy": [],
+      "Dizzy": [
+        [
+          /*IC*/ "Crush them!",
+          /*Dizzy*/ "Working on it."
+        ]
+      ],
       "Riggs": [],
+      "Peri": [],
       "Isaac": [],
       "Drake": [],
       "Max": [],
-      "Books": [],
+      "Books": [
+        [
+          /*IC*/ "Hahaha! Not bad for someone so young!",
+          /*Books*/ "Thanks Mr. Clad!"
+        ]
+      ],
       "CAT": []
     },
     // run "XBigHit"
     "DidBigDamage": {
-      "Ironclad": [],
+      "Ironclad": [
+        [ "It's been fun, but that all ends now!" ]
+      ],
       "Silent": [],
       "Defect": [],
       "Watcher": []
     },
-    "DidOverThree": [],
-    "DidOverFive": []
-  },
-  "Position": {
-    // prio run combat "NoOverlapBetweenShips" none "crab","scrap"
-    "NoOverlap": [],
-    // prio combat "NoOverlapBetweenShips" none "crab" hostile "missile_seeker"
-    "NoOverlapButSeeker": [],
-    "MovingALot": []
+    "DidOverThree": [
+      [ "Today is a good day to die!" ]
+    ],
+    "DidOverFive": [
+      [ "Hmph! I wish the enemy would try a little harder." ]
+    ]
   },
   "TheyShot": {
     "Missed": [],
-    "TookZero": [],
-    "TookZeroLowHP": [],
-    "TookOne": [],
+    "TookZero": [
+      [ /*IC*/ "Easy enough!" ]
+    ],
+    "TookZeroLowHP": [
+      [ /*IC*/ "Did you enjoy yourself? Now come and suffer the consequences!" ]
+    ],
+    "TookOne": [
+      [
+        "Hmph! They're not bad...", //IC
+        [
+          "They're not exactly good either." //Dizzy
+        ]
+      ]
+    ],
     // run combat "WowArmorISPrettyCoolHuh"
     "InArmor": [],
     // run combat "YowzaThatWasALOTofArmorBlock"
     "InArmorALot": [],
     // run combat "aboutToDie"
-    "AboutToDie": [],
+    "AboutToDie": [
+      [
+        /*Isaac*/ "Uh, guys, I'm not too sure about this...",
+        /*IC*/ "You've got me with you. There's no way I can lose!"
+      ],
+      [
+        /*IC*/ "This doesn't look good!",
+        [
+          /*Dizzy*/ "Incidentally, it does not sound, feel, or smell good either.",
+          /*Max*/ "Just don't look."
+        ]
+      ]
+    ],
     // run combat "aboutToDie"
-    "OneHPThisIsFine": [],
-    
-    // SaySwitch
-    "TookDamageHave2HP_Multi_0": [],
-    "TookDamageHave2HP_Multi_1": [],
-    "TookDamageHave2HP_Multi_2": []
+    "OneHPThisIsFine": [
+      [
+        /*Books*/ "Wow! Look at all the sparks!",
+        /*IC*/ "Careful! It's dangerous out there!"
+      ]
+    ]
+  },
+  "Position": {
+    // prio run combat "NoOverlapBetweenShips" none "crab","scrap"
+    "NoOverlap": [
+      //IC
+      [ "Just sit back and wait for the enemy to arrive!" ]
+    ],
+    "NoOverlapCrab": [
+      // IC
+      [ "Do not let the enemy get away! After them!" ]
+    ],
+    // prio combat "NoOverlapBetweenShips" none "crab" hostile "missile_seeker"
+    "NoOverlapButSeeker": [
+      // IC
+      [ "Now to deal with this annoying thing..." ]
+    ],
+    "MovingALot": []
   },
   "State": {
-    "WeLostALotOfHP": [],
-    "TheyLostALotOfHP": [],
+    "WeLostALotOfHPTimeForTheBet": [
+      // IC Drake No Bet Yet
+      [
+        "You haven't beaten me yet!",
+        "I bet I could though.",
+        "...",
+        "You're on."
+      ],
+      // IC Drake 1-0
+      [
+        "You haven't beaten me yet!",
+        "Ill get you next time..."
+      ],
+      // IC Drake 0-1
+      [
+        "You haven't beaten me yet!",
+        "Heh, I have."
+      ],
+      // IC Drake 1-1
+      [
+        "You haven't beaten me yet!",
+        "I'll take you on again any time."
+      ]
+    ],
+    "WeLostALotOfHP": [
+      [
+        "You haven't beaten me yet!", // IC
+        [
+          "If we keep this up they will." // Dizzy
+        ]
+      ],
+      [
+        "Tch. I won't forget this.", // IC
+        [
+          "I forget things all the time!" // Riggs
+        ]
+      ],
+      [
+        [
+          "Everyone okay?" // Peri
+        ],
+        "My cupcakes!" // IC
+      ],
+      [
+        /*Peri*/ "Everyone, remain calm!",
+        [
+          /*IC*/ "Hmph.",
+          /*Watcher*/ "We'll see."
+        ]
+      ]
+    ],
+    "TheyLostALotOfHP": [
+      // IC
+      [ "Can anybody provide me with a decent challenge?!" ]
+    ],
     // prio run combat "XWentMissing"
     "WentMissing": {
       "Ironclad": [],
       "Silent": [],
-      "Defect": [],
+      "Defect": [
+        // Defect
+        ["404 - NOT FOUND"]
+      ],
       "Watcher": [],
       "Dizzy": [],
       "Riggs": [],
+      "Peri": [],
       "Isaac": [],
       "Drake": [],
       "Max": [],
@@ -102,17 +248,24 @@
       "CAT": []
     },
     // prio run
-    "NoLongerMissing": [],
+    "NoLongerMissing": [
+      // IC
+      [ "Little tricks will not work against me!" ]
+    ],
     // run "yelledAboutBrittle"
     "EnemyHasBrittle": [],
     // run "yelledAboutWeakness"
     "EnemyHasWeak": [],
     // combat "manyTurns"
-    "LongCombat": [],
+    "LongCombat": [
+      // IC
+      [ "I grow bored of this battle... I'm putting an end to it!" ]
+    ],
     // run combat "veryManyTurns"
-    "VeryLongCombat": [],
-    // combat
-    "ManyFlips": []
+    "VeryLongCombat": [
+      //IC
+      [ "I've been fighting for quite a while and I have yet to meet anyone that scares me." ]
+    ]
   },
   "Status": {
     // combat "OverheatIroncladsFault"
@@ -124,11 +277,8 @@
     // combat "WeJustOverheated"
     "JustOverheated": [],
     // combat "IroncladPleaseFixHeat
-    "JustGainedHeatIroncladHere": [],
+    "JustGainedHeatIroncladHere": []
     
-    // SaySwitch
-    "WeJustGainedHeatAndDrakeIsHere_Multi_0": [],
-    "OverheatDrakesFault_Multi_9": []
   },
   "Hand": {
     "Empty": [],
@@ -142,242 +292,24 @@
     "PlayedCheapCard": [],
     // run combat "ExpensiveCardPlayed"
     "PlayedExpensiveCard": [],
-    
-    // SaySwitch
-    "JustPlayedASashaCard_Multi_2": []
+    // combat
+    "ManyFlips": []
   },
-  "Ironclad": {
+  "IroncladTODO": {
+    "UnsureWhereToUse": [
+      [ "This humiliation will not stand!" ],
+      [ "This cannot be!" ],
+      [ "I suppose I was never meant to know peace..." ]
+    ],
     /*Normal*/
-    "TookDamage": {
-      "Basic": [
-        ["You haven't beaten me yet!"],
-        ["Hmph! They're not bad..."],
-        ["Tch. I won't forget this."]
-      ],
-      "Dizzy": [
-        /*IC*/ "Hmph! They're not bad...",
-        /*Dizzy*/ "They're not exactly good either."
-      ],
-      "Riggs": [
-        /*IC*/ "Tch. I won't forget this.",
-        /*Riggs*/ "I forget things all the time!"
-      ],
-      "Peri": [
-        /*Peri*/ "Everyone okay?",
-        /*IC*/ "My cupcakes!"
-      ],
-      "Isaac": [
-        /*Isaac*/ "Uh, guys, I'm not too sure about this...",
-        /*IC*/ "You've got me with you. There's no way I can lose!"
-      ],
-      "Drake": [
-        [
-          /*IC*/ "You haven't beaten me yet!",
-          /*Drake*/ "There's still time."
-        ],
-        [
-          /*IC*/ "You haven't beaten me yet!",
-          /*Drake*/ "Well, I have.",
-          /*IC*/ "..."
-        ]
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /*Books*/ "Wow! Look at all the sparks!",
-        /*IC*/ "It's dangerous out there!"
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Silent": [
-        /*IC*/ "",
-        /*Silent*/ ""
-      ],
-      "Defect": [
-        /*IC*/ "",
-        /*Defect*/ ""
-      ],
-      "Watcher": [
-        /*IC*/ "",
-        /*Watcher*/ ""
-      ]
-    },
-    "TookNonHullDamage": {
-      "Basic": [
-        [ "Easy enough!" ]
-      ]
-    },
-    "ShieldedDamage": {
-      "Basic": [
-        [ "Did you enjoy yourself? Now come and suffer the consequences!" ]
-      ]
-    },
-    "AboutToDie": {
-      "Basic": [
-        [ "This humiliation will not stand!" ],
-        [ "This cannot be!" ],
-        [ "I suppose I was never meant to know peace..." ]
-      ],
-      "Dizzy": [
-        /*IC*/ "This doesn't look good!",
-        /*Dizzy*/ "Incidentally, it does not sound, feel, or smell good either."
-      ],
-      "Riggs": [
-        /*IC*/ "Impossible... Me, lose?",
-        /*Riggs*/ "We lose quite a lot, if you haven't been keeping track."
-      ],
-      "Peri": [
-        /*Peri*/ "Everyone, remain calm!",
-        /*IC*/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Silent": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Defect": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Watcher": [
-        /*IC*/ "Impossible... Me, lose?",
-        /*Watcher*/ "How are you not used to this by now?"
-      ]
-    },
-    "DealtDamage": {
-      "Basic": [
-        [ "Die!" ],
-        [ "Crush them!" ],
-        [ "Give it up!" ],
-        [ "Not bad!" ]
-      ],
-      "Self": [
-        [ "Leave it to me!" ]
-      ],
-      "Dizzy": [
-        /*IC*/ "Crush them!",
-        /*Dizzy*/ "Working on it."
-      ],
-      "Riggs": [
-        /*IC*/ "Die!",
-        /*Riggs*/ "What he said!"
-      ],
-      "Peri": [
-        /*Peri*/ "You fight well.",
-        /*IC*/ "You're pretty good yourself."
-      ],
-      "Isaac": [
-        /*IC*/ "Give it up!",
-        /*Isaac*/ "Okay.",
-        /*IC*/ "Not you."
-      ],
-      "Drake": [
-        /*IC*/ "You're pretty good, but I'm better! Watch!",
-        /*Drake*/ "Try to keep up."
-      ],
-      "Max": [
-        /*IC*/ "Leave it to me!",
-        /*Max*/ "Nice, I could use a break."
-      ],
-      "Books": [
-        /*IC*/ "Hahaha! Not bad for someone so young!",
-        /*Books*/ "Thanks Mr. Clad!"
-      ],
-      "CAT": [
-        /*IC*/ "Leave it to me!",
-        /*CAT*/ "Is that a good idea?"
-      ],
-      "Silent": [
-        /*IC*/ "Die!",
-        /*Silent*/ "Die! Die!"
-      ],
-      "Defect": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Watcher": [
-        /*IC*/ "You're pretty good, but I'm better! Watch!",
-        /*Watcher*/ "That is my job, yes."
-      ]
-    },
-    "DealtBigDamage": {
-      "Basic": [
-        [ "It's been fun, but that all ends now!" ],
-        [ "Hmph! I wish the enemy would try a little harder." ],
-        [ "Today is a good day to die!" ]
-      ]
-    },
-    "Missed": {
-      "Basic": [
-        [ "Tch." ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "HitArmor": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ExcessEnergy": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "EmptyHand": {
-      "Basic": [
-        [ "Send us reinforcements!" ]
-      ]
-    },
-    "TrashHand": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "PlayedRecycle": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "NewNonIroncladNonTrashTempCard": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
+
     "StartedBattle": {
       "Basic": [
-        [ "Can anybody provide me with a decent challenge?!" ],
-        [ "Stand and fight me!" ],
-        [ "I will show you what True Might is!" ]
+        [ "Stand and fight me!" ]
       ]
     },
     "NoOverlap": {
       "Basic": [
-        [ "Do not let the enemy get away! After them!" ],
         [ "We'll stay here for a while. Just sit back and wait for the enemy to arrive!" ]
       ]
     },
@@ -386,965 +318,63 @@
         [ "You're too far out! Control yourself!" ],
         [ "" ]
       ]
-    },
-    "LongFight": {
-      "Basic": [
-        [ "I grow bored of this battle... I'm putting an end to it!" ],
-        [ "I've been fighting for quite a while and I have yet to meet anyone that scares me." ]
-      ]
-    },
-    "GoingMissing": {
-      "Basic": [
-        [ "Hmph." ]
-      ]
-    },
-    "ReturningFromMissing": {
-      "Basic": [
-        [ "Little tricks will not work against me!" ]
-      ]
-    },
-    "GoingToOverheat": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ],
-      "Drake": [
-        /*IC*/ "My blood boils!",
-        /*Drake*/ "I like this guy."
-      ]
-    },
-    "Recalibrator": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "Strengthened": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "Discounted": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    
-    "StartedBattleAgainstDuncan": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstDahlia": [
-      /*Dahlia*/ "Mornin' y'all. Three servings of missiles, coming right up.",
-      /*IC*/ "As long as you keep sending 'em, I'll keep knocking 'em down!"
-    ],
-    "StartedBattleAgainstBigCrystal": [
-      ""
-    ],
-    "StartedBattleAgainstDrake": [
-      /*IC*/ "You dare stand before me? You have courage!",
-      /*Drake*/ "I have guns."
-    ],
-    "StartedBattleAgainstWizbo": [
-      /*IC*/ "What is magic? There is no magic before the might of my blade! Onward!"
-    ],
-    
-    /*SaySwitch*/
-    "CrabFacts1_Multi_0": "I will not be distracted by your crab nonsense.",
-    "CrabFacts2_Multi_0": "Did you know? Crabs cower before the might of my blade."
+    }
   },
-  "Silent": {
-    /*Normal*/
-    "TookDamage": {
-      "Basic": [
-        [""],
-        [""],
-        [""]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Defect": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Watcher": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "TookNonHullDamage": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ShieldedDamage": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "AboutToDie": {
-      "Basic": [
-        [ "" ],
-        [ "." ],
-        [ "" ]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Defect": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Watcher": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "DealtDamage": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Defect": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Watcher": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "DealtBigDamage": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "Missed": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "HitArmor": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ExcessEnergy": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "EmptyHand": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "TrashHand": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "PlayedRecycle": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "NewNonIroncladNonTrashTempCard": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "StartedBattle": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "NoOverlap": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "NoOverlapButSeeker": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "LongFight": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "GoingMissing": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ReturningFromMissing": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "GoingToOverheat": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "Recalibrator": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "Strengthened": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "Discounted": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-
-    "StartedBattleAgainstDuncan": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstDahlia": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstBigCrystal": [
-      ""
-    ],
-    "StartedBattleAgainstDrake": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstWizbo": [
-      /**/ ""
-    ],
-
-    /*SaySwitch*/
-    "CrabFacts1_Multi_0": "",
-    "CrabFacts2_Multi_0": ""
-  },
-  "Defect": {
-    /*Normal*/
-    "TookDamage": {
-      "Basic": [
-        [""],
-        [""],
-        [""]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Silent": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Watcher": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "TookNonHullDamage": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ShieldedDamage": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "AboutToDie": {
-      "Basic": [
-        [ "" ],
-        [ "." ],
-        [ "" ]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Silent": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Watcher": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "DealtDamage": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Silent": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Watcher": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "DealtBigDamage": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "Missed": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "HitArmor": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ExcessEnergy": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "EmptyHand": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "TrashHand": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "PlayedRecycle": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "NewNonIroncladNonTrashTempCard": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "StartedBattle": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "NoOverlap": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "NoOverlapButSeeker": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "LongFight": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "GoingMissing": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ReturningFromMissing": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "GoingToOverheat": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "Recalibrator": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "Strengthened": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "Discounted": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-
-    "StartedBattleAgainstDuncan": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstDahlia": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstBigCrystal": [
-      ""
-    ],
-    "StartedBattleAgainstDrake": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstWizbo": [
-      /**/ ""
-    ],
-
-    /*SaySwitch*/
-    "CrabFacts1_Multi_0": "",
-    "CrabFacts2_Multi_0": ""
-  },
-  "Watcher": {
-    /*Normal*/
-    "TookDamage": {
-      "Basic": [
-        [""],
-        [""],
-        [""]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Silent": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Defect": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "TookNonHullDamage": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ShieldedDamage": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "AboutToDie": {
-      "Basic": [
-        [ "" ],
-        [ "." ],
-        [ "" ]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /*Peri*/ "Everyone, remain calm!",
-        /*Watcher*/ "I can do that."
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Silent": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Defect": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "DealtDamage": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ],
-      "Dizzy": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Riggs": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Peri": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Isaac": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Max": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Books": [
-        /**/ "",
-        /**/ ""
-      ],
-      "CAT": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Ironclad": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Silent": [
-        /**/ "",
-        /**/ ""
-      ],
-      "Defect": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "DealtBigDamage": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "Missed": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "HitArmor": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ExcessEnergy": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "EmptyHand": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "TrashHand": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "PlayedRecycle": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "NewNonIroncladNonTrashTempCard": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "StartedBattle": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "NoOverlap": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "NoOverlapButSeeker": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "LongFight": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "GoingMissing": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "ReturningFromMissing": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "GoingToOverheat": {
-      "Basic": [
-        [ "" ],
-        [ "" ]
-      ],
-      "Drake": [
-        /**/ "",
-        /**/ ""
-      ]
-    },
-    "Recalibrator": {
-      "Basic": [
-        [ "" ]
-      ]
-    },
-    "Strengthened": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-    "Discounted": {
-      "Basic": [
-        [ "" ],
-        [ "" ],
-        [ "" ]
-      ]
-    },
-
-    "StartedBattleAgainstDuncan": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstDahlia": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstBigCrystal": [
-      ""
-    ],
-    "StartedBattleAgainstDrake": [
-      /**/ "",
-      /**/ ""
-    ],
-    "StartedBattleAgainstWizbo": [
-      /**/ ""
-    ],
-
-    /*SaySwitch*/
-    "CrabFacts1_Multi_0": "",
-    "CrabFacts2_Multi_0": ""
+  
+  /*Say Switch*/
+  "SaySwitches": {
+    "TookDamageHave2HP_Multi_0": {
+      // 0 - Dizzy - We're maybe two hits from blowing up
+      "1": []
+    },
+    "TookDamageHave2HP_Multi_1": {
+      // 0 - Dizzy - The hull's nearly gone...
+      "1": []
+    },
+    "TookDamageHave2HP_Multi_2": {
+      // 0 - Dizzy - We've got maybe two more hits before our hull explodes.
+      "1": []
+    },
+    "JustPlayedASashaCard_Multi_2": {
+      // 0 - Any - Sports!
+      "0": []
+    },
+    "WeJustGainedHeatAndDrakeIsHere_Multi_0": {
+      // 0 - Any - Heat is spicy
+      "0": []
+      // 1 - Drake - Lol
+    },
+    "OverheatDrakesFault_Multi_9": {
+      // 0 - Any - Drake we good?
+      "0": []
+      // 1 - Drake - Just trust
+    },
+    "BanditThreats_Multi_0": {
+      // 0 - Dahlia - Mornin' y'all. Three servings of missiles, coming right up.
+      "1": []
+    },
+    // Smiff - Do you like my custom engines? They all glow different colors.
+    "BatboyKeepsTalking_Multi_0": {
+      // 0 - Smiff - Do you like my custom engines? They all glow different colors.
+      "1": []
+    },
+    "CrabFacts1_Multi_0": {
+      // 0 - Brac - "Serious" crab fact
+      "1": [
+        // IC
+        ["Did you know? Crabs cower before the might of my blade."]
+      ]
+    },
+    "CrabFacts2_Multi_0": {
+      // 0 - Brac - Silly crab fact
+      "1": [
+        // IC
+        ["I will not be distracted by your crab nonsense."]
+      ]
+    },
+    "CrabFactsAreOverNow_Multi_0": {
+      // 0 - Brac - No more crab facts :(
+      "1": []
+    }
   }
 }
