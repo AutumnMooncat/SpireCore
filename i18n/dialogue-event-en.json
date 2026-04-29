@@ -35,46 +35,109 @@
     ]
   ],
 
-  /*SaySwitch*/
-  // What do we want?
-  "GrandmaShop": [
-    // IC
-    ["I'd like some strawberry cupcakes."],
-    // Defect
-    ["      ,  ,  ,  ,\n_.-|-|-|-|-._\n|-.,'_'_'_',.-|\n|                      |\n(                     )\n'-.______.-'"]
-  ],
-  // Oopsie black hole time
-  "LoseCharacterCard": [
-    // IC
-    ["This is fine."]
-  ],
-  // Someone gotta go in stasis
-  "CrystallizedFriendEvent": [
-    // IC
-    ["A warrior never rests."]
-  ],
-  "ShopKeepBattleInsult": [
-    // IC
-    ["It looks like there is finally somebody worth my time."]
-  ],
-  "DraculaTime": [
-    [""]
-  ],
-  "Soggins_Infinite": [
-    [""]
-  ],
-  "Soggins_Missile_Shout_1": [
-    [""]
-  ],
-  "SogginsEscapeIntent_1": [
-    [""]
-  ],
-  "SogginsEscape_1": [
-    [""]
-  ],
-  "AbandonedShipyard_Repaired": [
-    [""]
-  ],
+  /*Say Switch*/
+  "SaySwitches": {
+    "GrandmaShop": {
+      // 0 - Grandma - What brings you here?
+      // 1 - Cat - Weapons!
+      // 2 - Any - Hmm...
+      "2": [
+        // IC
+        ["I'd like some strawberry cupcakes."],
+        // Defect
+        ["      ,  ,  ,  ,\n_.-|-|-|-|-._\n|-.,'_'_'_',.-|\n|                      |\n'-.______.-'"]
+      ]
+      // 3 - Cat - Both?
+      // 4 - Grandma - Have a look around
+    },
+    "LoseCharacterCard": {
+      // 0 - Cat - Uh oh
+      // 1 - Cat - Black hole, oopsie!
+      // 2 - Any - Hmm...
+      "2": [
+        // IC
+        ["This is fine."]
+      ]
+      // 3 - Cat - We gotta jettison something
+    },
+    // Someone gotta go in stasis
+    "CrystallizedFriendEvent": {
+      // 0 - Cat - Someone stuck in crystal?
+      // 1 - Cat - Might be able to get them out
+      // 2 - Cat - Someone gotta sleep
+      // 3 - Any - Hmm...
+      "3": [
+        // IC
+        ["A warrior never rests."]
+      ]
+      // 4 - Cat - Who's it gonna be
+    },
+    "ShopKeepBattleInsult": {
+      // 0 - Any - We sure about this?
+      "0": [
+        // IC
+        ["It looks like there is finally somebody worth my time."]
+      ]
+      // 1 - Cleo - Remember to apologize next loop 
+    },
+    "DraculaTime": {
+      // 0 - Dracula - Its'a me, dracula
+      // 1 - Cat - Hey its dracula
+      // 2 - Any - Uhh...
+      "2": [
+        [""]
+      ]
+      // 3 - Cat - Whats new?
+      // 4 - Dracula - Errands
+      // 5 - Dracula - Want card?
+    },
+    "Soggins_Infinite": {
+      // 0 - Soggens - My missiles!
+      // 1 - Any - Bruh
+      "1": [
+        [""]
+      ]
+      // 2 - Soggens - Missiles plz
+    },
+    "Soggins_Missile_Shout_1": {
+      // 0 - Soggens - Please dont shoot
+      // 1 - Any - Uh huh
+      "1": [
+        [""]
+      ]
+    },
+    "SogginsEscapeIntent_1": {
+      // 0 - Soggens - Fixed it! Er, no missiles...
+      // 1 - Any - Almost done
+      "1": [
+        [""]
+      ]
+    },
+    "SogginsEscapeIntent_3": {
+      // 0 - Soggens - Can I go now?
+      // 1 - Any - Yeah
+      "1": [
+        [""]
+      ]
+    },
+    "SogginsEscape_1": {
+      // 0 - Soggens - I lived!
+      // 1 - Soggens - Thank!
+      // 2 - Soggens - Jk lol
+      // 3 - Any - Bruh
+      "3": [
+        [""]
+      ]
+      // 4 - Soggens - Okay have a treat
+    },
+    "AbandonedShipyard_Repaired": {
+      // 0 - Cat - Okay, we good
+      // 1 - Any - Okay
+      "1": [
+        [""]
+      ]
+    }
+  },
   
   /*Hash Replace*/
   "Replacements": {
@@ -90,7 +153,7 @@
       ],
       // Silent
       [
-        "Is anyone else getting a really bad headache?"
+        "...Is anyone else getting a really bad headache?"
       ],
       [
         "No, it's from that high-pitched... static... what is that?"
