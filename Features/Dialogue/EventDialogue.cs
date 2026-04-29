@@ -125,7 +125,7 @@ internal sealed class EventDialogue : IRDialogue
 	{
 		var reg = IRDialogue.MakeSaySwitchRegistry();
 		
-		reg.Register(["GrandmaShop"], new Say()
+		reg.Register(["SaySwitches", "GrandmaShop", "2"], new Say()
 		{
 			who = CType.Ironclad,
 			loopTag = Anim.Neutral
@@ -136,26 +136,25 @@ internal sealed class EventDialogue : IRDialogue
 			value = true
 		}));
 
-		reg.Register(["GrandmaShop"], new Say()
+		reg.Register(["SaySwitches", "GrandmaShop", "2"], new Say()
 		{
 			who = CType.Defect,
 			loopTag = Anim.Neutral
 		});
 		
-		
-		reg.Register(["LoseCharacterCard"], new Say()
+		reg.Register(["SaySwitches", "LoseCharacterCard", "2"], new Say()
 		{
 			who = CType.Ironclad,
 			loopTag = Anim.Neutral
 		});
 		
-		reg.Register(["CrystallizedFriendEvent"], new Say()
+		reg.Register(["SaySwitches", "CrystallizedFriendEvent", "3"], new Say()
 		{
 			who = CType.Ironclad,
 			loopTag = Anim.Neutral
 		});
 		
-		reg.Register(["ShopKeepBattleInsult"], new Say()
+		reg.Register(["SaySwitches", "ShopKeepBattleInsult", "0"], new Say()
 		{
 			who = CType.Ironclad,
 			loopTag = Anim.Neutral

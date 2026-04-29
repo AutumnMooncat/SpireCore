@@ -160,11 +160,11 @@ internal interface IRDialogue : IRegisterable
         (key, val) => key.Skip(1).ToList());
 
     static DialogueRegistry<Say> MakeSaySwitchRegistry() => new(
-        (key,val) => key[^2],
+        (key,val) => key[1],
         (key, val) => key);
     
     static DialogueRegistry<Say> MakeHashReplacerRegistry() => new(
-        (key,val) => key[^2],
+        (key,val) => key[1],
         (key, val) => key);
     
     static INonNullLocalizationProvider<IReadOnlyList<string>> GetLoc(Func<string, Stream> localeStreamFunction)
@@ -232,22 +232,28 @@ internal interface IRDialogue : IRegisterable
         foreach (var (key, line) in reg.Get())
         {
             var realKey = reg.GetRealKey(key, line);
+            var index = int.Parse(key[2]);
             //MainModFile.Log("Injected switch [{}]", Format(key));
             if (!DB.story.all.TryGetValue(realKey, out var node))
             {
-                MainModFile.Log("Failed to Register Missing SaySwitch Node {}", realKey);
+                MainModFile.LogError("SaySwitch failed to find node {}", realKey);
                 continue;
             }
 
-            // TODO can only hit last switch
-            if (node.lines.OfType<SaySwitch>().LastOrDefault() is not { } saySwitch)
+            if (node.lines.Count <= index)
             {
-                MainModFile.Log("Failed to Register Non-SaySwitch Node {}", realKey);
+                MainModFile.Log("SaySwitch index {} OOB on node {}", index, realKey);
+                continue;
+            }
+
+            if (node.lines[index] is not SaySwitch saySwitch)
+            {
+                MainModFile.Log("SaySwitch not present at index {} on node {}", index, realKey);
                 continue;
             }
 
             if (string.IsNullOrEmpty(line.hash))
-                line.hash = $"{line.who}::{realKey}";
+                line.hash = $"{line.who}::{realKey}::{key[2]}";
             saySwitch.lines.Add(line);
         }
     }
@@ -333,7 +339,7 @@ internal interface IRDialogue : IRegisterable
             var lookupKey = reg.GetLookupKey(key, line);
             //MainModFile.Log("Attempting to loc switch [{}]", Format(key));
             if (string.IsNullOrEmpty(line.hash))
-                line.hash = $"{line.who}::{realKey}";
+                line.hash = $"{line.who}::{realKey}::{key[2]}";
 
             e.Localizations[$"{realKey}:{line.hash}"] = loc.Localize(e.Locale, lookupKey);
         }
@@ -348,170 +354,6 @@ internal interface IRDialogue : IRegisterable
             var realKey = reg.GetRealKey(key, line);
             var lookupKey = reg.GetLookupKey(key, line);
             e.Localizations[$"{realKey}:{line.who}::{line.hash}"] = loc.Localize(e.Locale, lookupKey);
-        }
-    }
-    
-    static void InjectStory(string lookupKey, string characterType, Dictionary<IReadOnlyList<string>, StoryNode> newNodes, Dictionary<IReadOnlyList<string>, StoryNode> newHardcodedNodes, Dictionary<IReadOnlyList<string>, Say> saySwitchNodes, NodeType newNodeType)
-    {
-        foreach (var (key, node) in newNodes)
-        {
-            var realKey = MainModFile.MakeID(string.Join(".", [lookupKey, .. key]));
-
-            node.type = newNodeType;
-            DB.story.all[realKey] = node;
-
-            for (var i = 0; i < node.lines.Count; i++)
-            {
-                if (node.lines[i] is Say say)
-                {
-                    say.hash = i.ToString();
-                }
-                else if (node.lines[i] is SaySwitch saySwitch)
-                {
-                    if (saySwitch.HasSplitFlag())
-                    {
-                        foreach (var saySwitchLine in saySwitch.lines)
-                        {
-                            saySwitchLine.hash = i.ToString();
-                        }
-                    }
-                    else
-                    {
-                        int switchIndex = 0;
-                        foreach (var saySwitchLine in saySwitch.lines)
-                        {
-                            if (saySwitchLine.HasCopyFlag())
-                            {
-                                switchIndex--;
-                            }
-                            saySwitchLine.hash = i + ":" + switchIndex;
-                            switchIndex++;
-                        }
-                    }
-                }
-            }
-            
-            //MainModFile.Log("Register Normal Node {}", realKey);
-        }
-
-        foreach (var (key, node) in newHardcodedNodes)
-        {
-            var realKey = string.Join(".", key.Select(s => s.Replace("{{CharacterType}}", characterType)));
-
-            node.type = newNodeType;
-            DB.story.all[realKey] = node;
-
-            for (var i = 0; i < node.lines.Count; i++)
-                if (node.lines[i] is Say say)
-                    say.hash = i.ToString();
-            
-            //MainModFile.Log("Register Hardcoded Node {}", realKey);
-        }
-
-        foreach (var (key, line) in saySwitchNodes)
-        {
-            var realKey = string.Join(".", key);
-            if (!DB.story.all.TryGetValue(realKey, out var node))
-            {
-                MainModFile.Log("Failed to Register Missing SaySwitch Node {}", realKey);
-                continue;
-            }
-
-            if (node.lines.OfType<SaySwitch>().LastOrDefault() is not { } saySwitch)
-            {
-                MainModFile.Log("Failed to Register Non-SaySwitch Node {}", realKey);
-                continue;
-            }
-
-            if (string.IsNullOrEmpty(line.hash))
-                line.hash = $"{characterType}::{realKey}";
-            saySwitch.lines.Add(line);
-            
-            //MainModFile.Log("Register SaySwitch Node {}", realKey);
-        }
-    }
-    
-    static void InjectLocalizations(string lookupKey, string characterType, INonNullLocalizationProvider<IReadOnlyList<string>> loc, Dictionary<IReadOnlyList<string>, StoryNode> newNodes, Dictionary<IReadOnlyList<string>, StoryNode> newHardcodedNodes, Dictionary<IReadOnlyList<string>, Say> saySwitchNodes, LoadStringsForLocaleEventArgs e)
-    {
-        foreach (var (key, node) in newNodes)
-        {
-            var realKey = MainModFile.MakeID(string.Join(".", [lookupKey, .. key]));
-
-            var index = 0;
-            foreach (var line in node.lines)
-            {
-                if (line is Say say)
-                {
-                    e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString()]);
-                    //MainModFile.Log("Loc Normal Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
-                }
-                else if (line is Wait or Jump)
-                {
-                    //MainModFile.Log("Skipping non say line in {}", realKey);
-                    index--;
-                }
-                else if (line is SaySwitch saySwitch)
-                {
-                    if (saySwitch.HasSplitFlag())
-                    {
-                        e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString()]);
-                    }
-                    else
-                    {
-                        int switchIndex = 0;
-                        foreach (var saySwitchLine in saySwitch.lines)
-                        {
-                            if (saySwitchLine.HasCopyFlag())
-                            {
-                                continue;
-                            }
-                            e.Localizations[$"{realKey}:{index}:{switchIndex}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString(), switchIndex.ToString()]);
-                            switchIndex++;
-                        }
-                    }
-                }
-                else
-                {
-                    throw new ArgumentException($"Unhandled story node type {line.GetType().Name} for key {realKey}");
-                }
-                index++;
-            }
-        }
-
-        foreach (var (key, node) in newHardcodedNodes)
-        {
-            var realKey = string.Join(".", key.Select(s => s.Replace("{{CharacterType}}", characterType)));
-
-            var index = 0;
-            foreach (var line in node.lines)
-            {
-                if (line is Say say)
-                {
-                    e.Localizations[$"{realKey}:{index}"] = loc.Localize(e.Locale, [lookupKey, .. key, index.ToString()]);
-                    //MainModFile.Log("Loc Hardcoded Node {} -> {}", $"{realKey}:{index}", e.Localizations[$"{realKey}:{index}"]);
-                }
-                else if (line is Wait or Jump)
-                {
-                    //MainModFile.Log("Skipping non say line in {}", realKey);
-                    index--;
-                }
-                else
-                {
-                    throw new ArgumentException($"Unhandled story node type {line.GetType().Name} for key {realKey}");
-                }
-                index++;
-            }
-        }
-
-        foreach (var (key, line) in saySwitchNodes)
-        {
-            var realKey = string.Join(".", key);
-            if (string.IsNullOrEmpty(line.hash))
-                line.hash = $"{characterType}::{realKey}";
-
-            e.Localizations[$"{realKey}:{line.hash}"] = loc.Localize(e.Locale, [lookupKey, .. key]);
-            
-            //MainModFile.Log("Loc SaySwitch Node {} -> {}", $"{realKey}:{line.hash}", e.Localizations[$"{realKey}:{line.hash}"]);
         }
     }
 }
