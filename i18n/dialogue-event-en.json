@@ -90,10 +90,10 @@
       ],
       // Silent
       [
-        "<c=disabledText>(Is anyone else getting a really bad headache?)</c>"
+        "Is anyone else getting a really bad headache?"
       ],
       [
-        "<c=disabledText>(No, it's from that high-pitched... static... what is that?)</c>"
+        "No, it's from that high-pitched... static... what is that?"
       ]
     ]
   }

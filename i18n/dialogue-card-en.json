@@ -3,11 +3,11 @@
     // Used for easy testing
     "Anger": [
       [
-        /*IC*/ "\\(^o^)/",
+        /*IC*/ "The quick brown fox jumps over the lazy dog.",
         /*Switch*/ [
-          /*Defect*/ "=^_^=",
-          /*Silent*/ "=^_^=",
-          /*Others*/ "How are you saying that out loud?"
+          /*Defect*/ "The quick brown fox jumps over the lazy dog.",
+          /*Silent*/ "The quick brown fox jumps over the lazy dog.",
+          /*Others*/ "The quick brown fox jumps over the lazy dog."
         ]
       ]
     ],

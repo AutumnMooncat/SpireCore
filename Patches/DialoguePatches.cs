@@ -4,8 +4,10 @@ using System.Reflection;
 using System.Reflection.Emit;
 using AutumnMooncat.SpireCore.Characters;
 using AutumnMooncat.SpireCore.Features.Dialogue;
+using daisyowl.text;
 using FMOD;
 using HarmonyLib;
+using Microsoft.Xna.Framework;
 using Nickel;
 
 namespace AutumnMooncat.SpireCore.Patches;
@@ -55,6 +57,194 @@ public class DialoguePatches : IRDialogue
         }
     }
 
+    [HarmonyPatch(typeof(Character), nameof(Character.Render))]
+    public static class CharacterThinkingPatch
+    {
+        public static bool isThinking;
+        
+        public static void Prefix(Character __instance)
+        {
+            if (__instance.shout is { } shout && shout.IsInternalThoughts())
+            {
+                isThinking = true;
+            }
+        }
+
+        public static void Finalizer()
+        {
+            isThinking = false;
+        }
+    }
+    
+    [HarmonyPatch(typeof(Blurbs), nameof(Blurbs.Render))]
+    public static class CharacterBlurbCheckPatch
+    {
+        public static bool isAboutToRenderThought;
+        
+        public static void Prefix()
+        {
+            if (CharacterThinkingPatch.isThinking)
+            {
+                isAboutToRenderThought = true;
+            }
+        }
+
+        public static void Finalizer()
+        {
+            isAboutToRenderThought = false;
+        }
+    }
+
+    [HarmonyPatch(typeof(Dialogue), nameof(Dialogue.Render))]
+    public static class DialogueThinkingPatch
+    {
+        public static bool isAboutToRenderThought;
+
+        public static void ThinkCheck(Dialogue __instance)
+        {
+            if (__instance.shout?.IsInternalThoughts() ?? false)
+            {
+                isAboutToRenderThought = true;
+            }
+        }
+
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> input, ILGenerator generator)
+        {
+            var codes = input.ToList();
+            for (var i = 0; i < codes.Count; i++)
+            {
+                yield return codes[i];
+                if (codes[i].opcode == OpCodes.Call && codes[i].operand is MethodInfo mi &&
+                    mi == AccessTools.Method(typeof(Character), nameof(Character.GetTextColor)))
+                {
+                    yield return new CodeInstruction(OpCodes.Ldarg_0);
+                    yield return new CodeInstruction(OpCodes.Call,
+                        AccessTools.Method(typeof(DialogueThinkingPatch), nameof(ThinkCheck)));
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Draw), nameof(Draw.Text))]
+    public static class ToggleAfterRendering
+    {
+        public static void Finalizer(string str)
+        {
+            DialogueThinkingPatch.isAboutToRenderThought = false;
+        }
+    }
+    
+    [HarmonyPatch(typeof(PixelFontRenderer), nameof(PixelFontRenderer.ActuallyRenderText))]
+    public static class SheerTogglePatch
+    {
+        public static bool isThinkingAndDrawing;
+        
+        public static void Prefix()
+        {
+            if (CharacterBlurbCheckPatch.isAboutToRenderThought || DialogueThinkingPatch.isAboutToRenderThought)
+            {
+                isThinkingAndDrawing = true;
+            }
+        }
+
+        public static void Finalizer()
+        {
+            isThinkingAndDrawing = false;
+        }
+    }
+
+    [HarmonyPatch(typeof(Draw), nameof(Draw.RenderCharacter))]
+    public static class SheerCharacter
+    {
+        public static void Prefix(Rect dst)
+        {
+            if (SheerTogglePatch.isThinkingAndDrawing)
+            {
+                CameraControl.Apply((float)dst.x, (float)dst.y);
+            }
+        }
+
+        public static void Finalizer()
+        {
+            CameraControl.Cleanup();
+        }
+    }
+    
+    [HarmonyPatch(typeof(Draw), nameof(Draw.RenderCharacterOutline))]
+    public static class SheerCharacterOutline
+    {
+        public static void Prefix(Rect dst)
+        {
+            if (SheerTogglePatch.isThinkingAndDrawing)
+            {
+                CameraControl.Apply((float)dst.x, (float)dst.y);
+            }
+        }
+
+        public static void Finalizer()
+        {
+            CameraControl.Cleanup();
+        }
+    }
+
+    public static class CameraControl
+    {
+        private static Matrix? backup;
+        private static readonly Matrix sheer = new Matrix(
+            1f, 0f, 0f, 0f, 
+            -0.5f, 1f, 0f, 0f, 
+            0f, 0f, 1f, 0f, 
+            0f, 0f, 0f, 1f);
+
+        public static void Apply(float x, float y)
+        {
+            backup = MG.inst.cameraMatrix;
+            var vec = new Vector3(x, y, 0f) * MG.inst.PIX_SCALE;
+            MG.inst.cameraMatrix *= Matrix.CreateTranslation(-vec);
+            MG.inst.cameraMatrix *= sheer;
+            MG.inst.cameraMatrix *= Matrix.CreateTranslation(vec);
+            try
+            {
+                Draw.EndAutoBatchFrame();
+                Draw.StartAutoBatchFrame();
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        public static void Cleanup()
+        {
+            if (backup is {} mat)
+            {
+                MG.inst.cameraMatrix = mat;
+                backup = null;
+                try
+                {
+                    Draw.EndAutoBatchFrame();
+                    Draw.StartAutoBatchFrame();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+        }
+    }
+    
+    [HarmonyPatch(typeof(Shout), nameof(Shout.GetText))]
+    public static class ShoutGetTextPatch
+    {
+        public static void Postfix(Shout __instance, ref string __result)
+        {
+            if (__instance.IsInternalThoughts())
+            {
+                __result = "<c=disabledText>(" + __result + ")</c>";
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(Say), nameof(Say.Execute))]
     public static class SayPatch
     {
@@ -88,16 +278,16 @@ public class DialoguePatches : IRDialogue
                     //__instance.choiceFunc = line.choiceFunc;
                     MainModFile.Log("Applied replacement [{}]", shout.key);
 
-                    if (line.HasSilentFlag() || (shout.who == CType.Silent && !line.HasNotSilentFlag()))
+                    if (line.IsSilentLine())
                     {
-                        return shout.WithSilentFlag();
+                        return shout.WithSilentFlag(line.IsInternalThoughts());
                     }
                 }
             }
 
-            if (say.HasSilentFlag() || (shout.who == CType.Silent && !say.HasNotSilentFlag()))
+            if (say.IsSilentLine())
             {
-                return shout.WithSilentFlag();
+                return shout.WithSilentFlag(say.IsInternalThoughts());
             }
             return shout;
         }
@@ -126,13 +316,50 @@ public class DialoguePatches : IRDialogue
     }
 
     [HarmonyPatch(typeof(Shout), nameof(Shout.IsSilentLine))]
-    public static class ShoutPatch
+    public static class ShoutIsSilentPatch
     {
         public static void Postfix(Shout __instance, ref bool __result) 
         {
             if (__instance.HasSilentFlag())
             {
                 __result = true;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Combat), nameof(Combat.PlayerLost))]
+    public static class PlayerLostPatch
+    {
+        public static void Prefix(Combat __instance, G g)
+        {
+            if (g.state.characters.Any(c => c.deckType?.Key() == CType.Ironclad))
+            {
+                g.state.storyVars.AddPersistentData(StoryTags.ICLossCounter, g.state.storyVars.GetOrMakeData(StoryTags.ICLossCounter, 0) + 1);
+                if (__instance.GetData(StoryTags.ICDrakeTheBetIsOn, out bool bet) && bet)
+                {
+                    if (__instance.otherShip.ai?.Key() == nameof(DrakePirate) && g.state.characters.All(c => c.deckType?.Key() != CType.Drake))
+                    {
+                        g.state.storyVars.AddPersistentData(StoryTags.DrakeBeatICCounter, g.state.storyVars.GetOrMakeData(StoryTags.DrakeBeatICCounter, 0) + 1);
+                    }
+                }
+            }
+        }
+    }
+    
+    [HarmonyPatch(typeof(Combat), nameof(Combat.PlayerWon))]
+    public static class PlayerWonPatch
+    {
+        public static void Prefix(Combat __instance, G g)
+        {
+            if (g.state.characters.Any(c => c.deckType?.Key() == CType.Ironclad))
+            {
+                if (__instance.GetData(StoryTags.ICDrakeTheBetIsOn, out bool bet) && bet)
+                {
+                    if (__instance.otherShip.ai?.Key() == nameof(DrakePirate) && g.state.characters.All(c => c.deckType?.Key() != CType.Drake))
+                    {
+                        g.state.storyVars.AddPersistentData(StoryTags.ICBeatDrakeCounter, g.state.storyVars.GetOrMakeData(StoryTags.ICBeatDrakeCounter, 0) + 1);
+                    }
+                }
             }
         }
     }
@@ -171,7 +398,7 @@ public class DialoguePatches : IRDialogue
     [HarmonyPatch(typeof(StoryNode), nameof(StoryNode.Filter))]
     public static class StoryNodeFilter
     {
-        public static void Postfix(StoryNode n, State s, ref bool __result)
+        public static void Postfix(StoryNode n, State s, StorySearch ctx, ref bool __result)
         {
             if (!__result)
                 return;
@@ -180,7 +407,7 @@ public class DialoguePatches : IRDialogue
             {
                 foreach (var req in data)
                 {
-                    if (!req.Test(s.storyVars))
+                    if (!req.Test(s, s.storyVars, ctx))
                     {
                         __result = false;
                         return;

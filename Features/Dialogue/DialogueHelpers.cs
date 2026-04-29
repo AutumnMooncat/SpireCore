@@ -29,8 +29,15 @@ public static class CType
 
 public static class StoryTags
 {
-    public static string ICHasCupcakes => "cupcakesGet";
+    // Vanilla
     public static string AboutToDie => "aboutToDie";
+    
+    // New
+    public static string ICHasCupcakes => "CupcakesGet";
+    public static string ICLossCounter => "IroncladLosses";
+    public static string ICDrakeTheBetIsOn => "IroncladDrakeBetIsOn";
+    public static string ICBeatDrakeCounter => "IroncladWinsVsDrake";
+    public static string DrakeBeatICCounter => "DrakesWinsVsIronclad";
 }
 
 public static class Anim

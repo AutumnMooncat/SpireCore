@@ -35,7 +35,7 @@ internal sealed class CardDialogue : IRDialogue
 	public static IRDialogue.DialogueRegistry<StoryNode> MakeNormalNodes()
 	{
 		var reg = IRDialogue.MakeNormalRegistry();
-		RegisterLookup(typeof(Anger));
+		/*RegisterLookup(typeof(Anger));
 		reg.Register(["Played", nameof(Anger)], new()
 		{
 			lookup = [CardLookups[typeof(Anger)]],
@@ -52,7 +52,7 @@ internal sealed class CardDialogue : IRDialogue
 					]
 				}
 			],
-		});
+		});*/
 
 		RegisterLookup(typeof(Juggernaut));
 		reg.Register(["Played", nameof(Juggernaut)], new()

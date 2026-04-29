@@ -34,8 +34,23 @@ internal static class DialogueExt
 		return say.GetData("SplitSwitch", out bool has) && has;
 	}
 	
-	public static Say WithSilentFlag(this Say say)
+	public static bool IsInternalThoughts(this Say say)
 	{
+		if (say.who == CType.Silent && !say.HasNotSilentFlag())
+		{
+			return true;
+		}
+		return say.GetData("IsThought", out bool has) && has;
+	}
+
+	public static bool IsSilentLine(this Say say)
+	{
+		return say.IsInternalThoughts() || say.HasSilentFlag();
+	}
+	
+	public static Say WithSilentFlag(this Say say, bool isThought)
+	{
+		say.SetData("IsThought", isThought);
 		return say.WithData("IsSilent", true);
 	}
 
@@ -54,8 +69,14 @@ internal static class DialogueExt
 		return say.GetData("IsSilent", out bool has) && !has;
 	}
 	
-	public static Shout WithSilentFlag(this Shout shout)
+	public static bool IsInternalThoughts(this Shout shout)
 	{
+		return shout.GetData("IsThought", out bool has) && has;
+	}
+	
+	public static Shout WithSilentFlag(this Shout shout, bool isThought)
+	{
+		shout.SetData("IsThought", isThought);
 		return shout.WithData("IsSilent", true);
 	}
 
@@ -103,15 +124,15 @@ internal static class DialogueExt
 	{
 		return say.GetData("OnExecute", out data);
 	}
-
-	public static StoryNode WithRequirement(this StoryNode node, Records.RequirementPayload cpl)
+	
+	public static StoryNode WithRequirements(this StoryNode node, params Records.Requirement[] reqs)
 	{
-		var data = node.GetOrMakeData("ExtraRequirements", new List<Records.RequirementPayload>());
-		data.Add(cpl);
+		var data = node.GetOrMakeData("ExtraRequirements", new List<Records.Requirement>());
+		data.AddRange(reqs);
 		return node;
 	}
 
-	public static bool GetRequirements(this StoryNode node, out List<Records.RequirementPayload> data)
+	public static bool GetRequirements(this StoryNode node, out List<Records.Requirement> data)
 	{
 		return node.GetData("ExtraRequirements", out data);
 	}
