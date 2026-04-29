@@ -182,7 +182,7 @@ internal sealed class EventDialogue : IRDialogue
 			who = CType.Silent,
 			loopTag = Anim.Squint,
 			hash = "1ef5ed18"
-		});
+		}.WithNotThoughtFlag());
 		reg.Register(["Replacements", "ChoiceCardRewardOfYourColorChoice"], new Say()
 		{
 			who = CType.Silent,

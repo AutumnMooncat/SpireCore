@@ -33,24 +33,29 @@ internal static class DialogueExt
 	{
 		return say.GetData("SplitSwitch", out bool has) && has;
 	}
-	
-	public static bool IsInternalThoughts(this Say say)
+
+	public static Say WithThoughtFlag(this Say say)
 	{
-		if (say.who == CType.Silent && !say.HasNotSilentFlag())
-		{
-			return true;
-		}
+		return say.WithData("IsThought", true);
+	}
+	
+	public static bool HasThoughtFlag(this Say say)
+	{
 		return say.GetData("IsThought", out bool has) && has;
 	}
-
-	public static bool IsSilentLine(this Say say)
+	
+	public static Say WithNotThoughtFlag(this Say say)
 	{
-		return say.IsInternalThoughts() || say.HasSilentFlag();
+		return say.WithData("IsThought", false);
 	}
 	
-	public static Say WithSilentFlag(this Say say, bool isThought)
+	public static bool HasNotThoughtFlag(this Say say)
 	{
-		say.SetData("IsThought", isThought);
+		return say.GetData("IsThought", out bool has) && !has;
+	}
+	
+	public static Say WithSilentFlag(this Say say)
+	{
 		return say.WithData("IsSilent", true);
 	}
 
@@ -69,20 +74,49 @@ internal static class DialogueExt
 		return say.GetData("IsSilent", out bool has) && !has;
 	}
 	
-	public static bool IsInternalThoughts(this Shout shout)
+	public static Shout WithThoughtFlag(this Shout shout)
+	{
+		return shout.WithData("IsThought", true);
+	}
+	
+	public static bool HasThoughtFlag(this Shout shout)
 	{
 		return shout.GetData("IsThought", out bool has) && has;
 	}
 	
-	public static Shout WithSilentFlag(this Shout shout, bool isThought)
+	public static Shout WithSilentFlag(this Shout shout)
 	{
-		shout.SetData("IsThought", isThought);
 		return shout.WithData("IsSilent", true);
 	}
 
 	public static bool HasSilentFlag(this Shout shout)
 	{
 		return shout.GetData("IsSilent", out bool has) && has;
+	}
+
+	public static Shout WithVolume(this Shout shout, float volume)
+	{
+		return shout.WithData("ShoutVolume", volume);
+	}
+
+	public static float GetVolume(this Shout shout)
+	{
+		if (shout.GetData("ShoutVolume", out float volume))
+		{
+			return volume;
+		}
+
+		if (shout.HasThoughtFlag())
+		{
+			return 0.1f;
+		}
+
+		if (shout.who == CType.Silent)
+		{
+			return 0.33f;
+		}
+
+		return 1f;
 	}
 
 	public static List<Say> CopyWith(this Say say, params string[] thatIs)

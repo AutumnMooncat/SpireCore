@@ -6,6 +6,7 @@ using AutumnMooncat.SpireCore.Characters;
 using AutumnMooncat.SpireCore.Features.Dialogue;
 using daisyowl.text;
 using FMOD;
+using FMOD.Studio;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Nickel;
@@ -57,6 +58,37 @@ public class DialoguePatches : IRDialogue
         }
     }
 
+    [HarmonyPatch(typeof(Shout), nameof(Shout.Update))]
+    public static class ShoutVolumeCheck
+    {
+        public static float? shoutVol;
+
+        public static void Prefix(Shout __instance)
+        {
+            shoutVol = __instance.GetVolume();
+        }
+
+        public static void Finalizer()
+        {
+            shoutVol = null;
+        }
+    }
+
+    [HarmonyPatch(typeof(Audio), nameof(Audio.GetEventInst))]
+    public static class ShoutVolumePatch
+    {
+        public static void Postfix(EventInstance? __result)
+        {
+            if (ShoutVolumeCheck.shoutVol is {} mult && __result is {} sound)
+            {
+                if (sound.getVolume(out var vol) == RESULT.OK)
+                {
+                    sound.setVolume(vol * mult);
+                }
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(Character), nameof(Character.Render))]
     public static class CharacterThinkingPatch
     {
@@ -64,7 +96,7 @@ public class DialoguePatches : IRDialogue
         
         public static void Prefix(Character __instance)
         {
-            if (__instance.shout is { } shout && shout.IsInternalThoughts())
+            if (__instance.shout is { } shout && shout.HasThoughtFlag())
             {
                 isThinking = true;
             }
@@ -102,7 +134,7 @@ public class DialoguePatches : IRDialogue
 
         public static void ThinkCheck(Dialogue __instance)
         {
-            if (__instance.shout?.IsInternalThoughts() ?? false)
+            if (__instance.shout?.HasThoughtFlag() ?? false)
             {
                 isAboutToRenderThought = true;
             }
@@ -232,18 +264,6 @@ public class DialoguePatches : IRDialogue
             }
         }
     }
-    
-    [HarmonyPatch(typeof(Shout), nameof(Shout.GetText))]
-    public static class ShoutGetTextPatch
-    {
-        public static void Postfix(Shout __instance, ref string __result)
-        {
-            if (__instance.IsInternalThoughts())
-            {
-                __result = "<c=disabledText>(" + __result + ")</c>";
-            }
-        }
-    }
 
     [HarmonyPatch(typeof(Say), nameof(Say.Execute))]
     public static class SayPatch
@@ -252,7 +272,6 @@ public class DialoguePatches : IRDialogue
         
         public static void Postfix(Say __instance, bool __result, G g)
         {
-            //MainModFile.Log("Ran Say [{},{}], result {}", __instance.who, __instance._keyCache, __result);
             if (!__result && __instance.GetOnExecutes(out var data))
             {
                 foreach (var payload in data)
@@ -264,31 +283,32 @@ public class DialoguePatches : IRDialogue
 
         public static Shout ManipulateShout(Shout shout, Say say, ScriptCtx ctx)
         {
+            var check = say;
             //MainModFile.Log("Shout assembled for {}, key {}", shout.who, shout.key);
             if (say.GetData(ReplacementKey, out Dictionary<string, Say> data))
             {
                 //MainModFile.Log("Found replacements: [{}], has {}", data.Keys, shout.who);
                 if (data.TryGetValue(shout.who, out var line))
                 {
-                    //line._keyCache ??= Say.GetLocKey(ctx.script, $"{line.who}::{line.hash}");
-                    //shout.flipped = line.flipped;
+                    check = line;
+                    shout.flipped = line.flipped;
                     shout.loopTag = line.loopTag ?? shout.loopTag;
                     shout.key = Say.GetLocKey(ctx.script, $"{line.who}::{line.hash}");
-                    //shout.delay = line.delay;
-                    //__instance.choiceFunc = line.choiceFunc;
-                    MainModFile.Log("Applied replacement [{}]", shout.key);
-
-                    if (line.IsSilentLine())
-                    {
-                        return shout.WithSilentFlag(line.IsInternalThoughts());
-                    }
+                    shout.delay = line.delay;
+                    //MainModFile.Log("Applied replacement [{}]", shout.key);
                 }
             }
-
-            if (say.IsSilentLine())
+            
+            if (check.HasSilentFlag())
             {
-                return shout.WithSilentFlag(say.IsInternalThoughts());
+                shout.WithSilentFlag();
             }
+
+            if (check.HasThoughtFlag() || (shout.who == CType.Silent && !check.HasNotThoughtFlag()))
+            {
+                shout.WithThoughtFlag();
+            }
+            
             return shout;
         }
 
@@ -311,6 +331,18 @@ public class DialoguePatches : IRDialogue
                 }
                 
                 yield return codes[i];
+            }
+        }
+    }
+    
+    [HarmonyPatch(typeof(Shout), nameof(Shout.GetText))]
+    public static class ShoutGetTextPatch
+    {
+        public static void Postfix(Shout __instance, ref string __result)
+        {
+            if (__instance.HasThoughtFlag())
+            {
+                __result = "<c=disabledText>" + __result + "</c>";
             }
         }
     }
