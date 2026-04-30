@@ -59,6 +59,18 @@ public class Silent : IRCharacter
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Mini, 1);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Squint, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.GameOver, 1);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Blush, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Content, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.EyesClosed, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Frown, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Happy, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Mad, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Pensive, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Sad, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Shifty, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Shock, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Shy, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Silent.Sly, 5);
         
         helper.ModRegistry.AwaitApi<IMoreDifficultiesApi>(
             "TheJazMaster.MoreDifficulties",

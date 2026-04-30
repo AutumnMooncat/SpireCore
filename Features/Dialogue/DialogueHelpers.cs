@@ -152,7 +152,18 @@ public static class Anim
 
     public static class Silent
     {
-        
+        public static string Blush => "blush";
+        public static string Content => "content";
+        public static string EyesClosed => "eyesClosed";
+        public static string Frown => "frown";
+        public static string Happy => "happy";
+        public static string Mad => "mad";
+        public static string Pensive => "pensive";
+        public static string Sad => "sad";
+        public static string Shifty => "shifty";
+        public static string Shock => "shock";
+        public static string Shy => "shy";
+        public static string Sly => "sly";
     }
 
     public static class Defect
