@@ -169,7 +169,18 @@ public static class Anim
 
     public static class Watcher
     {
-        
+        public static string Blush => "blush";
+        public static string Calm => "calm";
+        public static string Doubt => "doubt";
+        public static string Frown => "frown";
+        public static string Happy => "happy";
+        public static string Mad => "mad";
+        public static string MadSmile => "madSmile";
+        public static string Shock => "shock";
+        public static string Smile => "smile";
+        public static string SmileBlush => "smileBlush";
+        public static string Surprise => "surprise";
+        public static string SurpriseBlush => "surpriseBlush";
     }
 
     public static class Dizzy

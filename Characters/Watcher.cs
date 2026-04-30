@@ -59,6 +59,18 @@ public class Watcher : IRCharacter
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Mini, 1);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Squint, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.GameOver, 1);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Blush, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Calm, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Doubt, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Frown, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Happy, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Mad, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.MadSmile, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Shock, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Smile, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.SmileBlush, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.Surprise, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Watcher.SurpriseBlush, 5);
         
         helper.ModRegistry.AwaitApi<IMoreDifficultiesApi>(
             "TheJazMaster.MoreDifficulties",
