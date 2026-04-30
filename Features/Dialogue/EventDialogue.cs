@@ -66,7 +66,7 @@ internal sealed class EventDialogue : IRDialogue
 	{
 		var reg = IRDialogue.MakeHardcodedRegistry();
 		
-		reg.Register([CType.Ironclad, "LoseCharacterCard_{{CharacterType}}"], new()
+		reg.Register([CType.Ironclad, "LoseCharacterCard_{{CharacterType}}"], new StoryNode
 		{
 			oncePerRun = true,
 			bg = nameof(BGSupernova),
@@ -76,7 +76,7 @@ internal sealed class EventDialogue : IRDialogue
 			]
 		});
 		
-		reg.Register([CType.Ironclad, "LoseCharacterCard_{{CharacterType}}"], new()
+		reg.Register([CType.Defect, "LoseCharacterCard_{{CharacterType}}"], new StoryNode
 		{
 			oncePerRun = true,
 			bg = nameof(BGSupernova),
@@ -86,7 +86,7 @@ internal sealed class EventDialogue : IRDialogue
 			]
 		});
 		
-		reg.Register([CType.Ironclad, "CrystallizedFriendEvent_{{CharacterType}}"], new()
+		reg.Register([CType.Ironclad, "CrystallizedFriendEvent_{{CharacterType}}"], new StoryNode
 		{
 			oncePerRun = true,
 			bg = nameof(BGCrystalizedFriend),
@@ -97,7 +97,7 @@ internal sealed class EventDialogue : IRDialogue
 			]
 		});
 		
-		reg.Register([CType.Ironclad, "CrystallizedFriendEvent_{{CharacterType}}"], new()
+		reg.Register([CType.Defect, "CrystallizedFriendEvent_{{CharacterType}}"], new StoryNode
 		{
 			oncePerRun = true,
 			bg = nameof(BGCrystalizedFriend),
@@ -108,7 +108,7 @@ internal sealed class EventDialogue : IRDialogue
 			]
 		});
 		
-		reg.Register([CType.Ironclad, "ChoiceCardRewardOfYourColorChoice_{{CharacterType}}"], new()
+		reg.Register([CType.Ironclad, "ChoiceCardRewardOfYourColorChoice_{{CharacterType}}"], new StoryNode
 		{
 			oncePerRun = true,
 			bg = nameof(BGBootSequence),

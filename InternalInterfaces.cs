@@ -156,7 +156,7 @@ internal interface IRDialogue : IRegisterable
         (key, val) => key);
 
     static DialogueRegistry<StoryNode> MakeHardcodedRegistry() => new(
-        (key,val) => string.Join(".", key.Select(s => s.Replace("{{CharacterType}}", key[0])[1..])),
+        (key,val) => string.Join(".", key.Skip(1).Select(s => s.Replace("{{CharacterType}}", key[0]))),
         (key, val) => key.Skip(1).ToList());
 
     static DialogueRegistry<Say> MakeSaySwitchRegistry() => new(
@@ -194,19 +194,24 @@ internal interface IRDialogue : IRegisterable
             node.type = newNodeType;
             DB.story.all[realKey] = node;
 
-            for (var i = 0; i < node.lines.Count; i++)
+            var index = 0;
+            foreach (var line in node.lines)
             {
-                if (node.lines[i] is Say say)
+                if (line is Say say)
                 {
-                    say.hash = i.ToString();
+                    say.hash = index.ToString();
                 }
-                else if (node.lines[i] is SaySwitch saySwitch)
+                else if (line is Wait or Jump)
+                {
+                    index--;
+                }
+                else if (line is SaySwitch saySwitch)
                 {
                     if (saySwitch.HasSplitFlag())
                     {
                         foreach (var saySwitchLine in saySwitch.lines)
                         {
-                            saySwitchLine.hash = i.ToString();
+                            saySwitchLine.hash = index.ToString();
                         }
                     }
                     else
@@ -218,11 +223,13 @@ internal interface IRDialogue : IRegisterable
                             {
                                 switchIndex--;
                             }
-                            saySwitchLine.hash = i + ":" + switchIndex;
+                            saySwitchLine.hash = index + ":" + switchIndex;
                             switchIndex++;
                         }
                     }
                 }
+
+                index++;
             }
         }
     }
@@ -322,7 +329,7 @@ internal interface IRDialogue : IRegisterable
                 }
                 else
                 {
-                    throw new ArgumentException($"Unhandled story node type {line.GetType().Name} for key {realKey}");
+                    MainModFile.LogError("Unhandled story node type {} for key {}", line.GetType().Name, realKey);
                 }
                 index++;
             }
