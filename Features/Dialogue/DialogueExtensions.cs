@@ -159,6 +159,18 @@ internal static class DialogueExt
 		return say.GetData("OnExecute", out data);
 	}
 	
+	public static Say WithRequirements(this Say say, params Records.Requirement[] reqs)
+	{
+		var data = say.GetOrMakeData("ExtraRequirements", new List<Records.Requirement>());
+		data.AddRange(reqs);
+		return say;
+	}
+
+	public static bool GetRequirements(this Say say, out List<Records.Requirement> data)
+	{
+		return say.GetData("ExtraRequirements", out data);
+	}
+	
 	public static StoryNode WithRequirements(this StoryNode node, params Records.Requirement[] reqs)
 	{
 		var data = node.GetOrMakeData("ExtraRequirements", new List<Records.Requirement>());

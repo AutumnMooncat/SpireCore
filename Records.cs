@@ -97,13 +97,70 @@ public class Records
         }
     }
 
+    public record HasStatusPayload : Requirement
+    {
+        public required HashSet<Status> statuses = [];
+        public bool player = true;
+
+        public override bool Test(State s, StoryVars vars, StorySearch ctx)
+        {
+            if (s.route is not Combat combat)
+            {
+                return false;
+            }
+            //MainModFile.Log("Status Check, Wants: [{}] is {}, Has: [{}]", statuses, !not, player ? s.ship.statusEffects.Keys.ToHashSet() : combat.otherShip.statusEffects.Keys.ToHashSet());
+            if (player)
+            {
+                return statuses.Fast_AllAreIn(s.ship.statusEffects.Keys.ToHashSet()) != not;
+            }
+            return statuses.Fast_AllAreIn(combat.otherShip.statusEffects.Keys.ToHashSet()) != not;
+        }
+    }
+    
+    public record JustGainedStatusPayload : Requirement
+    {
+        public required HashSet<Status> statuses = [];
+        public bool player = true;
+
+        public override bool Test(State s, StoryVars vars, StorySearch ctx)
+        {
+            if (s.route is not Combat combat)
+            {
+                return false;
+            }
+            //MainModFile.Log("Status Check, Wants: [{}] is {}, Has: [{}]", statuses, !not, player ? vars.statusesPlayerGainedThisTurn : vars.statusesEnemyGainedThisTurn);
+            if (player)
+            {
+                return statuses.Fast_AllAreIn(vars.statusesPlayerGainedThisTurn) != not;
+            }
+            return statuses.Fast_AllAreIn(vars.statusesEnemyGainedThisTurn) != not;
+        }
+    }
+
     public record AtLeastOnePresentPayload : Requirement
     {
         public required HashSet<string> chars;
 
         public override bool Test(State s, StoryVars vars, StorySearch ctx)
         {
-            return chars.Fast_Overlap(ctx.charactersConsideredPresent) != not;
+            return chars.Fast_Overlap(ctx?.charactersConsideredPresent ?? DirtyStateCheck(s)) != not;
+        }
+
+        private static HashSet<string> DirtyStateCheck(State s)
+        {
+            HashSet<string> present = [];
+            foreach (var character in s.characters)
+            {
+                if (!s.CharacterIsMissing(character.deckType))
+                {
+                    present.Add(character.type);
+                }
+            }
+            if (s.route is Combat {otherShip.ai: {} ai})
+            {
+                present.Add(ai.character.type);
+            }
+            return present;
         }
     }
 

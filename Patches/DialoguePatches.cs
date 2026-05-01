@@ -469,6 +469,31 @@ public class DialoguePatches : IRDialogue
             }
         }
     }
+    
+    [HarmonyPatch(typeof(SaySwitch), nameof(SaySwitch.GetLinesForPresentChars))]
+    public static class SaySwitchFilter
+    {
+        public static void Postfix(SaySwitch __instance, List<Say> __result, G g)
+        {
+            __result.RemoveAll(s =>
+                s.GetRequirements(out var data) && data.Any(req => !req.Test(g.state, g.state.storyVars, null)));
+        }
+    }
+    
+    [HarmonyPatch(typeof(Say), nameof(Say.Execute))]
+    public static class SayShortCircuit
+    {
+        public static bool Prefix(Say __instance, ref bool __result, G g)
+        {
+            if (__instance.GetRequirements(out var data) && data.Any(req => !req.Test(g.state, g.state.storyVars, null)))
+            {
+                __result = true;
+                return false;
+            }
+
+            return true;
+        }
+    }
 
     [HarmonyPatch(typeof(AStatus), nameof(AStatus.Begin))]
     public static class AStatusBegin
