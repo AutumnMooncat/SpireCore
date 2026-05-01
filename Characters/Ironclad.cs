@@ -63,7 +63,9 @@ public class Ironclad : IRCharacter
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Ironclad.Happy, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Ironclad.Intense, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Ironclad.Mad, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Ironclad.MadSword, 5);
         IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Ironclad.Sword, 5);
+        IRCharacter.RegisterAnim(DeckEntry, AssetPath, Anim.Ironclad.SquintSword, 5);
         
         helper.ModRegistry.AwaitApi<IMoreDifficultiesApi>(
             "TheJazMaster.MoreDifficulties",

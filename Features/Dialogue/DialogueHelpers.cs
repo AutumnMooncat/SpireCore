@@ -147,7 +147,9 @@ public static class Anim
         public static string Happy => "happy";
         public static string Intense => "intense";
         public static string Mad => "mad";
+        public static string MadSword => "madSword";
         public static string Sword => "sword";
+        public static string SquintSword => "squintSword";
     }
 
     public static class Silent
