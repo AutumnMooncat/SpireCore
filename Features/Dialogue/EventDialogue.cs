@@ -114,7 +114,7 @@ internal sealed class EventDialogue : IRDialogue
 			bg = nameof(BGBootSequence),
 			allPresent = [CType.Ironclad],
 			lines = [
-				new Say { who = CType.Ironclad, loopTag = Anim.Ironclad.Mad },
+				new Say { who = CType.Ironclad, loopTag = Anim.Ironclad.MadSword },
 				new Say { who = CType.CAT, loopTag = Anim.Neutral }
 			]
 		});

@@ -72,7 +72,7 @@ internal sealed class CombatDialogue : IRDialogue
 			maxTurnsThisCombat = 1,
 			allPresent = [CType.Ironclad, CType.Enemies.Wizbo],
 			lines = [
-				new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.Mad},
+				new Say {who = CType.Ironclad, loopTag = Anim.Ironclad.SquintSword},
 			]
 		});
 		
